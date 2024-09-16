@@ -1,23 +1,56 @@
 import 'react-native-gesture-handler';
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Home, Profile } from '../Screens';
+import { CustomDrawer } from './CustomDrawer';
+import { ActivityIndicator, View} from 'react-native';
+import { ScreensArray } from '../Screens/Constants/Constants';
 
 const Drawer = createDrawerNavigator();
 
 function Route() {
 
+    const [loading, setLoading] = useState(false)
+    setTimeout(() => {
+        setLoading(false)
+    }, 1500);
+
+
     return (
         <>
-            <NavigationContainer>
-                <Drawer.Navigator>
-                    <Drawer.Screen name='Home' component={Home} />
-                    <Drawer.Screen name='Profile' component={Profile} />
-                </Drawer.Navigator>
-            </NavigationContainer>
+            {
+                loading ?
+                    <View style={{ flex: 1, backgroundColor: 'white', justifyContent: "center", alignItems: "center" }}>
+                        <ActivityIndicator size='large' color='#00A688' />
+                    </View>
+                    :
+                    <>
+                        
+                            <Drawer.Navigator
+                                drawerContent={(props) => <CustomDrawer {...props} />}
+                                screenOptions={{
+                                    drawerActiveBackgroundColor: "#F3D0D7",
+                                    drawerActiveTintColor: "#F6F5F2",
+                                    drawerType: 'slide',
+                                }}
+                                backBehavior='history'
+                            >
+                                {
+                                    ScreensArray.map((item, index) => {
+                                        return (
+                                            <>
+                                                <Drawer.Screen key={index} name={item.label} component={item.component} />
+                                            </>
+                                        )
+                                    })
+                                }
+                            </Drawer.Navigator>
+                    </>
+            }
+
         </>
     )
 }
+
 
 export { Route }

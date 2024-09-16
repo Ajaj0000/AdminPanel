@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text, View } from "react-native";
 import { Style } from "./Style";
 
 function Home() {
     return (
         <>
-            <Text style={Style.head}>Home</Text>
+            <View>
+                <Text style={Style.head}>Home</Text>
+            </View>
         </>
     )
 }
