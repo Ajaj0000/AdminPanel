@@ -1,3 +1,4 @@
+import { Collection } from "../Collections/CollectionParent/Collection";
 import { Dashboard } from "../Dashboard/DashboardParent/Dashboard";
 import Home from "../Home/Home";
 import { Order } from "../Orders/Orders";
@@ -8,7 +9,8 @@ export const ScreensArray = [
     { route: 'Dashbord', label: 'Dashboard', icon: "user", component: Dashboard, },
     { route: 'Home', label: 'Home',  icon: 'home', component: Home, },
     { route: 'Profile', label: 'Profile', icon: "user", component: Profile, },
-    { route: "Orders" , label: "Orders", component : Order}
+    { route: "Orders" , label: "Orders", component : Order},
+    { route:"Collection", label:"Collection", component:Collection }
 ];
 
 // export const drawerMenu = [
