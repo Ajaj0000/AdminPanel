@@ -3,13 +3,23 @@ import { styles } from './DrawerStyle';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import icArrow from '../Assets/Icons/right-arrow.png';
 import icDownArrow from '../Assets/Icons/arrow-down-sign-to-navigate.png';
-import { DrawerContentScrollView, DrawerItem, DrawerItemList, } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import adminPic from '../Assets/Images/man.png';
 
 function CustomDrawer(props) {
 
     const [menuIndex, setMenuIndex] = useState(-1)
+    const [activeRoute, setActiveRoute] = useState('')
+
 
     const dropRoute = [
+        {
+            id: 0,
+            title: "Dashboard",
+            menuList: [
+                { id: "01", listTitle: "Dashboard", route: "Dashboard" },
+            ]
+        },
         {
             id: 1,
             title: "Orders",
@@ -89,64 +99,53 @@ function CustomDrawer(props) {
     return (
 
         <DrawerContentScrollView {...props}>
-
-            {/* <DrawerItemList {...props} /> */}
-            {/* <DrawerItem 
-            focused={true}
-            label={({color})=><Text style={{color:"red"}}>Home</Text>}
-            onPress={()=>{
-                props.navigation.navigate('Home')
-            }}
-            /> */}
-
+            <View style={styles.profile}>
+                <Image source={adminPic} style={styles.adminPic}/>
+                <Text style={styles.adminName}>Mr.Admin</Text>
+            </View>
             <View>
                 {
                     dropRoute.map((items, index) => {
                         return (
                             <>
-                                {/* <View>
-                                    <DrawerItem
-                                        focused={true}
-
-                                        label={({ color }) => <Text style={{ color: "red" }}>{items.title}</Text>}
-                                        onPress={() => {
-                                            // props.navigation.navigate('Home')
-                                            setMenuIndex(index)
-                                        }}
-                                    />
-                                </View> */}
-
                                 <TouchableOpacity key={index} style={styles.list} onPress={() => { setMenuIndex(index) }}>
-                                    <Text>{items.title}</Text>
+                                    <Text style={{ fontWeight: "500" ,color:"black"}}>{items.title}</Text>
                                     {menuIndex === index ? <Image source={icDownArrow} style={{ width: 14, height: 14 }} /> : <Image source={icArrow} style={{ width: 14, height: 14 }} />}
                                 </TouchableOpacity>
 
-                                {menuIndex === index && <View>
-                                    {
-                                        items.menuList && items.menuList.map((ite, index) => {
-                                            return (
-                                                <>
-                                                    <View style={styles.LiteList}>
-                                                        <DrawerItem
-                                                            focused={true}
-                                                            label={({focused, color }) => <Text style={{ color }}>{focused ? ite.route : ite.route}</Text>}
-                                                            onPress={() => {
-                                                                {ite.route ? props.navigation.navigate(ite.route) : ''}
-                                                                setMenuIndex(index)
-                                                            }}
-                                                            activeTintColor='red'
-                                                            inactiveTintColor='blue'
-                                                        />
-                                                        {/* {menuIndex === index ? <Image source={icDownArrow} style={{ width: 14, height: 14 }} /> : <Image source={icArrow} style={{ width: 14, height: 14 }} />} */}
-                                                    </View>
-                                                    {/* <TouchableOpacity key={index} style={styles.LiteList}>
-                                                        <Text style={styles.ListListText}>{ite.listTitle}</Text>
-                                                    </TouchableOpacity> */}
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </View>}
+                                {
+                                    menuIndex === index && <View>
+                                        {
+                                            items.menuList && items.menuList.map((ite, index) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            ite.route ? <View style={styles.LiteList}>
+                                                                <DrawerItem
+                                                                    label={({ color }) => <Text style={{
+                                                                        color: activeRoute === ite.route ? 'white' : 'white',
+                                                                        fontWeight: activeRoute === ite.route ? 'bold' : 'normal'
+                                                                    }}>{ite.route}</Text>}
+                                                                    onPress={() => {
+                                                                        { ite.route ? props.navigation.navigate(ite.route) : '' }
+                                                                        setMenuIndex(index)
+                                                                        setActiveRoute(ite.route)
+                                                                    }}
+                                                                    style={{ backgroundColor: activeRoute === ite.route ? '#999999' : '#BBBBBB' }}
+                                                                // activeBackgroundColor='blue'
+                                                                // activeTintColor='black'
+                                                                // inactiveTintColor='white'
+                                                                // inactiveBackgroundColor='#999999'
+                                                                />
+                                                                {/* {menuIndex === index ? <Image source={icDownArrow} style={{ width: 14, height: 14 }} /> : <Image source={icArrow} style={{ width: 14, height: 14 }} />} */}
+                                                            </View> :
+                                                                null
+                                                        }
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                    </View>}
 
                             </>
                         )

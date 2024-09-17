@@ -6,7 +6,7 @@ import Profile from "../Profile/Profile";
 
 
 export const ScreensArray = [
-    { route: 'Dashbord', label: 'Dashboard', icon: "user", component: Dashboard, },
+    { route: 'Dashboard', label: 'Dashboard', icon: "user", component: Dashboard, },
     { route: 'Home', label: 'Home',  icon: 'home', component: Home, },
     { route: 'Profile', label: 'Profile', icon: "user", component: Profile, },
     { route: "Orders" , label: "Orders", component : Order},

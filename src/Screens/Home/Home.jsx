@@ -1,12 +1,13 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { Style } from "./Style";
 
-function Home() {
+function Home(props) {
     return (
         <>
             <View>
                 <Text style={Style.head}>Home</Text>
+                <Button title="Go to order" onPress={()=>props.navigation.navigate('Orders')}/>
             </View>
         </>
     )
