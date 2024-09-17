@@ -19,7 +19,7 @@ const data = [
     { id: '10', title: 'LLB One Week Series', products: '6 products' },
 ];
 
-function Collection() {
+function Collection(props) {
     const [searchText, setSearchText] = useState('');
     const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
 
@@ -128,13 +128,16 @@ function Collection() {
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <View style={Styles.item}>
-                        <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
-                        <View>
-                            <Text style={Styles.title}>{item.title}</Text>
-                            <Text style={Styles.products}>{item.products}</Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("CollectionDetail")}>
+                        <View style={Styles.item}>
+                            <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
+                            <View>
+                                <Text style={Styles.title}>{item.title}</Text>
+                                <Text style={Styles.products}>{item.products}</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
+
                 )}
                 style={Styles.list}
             />
