@@ -23,6 +23,30 @@ function Collection() {
     const [searchText, setSearchText] = useState('');
     const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
 
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectOption, setSelectOption] = useState('')
+
+    const sortBy = [
+        {
+            title: "Product Title",
+        },
+        {
+            title: "SKU"
+        },
+        {
+            title: "Unavailabe"
+        },
+        {
+            title: "Commited"
+        },
+        {
+            title: "Available"
+        },
+        {
+            title: "On hand"
+        }
+    ]
+
     return (
         <>
             <View style={Styles.containerHeader}>
@@ -47,10 +71,33 @@ function Collection() {
                     <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
                         <Image source={img1} style={Styles.statLabell} />
                     </TouchableOpacity>
-                    <View>
-                        <Image source={img2} style={Styles.statLabell} />
-                    </View>
+                    <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)}>
+                        <View>
+                            <Image source={img2} style={Styles.statLabell} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
+                {/* sort section */}
+                {
+                    modalVisible && <View style={Styles.sortSection}>
+                        <Text>Sort By</Text>
+                        {
+                            sortBy.map((item, index) => {
+                                return (
+                                    <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
+                                        <View style={Styles.radioCheck} key={index}>
+                                            <View style={[Styles.radioOuter, { backgroundColor: selectOption === item.title ? 'black' : "white" }]} >
+                                                <View style={Styles.radioInner}></View>
+                                            </View>
+                                            <Text>{item.title}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
+                    </View>
+                }
+
             </View>
 
             {/* Search Input Section */}
@@ -211,6 +258,46 @@ const Styles = StyleSheet.create({
     products: {
         fontSize: 14,
         color: '#777',
+    },
+
+    // sort section 
+    sortSection: {
+        position: "absolute",
+        top: 37,
+        right: -7,
+        borderRadius: 10,
+        backgroundColor: "white",
+        padding: 10,
+        margin: 10,
+        zIndex: 29,
+        elevation: 2,
+    },
+    radioCheck: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginLeft: 5,
+        padding: 4,
+        margin: 4
+    },
+    radioOuter: {
+        borderRadius: 40,
+        width: 20,
+        height: 20,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: "black",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "black"
+    },
+    radioInner: {
+        borderRadius: 40,
+        width: 10,
+        height: 10,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: "black",
+        backgroundColor: "white",
     },
 });
 
