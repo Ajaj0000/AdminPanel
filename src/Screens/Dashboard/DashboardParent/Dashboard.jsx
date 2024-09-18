@@ -5,44 +5,6 @@ import { LineChartt } from "../DashboardChild/LineChart";
 
 function Dashboard() {
 
-    // const styles = StyleSheet.create({
-    //     TopNavbar: {
-    //         backgroundColor: "Black",
-    //         color: "white",
-    //         flexDirection: "row",
-    //         alignItems: "center",
-    //         justifyContent: "space-between",
-    //         marginHorizontal: 15,
-    //         paddingVertical: 15
-    //     },
-    //     navSearch: {
-    //         borderWidth: 2,
-    //         borderRadius: 20,
-    //         paddingHorizontal: 5,
-    //         paddingLeft: 10,
-    //         marginVertical: 4,
-    //         width: 200,
-    //         height: 40,
-    //         fontSize: 16
-    //     }
-    // })
-    // const screenWidth = Dimensions.get("window").width;
-
-    // // Chart data
-    // const data = {
-    //     labels: ["Aug 13", "Aug 16", "Aug 19", "Aug 22", "Aug 25", "Aug 28", "Aug 31", "Sep 3", "Sep 6", "Sep 9"],
-    //     datasets: [
-    //         {
-    //             data: [200, 180, 150, 220, 170, 200, 230, 210, 220, 215],
-    //             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    //             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Ensure you return the color
-    //              // chart color
-    //             strokeWidth: 2 // chart thickness
-    //         }
-    //     ],
-    //     legend: ["Aug 13 - Sep 11, 2024", "Jul 14 - Aug 12, 2024"]
-    // };
-
     return (
         <>
             {/* <View style={styles.TopNavbar}>
@@ -56,8 +18,6 @@ function Dashboard() {
 
             <View style={styles.container}>
                 <ScrollView>
-
-
                     <View style={styles.topCont}>
                         <View style={styles.topBox}>
                             <Text style={styles.filterItem}>Last 30 days</Text>
@@ -69,8 +29,6 @@ function Dashboard() {
                             <Text style={styles.filterItem}>live visitors</Text>
                         </View>
                     </View>
-
-
                     <ScrollView horizontal={true}>
                         <View style={styles.statsContainer}>
                             <View style={styles.statBox}>
@@ -78,7 +36,6 @@ function Dashboard() {
                                 <Text style={styles.statValue}>5,602</Text>
                                 <Text style={styles.statChange}>↓ 20%</Text>
                             </View>
-
                             <View style={styles.statBox}>
                                 <Text style={styles.statLabel}>Total sales</Text>
                                 <Text style={styles.statValue}>₹8,222.00</Text>
@@ -90,7 +47,6 @@ function Dashboard() {
                                 <Text style={styles.statValue}>18</Text>
                                 <Text style={styles.statChange}>↓ 18%</Text>
                             </View>
-
                             <View style={styles.statBox}>
                                 <Text style={styles.statLabel}>Conversion rate</Text>
                                 <Text style={styles.statValue}>0.32%</Text>

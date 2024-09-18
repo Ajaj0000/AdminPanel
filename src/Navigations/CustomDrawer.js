@@ -34,7 +34,7 @@ function CustomDrawer(props) {
             menuList: [
                 { id: "b1", listTitle: "Collections", route: "Collection" },
                 { id: "b2", listTitle: "Inventory", route: "Inventory" },
-                { id: "b3", listTitle: "Purchases", route: "PurchasesOrders" },
+                { id: "b3", listTitle: "Purchase", route: "PurchaseOrders" },
                 { id: "b4", listTitle: "Transfers", route: "Transfers" },
                 { id: "b5", listTitle: "Gift Card", route: "GiftCard" },
             ]
@@ -125,7 +125,7 @@ function CustomDrawer(props) {
                                                                     label={({ color }) => <Text style={{
                                                                         color: activeRoute === ite.route ? 'white' : 'white',
                                                                         fontWeight: activeRoute === ite.route ? 'bold' : 'normal'
-                                                                    }}>{ite.route}</Text>}
+                                                                    }}>{ite.listTitle}</Text>}
                                                                     onPress={() => {
                                                                         { ite.route ? props.navigation.navigate(ite.route) : '' }
                                                                         setMenuIndex(index)

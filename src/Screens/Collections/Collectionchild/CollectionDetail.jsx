@@ -43,20 +43,20 @@ function CollectionDetail() {
                 </View>
             </View>
             <View >
-                <Text style={{fontSize:25, paddingLeft:11,}}>Product</Text>
+                <Text style={{ fontSize: 25, paddingLeft: 11, }}>Product</Text>
                 <View style={Styles.searchContainer}>
-                     {/* Search Input */}
-                     <TextInput
+                    {/* Search Input */}
+                    <TextInput
                         style={Styles.searchInput}
                         placeholder="Searching all collections"
                     />
 
                     {/* Cancel Button */}
-                    <TouchableOpacity style={{alignContent:"center", alignItems:"center"}} >
+                    <TouchableOpacity style={{ alignContent: "center", alignItems: "center" }} >
                         <Text style={Styles.cancelText}>Browser</Text>
                     </TouchableOpacity>
                 </View>
-                <View  style={Styles.searchContainer}>
+                <View style={Styles.searchContainer}>
                     {/* Search Input */}
                     <TextInput
                         style={Styles.searchInput}
@@ -65,22 +65,22 @@ function CollectionDetail() {
                 </View>
             </View>
 
-  {/* Collection List */}
-  <FlatList
+            {/* Collection List */}
+            <FlatList
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <TouchableOpacity >
                         <View style={Styles.item}>
                             <Image source={img2} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            <View style={{flexDirection:"row"}}>
+                            <View style={{ flexDirection: "row" }}>
                                 <View>
-                                <Text style={Styles.title}>{item.title}</Text>
-                                <Text style={Styles.products}>{item.products}</Text>
+                                    <Text style={Styles.title}>{item.title}</Text>
+                                    <Text style={Styles.products}>{item.products}</Text>
                                 </View>
                                 <Image source={img1} style={{ width: 24, height: 25, marginRight: 10 }} />
                             </View>
-                            
+
                         </View>
                     </TouchableOpacity>
 
@@ -153,11 +153,11 @@ const Styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         marginLeft: 17,
-        padding:7,
+        padding: 7,
         fontSize: 16,
     },
-     // List of collections
-     list: {
+    // List of collections
+    list: {
         padding: 16,
     },
     item: {
