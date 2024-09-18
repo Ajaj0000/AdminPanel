@@ -58,10 +58,27 @@ function InventoryMain() {
     ]
 
 
+    //update itme section
+
+    const [adjustValue, setAdjustValue] = useState(0);
+    const [newValue, setNewValue] = useState(20);
+    const [selectedReason, setSelectedReason] = useState("Correction (default)");
+
+    const handleAdjustValueChange = (type) => {
+        if (type === 'increase') setAdjustValue(adjustValue + 1);
+        if (type === 'decrease' && adjustValue > 0) setAdjustValue(adjustValue - 1);
+    };
+
+    const handleNewValueChange = (type) => {
+        if (type === 'increase') setNewValue(newValue + 1);
+        if (type === 'decrease' && newValue > 0) setNewValue(newValue - 1);
+    };
+
+
     // sort section 
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectOption,setSelectOption] = useState('')
+    const [selectOption, setSelectOption] = useState('')
 
     const sortBy = [
         {
@@ -89,123 +106,206 @@ function InventoryMain() {
 
 
         <>
-
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>Inventory</Text>
-                    {/* Optional buttons and filters like the 'All' button can be placed here */}
-                </View>
-
-                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <View style={styles.statsContainer}>
-                        <TouchableOpacity>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>All</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>+</Text>
-                            </View>
-                        </TouchableOpacity>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>Inventory</Text>
+                        {/* Optional buttons and filters like the 'All' button can be placed here */}
                     </View>
 
-                    <View style={styles.statBoxx}>
-                        <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
-                            <Image source={img1} style={styles.statLabell} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)}>
-                            <View>
-                                <Image source={img2} style={styles.statLabell} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    {/* sort section */}
-                    {
-                      modalVisible && <View style={styles.sortSection}>
-                            <Text>Sort By</Text>
-                            {
-                                sortBy.map((item, index) => {
-                                    return (
-                                        <TouchableOpacity  onPress={()=>{setSelectOption(item.title);setModalVisible(false)}}>
-                                            <View style={styles.radioCheck} key={index}>
-                                                <View style={[styles.radioOuter,{backgroundColor: selectOption === item.title ? 'black' : "white"}]} >
-                                                    <View style={styles.radioInner}></View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                        <View style={styles.statsContainer}>
+                            <TouchableOpacity>
+                                <View style={styles.statBox}>
+                                    <Text style={styles.statLabel}>All</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={styles.statBox}>
+                                    <Text style={styles.statLabel}>+</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.statBoxx}>
+                            <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
+                                <Image source={img1} style={styles.statLabell} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <View>
+                                    <Image source={img2} style={styles.statLabell} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        {/* sort section */}
+                        {
+                            modalVisible && <View style={styles.sortSection}>
+                                <Text>Sort By</Text>
+                                {
+                                    sortBy.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
+                                                <View style={styles.radioCheck} key={index}>
+                                                    <View style={styles.radioOuter} >
+                                                        <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? '#a3e3fa' : "white" }]}></View>
+                                                    </View>
+                                                    <Text>{item.title}</Text>
                                                 </View>
-                                                <Text>{item.title}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    )
-                                })
-                            }
-                        </View>
-                    }
-                </View>
-
-                {/* Search Input Section */}
-                {isSearchVisible && (
-                    <View style={styles.searchContainer}>
-                        {/* Search Input */}
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="Searching all collections"
-                            value={searchText}
-                            onChangeText={setSearchText}
-                        />
-
-                        {/* Cancel Button */}
-                        <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
-                            <Text style={styles.cancelText}>Cancel</Text>
-                        </TouchableOpacity>
-
-                        {/* Save as Button (Disabled) */}
-                        <View style={styles.saveAsButton}>
-                            <Text style={styles.saveAsText}>Save as</Text>
-                        </View>
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </View>
+                        }
                     </View>
-                )}
 
-                {/* inventory list */}
+                    {/* Search Input Section */}
+                    {isSearchVisible && (
+                        <View style={styles.searchContainer}>
+                            {/* Search Input */}
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Searching all collections"
+                                value={searchText}
+                                onChangeText={setSearchText}
+                            />
 
-                <ScrollView>
-                    {
-                        product.map((item, index) => {
-                            return (
-                                <View style={styles.itemContainer} key={index}>
-                                    <Image source={item.image} style={styles.image} />
-                                    <View style={styles.textContainer}>
-                                        <Text style={styles.title}>{item.title}</Text>
-                                        <Text style={styles.sku}>{item.sku}</Text>
+                            {/* Cancel Button */}
+                            <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
+                                <Text style={styles.cancelText}>Cancel</Text>
+                            </TouchableOpacity>
 
-                                        <View style={styles.statusContainer}>
-                                            <Text style={styles.statusText}>Unavailable</Text>
-                                            <Text style={styles.statusValue}>{item.unavailable}</Text>
-                                        </View>
+                            {/* Save as Button (Disabled) */}
+                            <View style={styles.saveAsButton}>
+                                <Text style={styles.saveAsText}>Save as</Text>
+                            </View>
+                        </View>
+                    )}
 
-                                        <View style={styles.statusContainer}>
-                                            <Text style={styles.statusText}>Committed</Text>
-                                            <Text style={styles.statusValue}>{item.committed}</Text>
-                                        </View>
+                    {/* inventory list */}
 
-                                        <View style={styles.statusContainer}>
-                                            <Text style={styles.statusText}>Available</Text>
-                                            <Text style={styles.statusValue}>{item.available}</Text>
-                                        </View>
+                    <ScrollView>
+                        {
+                            product.map((item, index) => {
+                                return (
+                                    <View style={styles.itemContainer} key={index}>
+                                        <Image source={item.image} style={styles.image} />
+                                        <View style={styles.textContainer}>
+                                            <Text style={styles.title}>{item.title}</Text>
+                                            <Text style={styles.sku}>{item.sku}</Text>
 
-                                        <View style={styles.statusContainer}>
-                                            <Text style={styles.statusText}>On hand</Text>
-                                            <Text style={styles.statusValue}>{item.onHand}</Text>
+                                            <View style={styles.statusContainer}>
+                                                <Text style={styles.statusText}>Unavailable</Text>
+                                                <Text style={styles.statusValue}>{item.unavailable}</Text>
+                                            </View>
+
+                                            <View style={styles.statusContainer}>
+                                                <Text style={styles.statusText}>Committed</Text>
+                                                <Text style={styles.statusValue}>{item.committed}</Text>
+                                            </View>
+
+                                            <View style={styles.statusContainer}>
+                                                <Text style={styles.statusText}>Available</Text>
+                                                <Text style={styles.statusValue}>{item.available}</Text>
+                                            </View>
+
+                                            <View style={styles.statusContainer}>
+                                                <Text style={styles.statusText}>On hand</Text>
+                                                <Text style={styles.statusValue}>{item.onHand}</Text>
+                                            </View>
                                         </View>
                                     </View>
+                                )
+                            })
+
+                        }
+                    </ScrollView>
+
+                </View>
+
+                {/* update section */}
+                <View style={styles.container}>
+                    {/* Header */}
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>On hand (20)</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.closeButton}>✕</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Adjustment Section */}
+                    <View style={styles.adjustSection}>
+                        <View style={styles.adjustItem}>
+                            <Text>Adjust by</Text>
+                            <View style={styles.inputRow}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={String(adjustValue)}
+                                    editable={false}
+                                />
+                                <View style={styles.buttonGroup}>
+                                    <TouchableOpacity
+                                        style={styles.adjustButton}
+                                        onPress={() => handleAdjustValueChange('decrease')}>
+                                        <Text style={styles.buttonText}>-</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.adjustButton}
+                                        onPress={() => handleAdjustValueChange('increase')}>
+                                        <Text style={styles.buttonText}>+</Text>
+                                    </TouchableOpacity>
                                 </View>
-                            )
-                        })
+                            </View>
+                        </View>
 
-                    }
-                </ScrollView>
+                        <View style={styles.adjustItem}>
+                            <Text>New</Text>
+                            <View style={styles.inputRow}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={String(newValue)}
+                                    editable={false}
+                                />
+                                <View style={styles.buttonGroup}>
+                                    <TouchableOpacity
+                                        style={styles.adjustButton}
+                                        onPress={() => handleNewValueChange('decrease')}>
+                                        <Text style={styles.buttonText}>-</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.adjustButton}
+                                        onPress={() => handleNewValueChange('increase')}>
+                                        <Text style={styles.buttonText}>+</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
 
-            </View>
+                    {/* Reason Section */}
+                    <View style={styles.reasonSection}>
+                        <Text>Reason</Text>
+                        {/* <Picker
+                        selectedValue={selectedReason}
+                        style={styles.picker}
+                        onValueChange={(itemValue) => setSelectedReason(itemValue)}>
+                        <Picker.Item label="Correction (default)" value="Correction (default)" />
+                        <Picker.Item label="Damaged" value="Damaged" />
+                        <Picker.Item label="Lost" value="Lost" />
+                    </Picker> */}
+                    </View>
 
+                    {/* Buttons */}
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.doneButton} disabled>
+                            <Text style={styles.doneButtonText}>Done</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cancelButton}>
+                            <Text style={styles.cancelButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
         </>
     );
 };
@@ -220,8 +320,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     headerText: {
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: 'bold',
+        color:"black"
     },
     filterContainer: {
         flexDirection: 'row',
@@ -374,14 +475,14 @@ const styles = StyleSheet.create({
     },
     radioOuter: {
         borderRadius: 40,
-        width: 20,
-        height: 20,
+        width: 15,
+        height: 15,
         margin: 5,
         borderWidth: 1,
-        borderColor: "black",
+        borderColor: "#a3e3fa",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "black"
+        // backgroundColor: "black"
     },
     radioInner: {
         borderRadius: 40,
@@ -389,7 +490,7 @@ const styles = StyleSheet.create({
         height: 10,
         margin: 5,
         borderWidth: 1,
-        borderColor: "black",
+        borderColor: "#a3e3fa",
         backgroundColor: "white",
     },
 

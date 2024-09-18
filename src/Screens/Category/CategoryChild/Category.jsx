@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet, View, Text, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
 import img1 from "../../../Assets/Icons/orderIc.jpeg";
 import img2 from "../../../Assets/Icons/ich.jpeg";
 import img from "../../../Assets/Icons/galleryIcon.jpeg";
+import IcEdit from '../../../Assets/Icons/edit.png';
+import IcStop from '../../../Assets/Icons/stop.png';
 
-// Example Data for Collections
-const data = [
-    { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: '20 products' },
-    { id: '2', title: 'Sarthi Publication', products: '24 products' },
-    { id: '3', title: 'MSC Solved Paper', products: '27 products' },
-    { id: '4', title: 'VMOU M.A Political', products: '13 products' },
-    { id: '5', title: 'LLB One Week Series', products: '6 products' },
-    { id: '6', title: 'RBSE & NCERT Books Use In Competition Exam', products: '20 products' },
-    { id: '7', title: 'Sarthi Publication', products: '24 products' },
-    { id: '8', title: 'MSC Solved Paper', products: '27 products' },
-    { id: '9', title: 'VMOU M.A Political', products: '13 products' },
-    { id: '10', title: 'LLB One Week Series', products: '6 products' },
-];
+function Category({handelNav}) {
 
-function Collection(props) {
+
+    const data = [
+        { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20 },
+        { id: '2', title: 'Sarthi Publication', products: 24 },
+        { id: '3', title: 'MSC Solved Paper', products: 27 },
+        { id: '4', title: 'VMOU M.A Political', products: 13 },
+        { id: '5', title: 'LLB One Week Series', products: 6 },
+        { id: '6', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20 },
+        { id: '7', title: 'Sarthi Publication', products: 24 },
+        { id: '8', title: 'MSC Solved Paper', products: 27 },
+        { id: '9', title: 'VMOU M.A Political', products: 13 },
+        { id: '10', title: 'LLB One Week Series', products: 6 },
+    ];
+
+
+
     const [searchText, setSearchText] = useState('');
     const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
 
@@ -46,18 +50,20 @@ function Collection(props) {
             title: "On hand"
         }
     ]
-
     return (
         <>
+
             <View style={Styles.containerHeader}>
-                <Text style={Styles.order}>Collections</Text>
-                <View style={Styles.actionBox}>
-                    <Text style={Styles.create}>Create Collection</Text>
-                </View>
+                <Text style={Styles.order}>Category List</Text>
+                <TouchableOpacity onPress={handelNav}>
+                    <View style={Styles.actionBox}>
+                        <Text style={Styles.create}>Add Category</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
 
             {/* Filter */}
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
                 <View style={Styles.statsContainer}>
                     <View style={Styles.statBox}>
                         <Text style={Styles.statLabel}>All</Text>
@@ -71,12 +77,13 @@ function Collection(props) {
                     <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
                         <Image source={img1} style={Styles.statLabell} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)}>
+                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                         <View>
                             <Image source={img2} style={Styles.statLabell} />
                         </View>
                     </TouchableOpacity>
                 </View>
+
                 {/* sort section */}
                 {
                     modalVisible && <View style={Styles.sortSection}>
@@ -86,10 +93,10 @@ function Collection(props) {
                                 return (
                                     <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
                                         <View style={Styles.radioCheck} key={index}>
-                                            <View style={[Styles.radioOuter, { backgroundColor: selectOption === item.title ? 'black' : "white" }]} >
-                                                <View style={Styles.radioInner}></View>
+                                            <View style={Styles.radioOuter} >
+                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? '#75AAF0' : "white" }]}></View>
                                             </View>
-                                            <Text>{item.title}</Text>
+                                            <Text style={{ color: "black" }}>{item.title}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 )
@@ -97,7 +104,6 @@ function Collection(props) {
                         }
                     </View>
                 }
-
             </View>
 
             {/* Search Input Section */}
@@ -128,12 +134,20 @@ function Collection(props) {
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => props.navigation.navigate("CollectionDetail")}>
+                    <TouchableOpacity>
                         <View style={Styles.item}>
                             <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
                             <View>
                                 <Text style={Styles.title}>{item.title}</Text>
-                                <Text style={Styles.products}>{item.products}</Text>
+                                <Text style={Styles.products}>{item.products} Items</Text>
+                                <View style={Styles.IcEditContainer}>
+                                    <TouchableOpacity style={Styles.editBtnContainer}>
+                                        <Image source={IcEdit} style={Styles.editIcon} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={Styles.editBtnContainer}>
+                                        <Image source={IcStop} style={Styles.editIcon} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -141,8 +155,9 @@ function Collection(props) {
                 )}
                 style={Styles.list}
             />
+
         </>
-    );
+    )
 }
 
 const Styles = StyleSheet.create({
@@ -152,9 +167,12 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         alignItems: "center",
+        borderBottomColor: "#BBBBBB",
+        borderBottomWidth: 1,
+        marginHorizontal: 10
     },
     order: {
-        fontSize: 20,
+        fontSize: 17,
         color: "black",
     },
     actionBox: {
@@ -163,8 +181,8 @@ const Styles = StyleSheet.create({
         alignItems: "center",
     },
     create: {
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: "#a3e3fa",
+        color: "black",
         fontSize: 15,
         paddingHorizontal: 12,
         paddingVertical: 9,
@@ -183,6 +201,7 @@ const Styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
+        color: "black"
     },
     cancelText: {
         color: '#007AFF',
@@ -190,14 +209,14 @@ const Styles = StyleSheet.create({
         fontSize: 16,
     },
     saveAsButton: {
-        backgroundColor: '#F0F0F0', // Gray background (disabled)
+        backgroundColor: '#a3e3fa', // Gray background (disabled)
         borderRadius: 8,
         paddingHorizontal: 12,
         paddingVertical: 8,
         marginLeft: 10,
     },
     saveAsText: {
-        color: '#A9A9A9', // Disabled text color
+        color: 'black', // Disabled text color
         fontSize: 16,
     },
     // Statistics Section
@@ -257,6 +276,7 @@ const Styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: "black"
     },
     products: {
         fontSize: 14,
@@ -284,14 +304,14 @@ const Styles = StyleSheet.create({
     },
     radioOuter: {
         borderRadius: 40,
-        width: 20,
-        height: 20,
+        width: 15,
+        height: 15,
         margin: 5,
         borderWidth: 1,
-        borderColor: "black",
+        borderColor: "#a3e3fa",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "black"
+        // backgroundColor: "black"
     },
     radioInner: {
         borderRadius: 40,
@@ -299,9 +319,25 @@ const Styles = StyleSheet.create({
         height: 10,
         margin: 5,
         borderWidth: 1,
-        borderColor: "black",
+        borderColor: "#a3e3fa",
         backgroundColor: "white",
     },
+
+    // icons 
+    editBtnContainer: {
+        width: 30,
+    },
+    editIcon: {
+        width: 15,
+        height: 20,
+        marginHorizontal: 5,
+        marginTop: 5,
+        justifyContent: "center",
+        overflow: "visible"
+    },
+    IcEditContainer: {
+        flexDirection: "row",
+    }
 });
 
-export { Collection };
+export { Category }

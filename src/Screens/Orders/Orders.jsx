@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, Text, View, StyleSheet, FlatList, Image } from 'react-native';
+import React, { useState } from "react";
+import { ScrollView, Text, View, StyleSheet, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Card, Badge } from 'react-native-paper';
 import imgg from '../../Assets/Icons/ich.jpeg';
 import img2 from '../../Assets/Icons/orderIc.jpeg';
@@ -88,7 +88,38 @@ const orders = [
     },
 ];
 
+
+
 function Order() {
+
+    // sort and input search
+
+    const [searchText, setSearchText] = useState('');
+    const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectOption, setSelectOption] = useState('')
+
+    const sortBy = [
+        {
+            title: "Product Title",
+        },
+        {
+            title: "SKU"
+        },
+        {
+            title: "Unavailabe"
+        },
+        {
+            title: "Commited"
+        },
+        {
+            title: "Available"
+        },
+        {
+            title: "On hand"
+        }
+    ]
 
     return (
         <>
@@ -173,18 +204,67 @@ function Order() {
                                 </View>
                             </View>
                         </ScrollView>
+
+                        {/* search and sort icon */}
                         <View style={styles.statBoxx}>
-                            <View >
-                                
-                                <Image source={imgg} style={styles.statLabell}/>
-                            </View>
-                            <View >
-                            <Image source={img2} style={styles.statLabell}/>
-                            
-                            </View>
+                            <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
+                                <View >
+                                    <Image source={img2} style={styles.statLabell} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <View>
+                                    <Image source={imgg} style={styles.statLabell} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
 
+                        {/* sort section */}
+                        {
+                            modalVisible && <View style={styles.sortSection}>
+                                <Text>Sort By</Text>
+                                {
+                                    sortBy.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
+                                                <View style={styles.radioCheck} key={index}>
+                                                    <View style={styles.radioOuter} >
+                                                        <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? '#75AAF0' : "white" }]}></View>
+                                                    </View>
+                                                    <Text style={{ color: "black" }}>{item.title}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </View>
+                        }
+
                     </View>
+
+                    {/* Search Input Section */}
+                    {isSearchVisible && (
+                        <View style={styles.searchContainer}>
+                            {/* Search Input */}
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Searching all collections"
+                                value={searchText}
+                                onChangeText={setSearchText}
+                            />
+
+                            {/* Cancel Button */}
+                            <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
+                                <Text style={styles.cancelText}>Cancel</Text>
+                            </TouchableOpacity>
+
+                            {/* Save as Button (Disabled) */}
+                            <View style={styles.saveAsButton}>
+                                <Text style={styles.saveAsText}>Save as</Text>
+                            </View>
+                        </View>
+                    )}
+
                     {/* Orders List */}
                     <FlatList
                         data={orders}
@@ -226,11 +306,12 @@ const styles = StyleSheet.create({
     containerHeader: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        padding: 10,
+        // padding: 10,
+        margin: 10,
         alignItems: "center",
     },
     order: {
-        fontSize: 20,
+        fontSize: 17,
         color: "black",
     },
     actionBox: {
@@ -248,8 +329,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     create: {
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: "#a3e3fa",
+        color: "black",
         fontSize: 13,
         paddingHorizontal: 10,
         paddingVertical: 7,
@@ -258,7 +339,8 @@ const styles = StyleSheet.create({
 
     // Main Content Container
     container: {
-        padding: 20,
+        // padding: 20,
+        margin: 10,
         backgroundColor: '#f5f5f5',
     },
 
@@ -266,11 +348,10 @@ const styles = StyleSheet.create({
     topCont: {
         flexDirection: "row",
         marginBottom: 10,
-        justifyContent: "center",
         alignItems: "flex-start",
-        padding: 10,
+        // padding: 10,
         borderRadius: 8,
-        marginHorizontal: 5,
+        // marginHorizontal: 5,
     },
     topBox: {
         alignItems: "center",
@@ -297,8 +378,8 @@ const styles = StyleSheet.create({
     statLabell: {
         paddingHorizontal: 6,
         fontSize: 17,
-        width:30,
-        height:28,
+        width: 30,
+        height: 28,
         color: "#888",
     },
     // Statistics Section
@@ -382,6 +463,80 @@ const styles = StyleSheet.create({
     shipping: {
         color: 'gray',
     },
+
+    // sort section
+
+    sortSection: {
+        position: "absolute",
+        top: 37,
+        right: -7,
+        borderRadius: 10,
+        backgroundColor: "white",
+        padding: 10,
+        margin: 10,
+        zIndex: 29,
+        elevation: 2,
+    },
+    radioCheck: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginLeft: 5,
+        padding: 4,
+        margin: 4
+    },
+    radioOuter: {
+        borderRadius: 40,
+        width: 15,
+        height: 15,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: "#a3e3fa",
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: "black"
+    },
+    radioInner: {
+        borderRadius: 40,
+        width: 10,
+        height: 10,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: "#a3e3fa",
+        backgroundColor: "white",
+    },
+
+    // inputs
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    searchInput: {
+        flex: 1,
+        height: 40,
+        borderColor: '#007AFF', // Blue outline
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        color: "black"
+    },
+    cancelText: {
+        color: '#007AFF',
+        marginLeft: 10,
+        fontSize: 16,
+    },
+    saveAsButton: {
+        backgroundColor: '#a3e3fa', // Gray background (disabled)
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginLeft: 10,
+    },
+    saveAsText: {
+        color: 'black', // Disabled text color
+        fontSize: 16,
+    },
+
 });
 
 export { Order };

@@ -14,6 +14,14 @@ function CustomDrawer(props) {
 
     const dropRoute = [
         {
+            id:9,
+            title:"Category",
+            menuList:[
+                {id:"01", listTitle:"Category", route:"Category"}
+            ]
+
+        },
+        {
             id: 0,
             title: "Dashboard",
             menuList: [
@@ -36,7 +44,7 @@ function CustomDrawer(props) {
                 { id: "b2", listTitle: "Inventory", route: "Inventory" },
                 { id: "b3", listTitle: "Purchase", route: "PurchaseOrders" },
                 { id: "b4", listTitle: "Transfers", route: "Transfers" },
-                { id: "b5", listTitle: "Gift Card", route: "GiftCard" },
+                { id: "b5", listTitle: "Gift Card", route: "GiftCardMain" },
             ]
         },
         {
@@ -132,12 +140,7 @@ function CustomDrawer(props) {
                                                                         setActiveRoute(ite.route)
                                                                     }}
                                                                     style={{ backgroundColor: activeRoute === ite.route ? '#999999' : '#BBBBBB' }}
-                                                                // activeBackgroundColor='blue'
-                                                                // activeTintColor='black'
-                                                                // inactiveTintColor='white'
-                                                                // inactiveBackgroundColor='#999999'
                                                                 />
-                                                                {/* {menuIndex === index ? <Image source={icDownArrow} style={{ width: 14, height: 14 }} /> : <Image source={icArrow} style={{ width: 14, height: 14 }} />} */}
                                                             </View> :
                                                                 null
                                                         }

@@ -17,6 +17,11 @@ function EmptySectionImage(props) {
                     <TouchableOpacity style={styles.button} onPress={() => { alert("enter data") }}>
                         <Text style={styles.buttonText}>{props.createBtn}</Text>
                     </TouchableOpacity>
+                    {
+                        props.addBtn ? <TouchableOpacity style={styles.button} onPress={() => { alert("enter data") }}>
+                            <Text style={styles.buttonText}>{props.addBtn}</Text>
+                        </TouchableOpacity> : null
+                    }
                     <TouchableOpacity onPress={() => alert("enter data")}>
                         <Text style={styles.learnMoreText}>{props.learnMore}</Text>
                     </TouchableOpacity>
@@ -49,10 +54,11 @@ const styles = StyleSheet.create({
     content: {
         alignItems: 'center',
         // marginTop: 40,
-        backgroundColor:"white",
-        padding:10,
-        borderRadius:10,
-        elevation:1,
+        backgroundColor: "white",
+        padding: 14,
+        borderRadius: 10,
+        elevation: 1,
+        paddingBottom:15
     },
     image: {
         width: 250, // Set appropriate width and height

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import img from "../../../Assets/Icons/option.png";
-import img1 from "../../../Assets/Icons/close.png";
-import img2 from "../../../Assets/Icons/galleryIcon.jpeg";
+import img from "../../../../Assets/Icons/option.png";
+import img1 from "../../../../Assets/Icons/close.png";
+import img2 from "../../../../Assets/Icons/galleryIcon.jpeg";
+
 
 const data = [
     { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: '20 products' },
