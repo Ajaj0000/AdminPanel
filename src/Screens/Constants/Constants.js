@@ -1,5 +1,7 @@
-import { CollectionDetail } from '../Collections/CollectionChild/CollectionDetail';
+
+import { CollectionDetail } from "../Collections/Collectionchild/CollectionDetail";
 import { Collection } from "../Collections/CollectionParent/Collection";
+// import { CustomerParent } from "../Customers/CustomerParent/CustomerParent";
 import { Dashboard } from "../Dashboard/DashboardParent/Dashboard";
 import Home from "../Home/Home";
 import { InventoryParent } from "../Inventory/InventoryParent/InventoryParent";
@@ -9,21 +11,15 @@ import Profile from "../Profile/Profile";
 
 
 export const ScreensArray = [
-    { route: 'Dashboard', label: 'Dashboard', icon: "user", component: Dashboard, },
-    { route: 'Home', label: 'Home', icon: 'home', component: Home, },
-    { route: 'Profile', label: 'Profile', icon: "user", component: Profile, },
-<<<<<<< HEAD
-    { route: "Inventory", label: "Inventory", component: InventoryParent },
+    { route: 'Dashboard', label: 'Dashboard', icon: "user", component: Dashboard },
+    { route: 'Home', label: 'Home', icon: 'home', component: Home },
+    { route: 'Profile', label: 'Profile', icon: "user", component: Profile },
     { route: "Orders" , label: "Orders", component : Order},
     { route:"Collection", label:"Collection", component:Collection },
-    {route :"CollectionDetail", label:"CollectionDetail" , component:CollectionDetail}
-=======
-    { route: "Orders", label: "Orders", component: Order },
-    { route: "Collection", label: "Collection", component: Collection },
+    {route :"CollectionDetail", label:"CollectionDetail" , component:CollectionDetail},
     { route: "Inventory", label: "Inventory", component: InventoryParent },
-    { route: "CollectionDetail", label: "CollectionDetail", component: CollectionDetail },
-    { route: "PurchaseOrders", label: "PurchaseOrders", component: PurchaseOrders }
->>>>>>> 11c3fa6f63ba09020aeafef4d74be625157399e9
+    { route: "PurchaseOrders", label: "PurchaseOrders", component: PurchaseOrders },
+    // {route:"Customer", label:"Customer", component:CustomerParent}
 ];
 
 // export const drawerMenu = [

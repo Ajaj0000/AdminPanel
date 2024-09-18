@@ -1,7 +1,8 @@
+
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import img from "../../../Assets/Icons/option.png";
-import { styles } from "../../Admins/LoginStyle";
+
 
 function CollectionDetail() {
     const [title, setTitle] = useState('Rajasthan G.K.');
@@ -12,22 +13,20 @@ function CollectionDetail() {
         { id: '2', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Active' },
         { id: '3', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Itihaas (Hastlikhit Notes)', status: 'Active' },
         { id: '4', name: 'RBD Rajasthan ki Kala Sanskriti (Hastlikhite Notes)', status: 'Active' },
-        { id: '5', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Bhugol (Hastlikhit Notes)', status: 'Active' },
-        { id: '6', name: 'Rath Rajasthan Manchitrawali & Samanya Gyan By Dr Mukesh Pancholi', status: 'Active' },
+        { id: '5', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Bhugol (Hastlikhit Notes)', status: 'Draft' },
+        { id: '6', name: 'Rath Rajasthan Manchitrawali & Samanya Gyan By Dr Mukesh Pancholi', status: 'Draft' },
         { id: '7', name: 'Utkarsh Rajasthan Jila Darshan By Narendra Choudhary Sir', status: 'Active' },
         { id: '8', name: 'Rai Marudhara Practice Workbook By Gaurav Budania', status: 'Active' },
         { id: '9', name: 'Mumal india current gk 2023-24', status: 'Draft' },
+        { id: '10', name: 'Parth Rajasthan Adhyayan Class 6-10 (English Medium)', status: 'Active' },
+        { id: '11', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Active' },
+        { id: '12', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Itihaas (Hastlikhit Notes)', status: 'Draft' },
     ]);
 
     const deleteItem = (id) => {
         setProducts((prevProducts) => prevProducts.filter(product => product.id !== id));
     };
-    const [imageUri, setImageUri] = useState(null);
 
-    const handleImageUpload = () => {
-        // Placeholder function for image upload, replace with real functionality
-        alert('Image upload functionality is not implemented.');
-    };
     const renderProducts = () => {
         return products.map((item, index) => (
             <View key={item.id} style={Styles.itemContainer}>
@@ -63,124 +62,80 @@ function CollectionDetail() {
                     style={Styles.titleInput}
                     value={title}
                     onChangeText={setTitle}
-                    placeholder="Enter title"
-                />
-
+                    placeholder="Enter title" />
                 <View>
                     <Text>Description.......</Text>
                 </View>
             </View>
-
-
             {/* Search Section */}
             <View>
                 <Text style={Styles.sectionTitle}>Product</Text>
-
-            <View >
-                <Text style={{ fontSize: 25, paddingLeft: 11, }}>Product</Text>
-
-                <View style={Styles.searchContainer}>
-                    {/* Search Input */}
-                    <TextInput
-                        style={Styles.searchInput}
-                        placeholder="Searching all collections"
-                    />
-
-
-                    {/* Browse Button */}
-                    <TouchableOpacity style={Styles.browseButton}>
-                        <Text style={Styles.cancelText}>Browse</Text>
-                    </TouchableOpacity>
+                <View >
+                    <View style={Styles.searchContainer}>
+                        {/* Search Input */}
+                        <TextInput
+                            style={Styles.searchInput}
+                            placeholder="Searching all collections"
+                        />
+                        {/* Browse Button */}
+                        <TouchableOpacity style={Styles.browseButton}>
+                            <Text style={Styles.cancelText}>Browse</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={Styles.searchContainer}>
+                        <TextInput
+                            style={Styles.searchInput}
+                            placeholder="Sort: Best Selling"
+                        />
+                    </View>
                 </View>
 
-                {/* Sort Input */}
-                <View style={Styles.searchContainer}>
+                {/* Product List */}
+                {renderProducts()}
+                {/* Search Engine Listing Section */}
+                <View style={Styles.searchEngineContainer}>
+                    <Text style={Styles.header}>Search engine listing</Text>
+                    <Text style={Styles.subHeader}>
+                        Add a description to see how this collection might appear in a search engine listing
+                    </Text>
 
-                    {/* Cancel Button */}
-                    <TouchableOpacity style={{ alignContent: "center", alignItems: "center" }} >
-                        <Text style={Styles.cancelText}>Browser</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={Styles.searchContainer}>
-                    {/* Search Input */}
+                    {/* Page Title Input */}
+                    <View style={Styles.inputGroup}>
+                        <Text style={Styles.label}>Page title</Text>
+                        <TextInput
+                            style={Styles.input}
+                            value={title}
+                            onChangeText={setTitle}
+                        />
+                        <Text style={Styles.charCount}>{title.length} of 70 characters used</Text>
+                    </View>
 
-                    <TextInput
-                        style={Styles.searchInput}
-                        placeholder="Sort: Best Selling"
-                    />
+                    {/* Meta Description Input */}
+                    <View style={Styles.inputGroup}>
+                        <Text style={Styles.label}>Meta description</Text>
+                        <TextInput
+                            style={Styles.input}
+                            value={metaDescription}
+                            onChangeText={setMetaDescription}
+                            placeholder="Add a meta description"
+                            multiline={true}
+                            maxLength={320}
+                        />
+                        <Text style={Styles.charCount}>{metaDescription.length} of 320 characters used</Text>
+                    </View>
+
+                    {/* URL Handle Input */}
+                    <View style={Styles.inputGroup}>
+                        <Text style={Styles.label}>URL handle</Text>
+                        <TextInput
+                            style={Styles.input}
+                            value={urlHandle}
+                            onChangeText={setUrlHandle}
+                        />
+                    </View>
                 </View>
+
             </View>
-
-            {/* Product List Section (using map instead of FlatList) */}
-            {renderProducts()}
-            {/* Collection List */}
-            <FlatList
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <TouchableOpacity >
-                        <View style={Styles.item}>
-                            <Image source={img2} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            <View style={{ flexDirection: "row" }}>
-                                <View>
-                                    <Text style={Styles.title}>{item.title}</Text>
-                                    <Text style={Styles.products}>{item.products}</Text>
-                                </View>
-                                <Image source={img1} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            </View>
-
-                        </View>
-                    </TouchableOpacity>
-
-            {/* Search Engine Listing Section */}
-            <View style={Styles.searchEngineContainer}>
-                <Text style={Styles.header}>Search engine listing</Text>
-                <Text style={Styles.subHeader}>
-                    Add a description to see how this collection might appear in a search engine listing
-                </Text>
-
-                {/* Page Title Input */}
-                <View style={Styles.inputGroup}>
-                    <Text style={Styles.label}>Page title</Text>
-                    <TextInput
-                        style={Styles.input}
-                        value={title}
-                        onChangeText={setTitle}
-                    />
-                    <Text style={Styles.charCount}>{title.length} of 70 characters used</Text>
-                </View>
-
-                {/* Meta Description Input */}
-                <View style={Styles.inputGroup}>
-                    <Text style={Styles.label}>Meta description</Text>
-                    <TextInput
-                        style={Styles.input}
-                        value={metaDescription}
-                        onChangeText={setMetaDescription}
-                        placeholder="Add a meta description"
-                        multiline={true}
-                        maxLength={320}
-                    />
-                    <Text style={Styles.charCount}>{metaDescription.length} of 320 characters used</Text>
-                </View>
-
-                {/* URL Handle Input */}
-                <View style={Styles.inputGroup}>
-                    <Text style={Styles.label}>URL handle</Text>
-                    <TextInput
-                        style={Styles.input}
-                        value={urlHandle}
-                        onChangeText={setUrlHandle}
-                    />
-                </View>
-            </View>
-            <View style={styles.container}>
-            <Text style={styles.labell}>Image</Text>
-            <TouchableOpacity style={styles.uploadBox} onPress={handleImageUpload}>
-                <Text style={styles.addImageText}>Add image</Text>
-                <Text style={styles.dropText}>or drop an image to upload</Text>
-            </TouchableOpacity>
-        </View>
         </ScrollView>
     );
 }
@@ -352,44 +307,7 @@ const Styles = StyleSheet.create({
         color: '#000',
         backgroundColor: '#f9f9f9',
     },
-    charCount: {
-        fontSize: 12,
-        color: '#999',
-        marginTop: 5,
-    },
-    container: {
-        padding: 20,
-        alignItems: 'center',
-    },
-    labell: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
-        alignSelf: 'flex-start',
-    },
-    uploadBox: {
-        width: 300,
-        height: 150,
-        borderWidth: 1,
-        borderStyle: 'dashed',
-        borderColor: '#ccc',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        backgroundColor: '#f9f9f9',
-    },
-    addImageText: {
-        fontSize: 16,
-        color: '#007bff',
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    dropText: {
-        fontSize: 12,
-        color: '#666',
-    },
+
 });
 
 export { CollectionDetail };
-
