@@ -1,16 +1,6 @@
-<<<<<<< HEAD:src/Screens/Products/Collections/CollectionChild/CollectionDetail.jsx
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import img from "../../../../Assets/Icons/option.png";
-import img1 from "../../../../Assets/Icons/close.png";
-import img2 from "../../../../Assets/Icons/galleryIcon.jpeg";
-
-=======
->>>>>>> bbaa2815c462d2423d886563c206e019a0f823e3:src/Screens/Collections/Collectionchild/CollectionDetail.jsx
-
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
-import img from "../../../Assets/Icons/option.png";
 
 
 function CollectionDetail() {
