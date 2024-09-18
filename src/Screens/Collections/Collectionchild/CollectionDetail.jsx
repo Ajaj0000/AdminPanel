@@ -70,15 +70,15 @@ function CollectionDetail() {
                     <Text>Description.......</Text>
                 </View>
             </View>
-<<<<<<< HEAD
+
 
             {/* Search Section */}
             <View>
                 <Text style={Styles.sectionTitle}>Product</Text>
-=======
+
             <View >
                 <Text style={{ fontSize: 25, paddingLeft: 11, }}>Product</Text>
->>>>>>> 11c3fa6f63ba09020aeafef4d74be625157399e9
+
                 <View style={Styles.searchContainer}>
                     {/* Search Input */}
                     <TextInput
@@ -86,7 +86,7 @@ function CollectionDetail() {
                         placeholder="Searching all collections"
                     />
 
-<<<<<<< HEAD
+
                     {/* Browse Button */}
                     <TouchableOpacity style={Styles.browseButton}>
                         <Text style={Styles.cancelText}>Browse</Text>
@@ -95,7 +95,7 @@ function CollectionDetail() {
 
                 {/* Sort Input */}
                 <View style={Styles.searchContainer}>
-=======
+
                     {/* Cancel Button */}
                     <TouchableOpacity style={{ alignContent: "center", alignItems: "center" }} >
                         <Text style={Styles.cancelText}>Browser</Text>
@@ -103,7 +103,7 @@ function CollectionDetail() {
                 </View>
                 <View style={Styles.searchContainer}>
                     {/* Search Input */}
->>>>>>> 11c3fa6f63ba09020aeafef4d74be625157399e9
+
                     <TextInput
                         style={Styles.searchInput}
                         placeholder="Sort: Best Selling"
@@ -111,10 +111,8 @@ function CollectionDetail() {
                 </View>
             </View>
 
-<<<<<<< HEAD
             {/* Product List Section (using map instead of FlatList) */}
             {renderProducts()}
-=======
             {/* Collection List */}
             <FlatList
                 data={data}
@@ -133,7 +131,6 @@ function CollectionDetail() {
 
                         </View>
                     </TouchableOpacity>
->>>>>>> 11c3fa6f63ba09020aeafef4d74be625157399e9
 
             {/* Search Engine Listing Section */}
             <View style={Styles.searchEngineContainer}>
@@ -254,7 +251,6 @@ const Styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 8,
-<<<<<<< HEAD
         paddingHorizontal: 15,
         paddingVertical: 7,
         fontSize: 16,
@@ -267,7 +263,6 @@ const Styles = StyleSheet.create({
         paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
-=======
         marginLeft: 17,
         padding: 7,
         fontSize: 16,
@@ -275,7 +270,6 @@ const Styles = StyleSheet.create({
     // List of collections
     list: {
         padding: 16,
->>>>>>> 11c3fa6f63ba09020aeafef4d74be625157399e9
     },
     index: {
         width: 30,
