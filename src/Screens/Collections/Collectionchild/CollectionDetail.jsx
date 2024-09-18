@@ -1,26 +1,54 @@
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import img from "../../../Assets/Icons/option.png";
-import img1 from "../../../Assets/Icons/close.png";
-import img2 from "../../../Assets/Icons/galleryIcon.jpeg";
+import { styles } from "../../Admins/LoginStyle";
 
-const data = [
-    { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: '20 products' },
-    { id: '2', title: 'Sarthi Publication', products: '24 products' },
-    { id: '3', title: 'MSC Solved Paper', products: '27 products' },
-    { id: '4', title: 'VMOU M.A Political', products: '13 products' },
-    { id: '5', title: 'LLB One Week Series', products: '6 products' },
-    { id: '6', title: 'RBSE & NCERT Books Use In Competition Exam', products: '20 products' },
-    { id: '7', title: 'Sarthi Publication', products: '24 products' },
-    { id: '8', title: 'MSC Solved Paper', products: '27 products' },
-    { id: '9', title: 'VMOU M.A Political', products: '13 products' },
-    { id: '10', title: 'LLB One Week Series', products: '6 products' },
-];
 function CollectionDetail() {
     const [title, setTitle] = useState('Rajasthan G.K.');
+    const [metaDescription, setMetaDescription] = useState('');
+    const [urlHandle, setUrlHandle] = useState('https://thebooks24.com/collections/rajasthan-g-k');
+    const [products, setProducts] = useState([
+        { id: '1', name: 'Parth Rajasthan Adhyayan Class 6-10 (English Medium)', status: 'Active' },
+        { id: '2', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Active' },
+        { id: '3', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Itihaas (Hastlikhit Notes)', status: 'Active' },
+        { id: '4', name: 'RBD Rajasthan ki Kala Sanskriti (Hastlikhite Notes)', status: 'Active' },
+        { id: '5', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Bhugol (Hastlikhit Notes)', status: 'Active' },
+        { id: '6', name: 'Rath Rajasthan Manchitrawali & Samanya Gyan By Dr Mukesh Pancholi', status: 'Active' },
+        { id: '7', name: 'Utkarsh Rajasthan Jila Darshan By Narendra Choudhary Sir', status: 'Active' },
+        { id: '8', name: 'Rai Marudhara Practice Workbook By Gaurav Budania', status: 'Active' },
+        { id: '9', name: 'Mumal india current gk 2023-24', status: 'Draft' },
+    ]);
+
+    const deleteItem = (id) => {
+        setProducts((prevProducts) => prevProducts.filter(product => product.id !== id));
+    };
+    const [imageUri, setImageUri] = useState(null);
+
+    const handleImageUpload = () => {
+        // Placeholder function for image upload, replace with real functionality
+        alert('Image upload functionality is not implemented.');
+    };
+    const renderProducts = () => {
+        return products.map((item, index) => (
+            <View key={item.id} style={Styles.itemContainer}>
+                <Text style={Styles.index}>{index + 1}.</Text>
+                <View style={Styles.productDetails}>
+                    <Text style={Styles.productName}>{item.name}</Text>
+                </View>
+                <View style={Styles.statusContainer}>
+                    <Text style={item.status === 'Active' ? Styles.activeStatus : Styles.draftStatus}>
+                        {item.status}
+                    </Text>
+                </View>
+                <TouchableOpacity onPress={() => deleteItem(item.id)} style={Styles.deleteButton}>
+                    <Text style={Styles.deleteText}>✕</Text>
+                </TouchableOpacity>
+            </View>
+        ));
+    };
 
     return (
-        <>
+        <ScrollView>
             {/* Header Section */}
             <View style={Styles.containerHeader}>
                 <Text style={Styles.order}>Rajasthan G.K.</Text>
@@ -42,52 +70,85 @@ function CollectionDetail() {
                     <Text>Description.......</Text>
                 </View>
             </View>
-            <View >
-                <Text style={{fontSize:25, paddingLeft:11,}}>Product</Text>
+
+            {/* Search Section */}
+            <View>
+                <Text style={Styles.sectionTitle}>Product</Text>
                 <View style={Styles.searchContainer}>
-                     {/* Search Input */}
-                     <TextInput
+                    {/* Search Input */}
+                    <TextInput
                         style={Styles.searchInput}
                         placeholder="Searching all collections"
                     />
 
-                    {/* Cancel Button */}
-                    <TouchableOpacity style={{alignContent:"center", alignItems:"center"}} >
-                        <Text style={Styles.cancelText}>Browser</Text>
+                    {/* Browse Button */}
+                    <TouchableOpacity style={Styles.browseButton}>
+                        <Text style={Styles.cancelText}>Browse</Text>
                     </TouchableOpacity>
                 </View>
-                <View  style={Styles.searchContainer}>
-                    {/* Search Input */}
+
+                {/* Sort Input */}
+                <View style={Styles.searchContainer}>
                     <TextInput
                         style={Styles.searchInput}
-                        placeholder="Short:Best Selling"
+                        placeholder="Sort: Best Selling"
                     />
                 </View>
             </View>
 
-  {/* Collection List */}
-  <FlatList
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <TouchableOpacity >
-                        <View style={Styles.item}>
-                            <Image source={img2} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            <View style={{flexDirection:"row"}}>
-                                <View>
-                                <Text style={Styles.title}>{item.title}</Text>
-                                <Text style={Styles.products}>{item.products}</Text>
-                                </View>
-                                <Image source={img1} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            </View>
-                            
-                        </View>
-                    </TouchableOpacity>
+            {/* Product List Section (using map instead of FlatList) */}
+            {renderProducts()}
 
-                )}
-                style={Styles.list}
-            />
-        </>
+            {/* Search Engine Listing Section */}
+            <View style={Styles.searchEngineContainer}>
+                <Text style={Styles.header}>Search engine listing</Text>
+                <Text style={Styles.subHeader}>
+                    Add a description to see how this collection might appear in a search engine listing
+                </Text>
+
+                {/* Page Title Input */}
+                <View style={Styles.inputGroup}>
+                    <Text style={Styles.label}>Page title</Text>
+                    <TextInput
+                        style={Styles.input}
+                        value={title}
+                        onChangeText={setTitle}
+                    />
+                    <Text style={Styles.charCount}>{title.length} of 70 characters used</Text>
+                </View>
+
+                {/* Meta Description Input */}
+                <View style={Styles.inputGroup}>
+                    <Text style={Styles.label}>Meta description</Text>
+                    <TextInput
+                        style={Styles.input}
+                        value={metaDescription}
+                        onChangeText={setMetaDescription}
+                        placeholder="Add a meta description"
+                        multiline={true}
+                        maxLength={320}
+                    />
+                    <Text style={Styles.charCount}>{metaDescription.length} of 320 characters used</Text>
+                </View>
+
+                {/* URL Handle Input */}
+                <View style={Styles.inputGroup}>
+                    <Text style={Styles.label}>URL handle</Text>
+                    <TextInput
+                        style={Styles.input}
+                        value={urlHandle}
+                        onChangeText={setUrlHandle}
+                    />
+                </View>
+            </View>
+            <View style={styles.container}>
+            <Text style={styles.labell}>Image</Text>
+            <TouchableOpacity style={styles.uploadBox} onPress={handleImageUpload}>
+                <Text style={styles.addImageText}>Add image</Text>
+                <Text style={styles.dropText}>or drop an image to upload</Text>
+            </TouchableOpacity>
+        </View>
+        </ScrollView>
     );
 }
 
@@ -133,6 +194,8 @@ const Styles = StyleSheet.create({
         fontSize: 18,
         color: 'black',
     },
+
+    // Search Section
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -141,46 +204,150 @@ const Styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         height: 40,
-        borderColor: 'black', // Blue outline
+        borderColor: 'black',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
     },
+    browseButton: {
+        marginLeft: 10,
+    },
     cancelText: {
-        color: 'Black',
+        color: 'black',
         height: 40,
-        borderColor: 'black', // Blue outline
+        borderColor: 'black',
         borderWidth: 1,
         borderRadius: 8,
-        marginLeft: 17,
-        padding:7,
+        paddingHorizontal: 15,
+        paddingVertical: 7,
         fontSize: 16,
     },
-     // List of collections
-     list: {
-        padding: 16,
+
+    // Product List Section
+    itemContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
     },
-    item: {
+    index: {
+        width: 30,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#000',
+    },
+    productDetails: {
+        flex: 1,
+        paddingHorizontal: 8,
+    },
+    productName: {
+        fontSize: 16,
+        color: '#000',
+    },
+    statusContainer: {
+        width: 60,
+        alignItems: 'center',
+    },
+    activeStatus: {
+        color: '#28a745',
+        fontWeight: 'bold',
+        backgroundColor: '#d4edda',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+    },
+    draftStatus: {
+        color: '#007bff',
+        fontWeight: 'bold',
+        backgroundColor: '#cce5ff',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+    },
+    deleteButton: {
+        padding: 8,
+    },
+    deleteText: {
+        color: '#ff0000',
+        fontSize: 18,
+    },
+
+    // Section Title
+    sectionTitle: {
+        fontSize: 25,
+        paddingLeft: 11,
+    },
+
+    // Search Engine Listing
+    searchEngineContainer: {
+        padding: 20,
         backgroundColor: '#fff',
-        padding: 16,
-        marginVertical: 8,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: 2 },
-        elevation: 1,
-        flexDirection: "row",
-        margin: 3,
-        alignItems: "center"
     },
-    title: {
+    header: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        color: '#000',
+    },
+    subHeader: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 20,
+    },
+    inputGroup: {
+        marginBottom: 20,
+    },
+    label: {
+        fontSize: 16,
+        color: '#000',
+        marginBottom: 5,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        padding: 10,
+        fontSize: 16,
+        color: '#000',
+        backgroundColor: '#f9f9f9',
+    },
+    charCount: {
+        fontSize: 12,
+        color: '#999',
+        marginTop: 5,
+    },
+    container: {
+        padding: 20,
+        alignItems: 'center',
+    },
+    labell: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 10,
+        alignSelf: 'flex-start',
     },
-    products: {
-        fontSize: 14,
-        color: '#777',
+    uploadBox: {
+        width: 300,
+        height: 150,
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        backgroundColor: '#f9f9f9',
+    },
+    addImageText: {
+        fontSize: 16,
+        color: '#007bff',
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    dropText: {
+        fontSize: 12,
+        color: '#666',
     },
 });
 
