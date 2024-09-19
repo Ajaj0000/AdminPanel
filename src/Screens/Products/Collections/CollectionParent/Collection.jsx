@@ -128,7 +128,7 @@ function Collection(props) {
                 data={data}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => props.navigation.navigate("CollectionDetail")}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("Collection")}>
                         <View style={Styles.item}>
                             <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
                             <View>

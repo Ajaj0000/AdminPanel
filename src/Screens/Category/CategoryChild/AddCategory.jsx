@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
 import IcArrow from '../../../Assets/Icons/arrow-down-sign-to-navigate.png';
 import IcCancel from '../../../Assets/Icons/closeIc.png'
+import TempScreen from './TextEditor';
 
 function CreateCategoryScreen() {
 
@@ -13,36 +14,40 @@ function CreateCategoryScreen() {
         console.log('File upload triggered');
     };
 
-    const categoryy=[
-        {id:"1", title:"Story"},
-        {id:"2", title:"Biography"},
-        {id:"3", title:"Competition"},
+    const categoryy = [
+        { id: "1", title: "Story" },
+        { id: "2", title: "Biography" },
+        { id: "3", title: "Competition" },
     ]
 
     const [open, setOpen] = useState(false)
+    const [selectValue, setSelectedValue] = useState('')
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {/* Select Parent Category */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Select Parent Category</Text>
-                <TouchableOpacity onPress={()=>setOpen(!open)}>
+                <TouchableOpacity onPress={() => setOpen(!open)}>
                     <View style={styles.formGroup1}>
-                        <Text style={styles.parentCat}>Select Parent Category</Text>
-                        <Image source={open ? IcArrow : IcCancel} style={styles.arrowIc} />
+                        <Text style={styles.parentCat}>{selectValue === ''? "Select Parent Category" : selectValue}</Text>
+                        <Image source={open ? IcCancel : IcArrow} style={styles.arrowIc} />
                     </View>
                 </TouchableOpacity>
-                <View>
-                    <FlatList
-                    data={categoryy}
-                    keyExtractor={(item)=>item.id}
-                    renderItem={({item})=>{
-                        <TouchableOpacity>
-                            
-                        </TouchableOpacity>
-                    }}
-                    />
-                </View>
+                {
+                    open && <View style={styles.selectList}>
+                        {
+                            categoryy.map((itm, index) => {
+                                return (
+                                    <>
+                                        <TouchableOpacity key={index} onPress={()=>{setSelectedValue(itm.title); setOpen(false)}}>
+                                            <Text style={styles.selectText}>{itm.title}</Text>
+                                        </TouchableOpacity>
+                                    </>
+                                )
+                            })
+                        }
+                    </View>}
             </View>
 
             {/* Title Input */}
@@ -81,14 +86,15 @@ function CreateCategoryScreen() {
             {/* Description */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Description</Text>
-                <TextInput
+                {/* <TextInput
                     style={styles.textArea}
                     placeholder="Enter description"
                     value={description}
                     onChangeText={setDescription}
                     multiline={true}
                     numberOfLines={4}
-                />
+                /> */}
+                <TempScreen/>
             </View>
 
             {/* Buttons */}
@@ -111,6 +117,28 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center"
     },
+
+    // select list
+
+    selectList: {
+        backgroundColor: "white",
+        borderRadius: 10,
+        elevation: 1,
+        padding: 5,
+        marginTop: 5,
+        position: "absolute",
+        width: "100%",
+        top: 70,
+        zIndex: 10,
+    },
+    selectText: {
+        fontSize: 14,
+        fontWeight: "500",
+        borderBottomWidth: 1,
+        padding: 5,
+        borderBottomColor: "#BBBBBB",
+    },
+
     arrowIc: {
         width: 14,
         height: 14,
@@ -118,7 +146,7 @@ const styles = StyleSheet.create({
     },
     parentCat: {
         fontSize: 14,
-        color: "#BBBBBB",
+        color: "black",
         padding: 5,
         margin: 5
     },

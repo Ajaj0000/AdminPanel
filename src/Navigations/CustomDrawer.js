@@ -14,10 +14,10 @@ function CustomDrawer(props) {
 
     const dropRoute = [
         {
-            id:9,
-            title:"Category",
-            menuList:[
-                {id:"01", listTitle:"Category", route:"Category"}
+            id: 9,
+            title: "Category",
+            menuList: [
+                { id: "01", listTitle: "Category", route: "Category" }
             ]
 
         },
@@ -108,7 +108,7 @@ function CustomDrawer(props) {
 
         <DrawerContentScrollView {...props}>
             <View style={styles.profile}>
-                <Image source={adminPic} style={styles.adminPic}/>
+                <Image source={adminPic} style={styles.adminPic} />
                 <Text style={styles.adminName}>Mr.Admin</Text>
             </View>
             <View>
@@ -116,8 +116,8 @@ function CustomDrawer(props) {
                     dropRoute.map((items, index) => {
                         return (
                             <>
-                                <TouchableOpacity key={index} style={styles.list} onPress={() => { setMenuIndex(index) }}>
-                                    <Text style={{ fontWeight: "500" ,color:"black"}}>{items.title}</Text>
+                                <TouchableOpacity key={index} style={styles.list} onPress={() => { setMenuIndex(menuIndex === index ? -1 : index) }}>
+                                    <Text style={{ fontWeight: "500", color: "black" }}>{items.title}</Text>
                                     {menuIndex === index ? <Image source={icDownArrow} style={{ width: 14, height: 14 }} /> : <Image source={icArrow} style={{ width: 14, height: 14 }} />}
                                 </TouchableOpacity>
 

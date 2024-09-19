@@ -11,60 +11,16 @@ import { CategoryParent } from "../Category/CategoryParent/CategoryParent";
 import { CreateCategoryScreen } from "../Category/CategoryChild/AddCategory";
 
 
-
 export const ScreensArray = [
     { route: 'Dashboard', label: 'Dashboard', icon: "user", component: Dashboard },
     { route: 'Home', label: 'Home', icon: 'home', component: Home },
     { route: 'Profile', label: 'Profile', icon: "user", component: Profile },
     { route: "Orders", label: "Orders", component: Order },
-    { route: "Collection", label: "Collection", component: Collection },
+    { route: "Collections", label: "Collections", component: Collection },
     { route: "Inventory", label: "Inventory", component: InventoryParent },
-    { route: "CollectionDetail", label: "CollectionDetail", component: CollectionDetail },
-    { route: "PurchaseOrders", label: "PurchaseOrders", component: PurchaseOrders },
-    { route: "GiftCardMain", label: "GiftCardMain", component: GiftCardMain },
+    { route: "Collection", label: "Collection", component: CollectionDetail },
+    { route: "Purchase", label: "Purchase", component: PurchaseOrders },
+    { route: "GiftCard", label: "GiftCard", component: GiftCardMain },
     { route: "Category", label: "Category", component: CategoryParent },
-    { route: "CreateCategoryScreen", label: "CreateCategoryScreen", component: CreateCategoryScreen }
+    { route: "CreateCategoryScreen", label: "Add Category", component: CreateCategoryScreen }
 ];
-
-// export const drawerMenu = [
-//     {
-//         title: "Orders",
-//         //   bg: Colors.menu1,
-//         //   type: Icons.Feather, icon: 'settings',
-//         route: 'Orders',
-//         menuList: [
-//             { title: 'Orders' },
-//             { title: 'Drafts' },
-//         ]
-//     },
-//     {
-//         title:"Dashbord",
-//         route:"Dashboard"
-//     },
-//     {
-//         title: "Products",
-//         //   bg: Colors.menu2,
-//         //   type: Icons.Feather, icon: 'check-square',
-//         route: 'Products',
-//         menuList: [
-//             { title: 'Products' },
-//             { title: 'Collections' },
-//             { title: 'Purchase orders' },
-//             { title: 'Gift cards' },
-//         ]
-//     },
-//     {
-//         title: "Customers",
-//         //   bg: Colors.menu3,
-//         //   type: Icons.Octicons, icon: 'project',
-//         route: 'Customers',
-//         menuList: [
-//             { title: 'Customers' },
-//             { title: 'Segments' },
-//         ]
-//     },
-//     {
-//         title: "Discounts",
-//         route: "Discounts",
-//     }
-// ]

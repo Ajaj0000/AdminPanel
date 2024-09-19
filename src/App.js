@@ -12,6 +12,7 @@ function App() {
     <>
 
       <NavigationContainer>
+      {/* <StackNav/> */}
         <Route/>
       </NavigationContainer>
       {/* <DropdownExample/> */}

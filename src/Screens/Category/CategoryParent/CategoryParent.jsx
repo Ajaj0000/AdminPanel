@@ -4,7 +4,7 @@ import { Category } from "../CategoryChild/Category";
 function CategoryParent(props) {
     return (
         <>
-            <Category handelNav={()=>props.navigation.navigate('CreateCategoryScreen')}/>
+            <Category handelNav={()=>props.navigation.navigate('Add Category')}/>
         </>
     )
 }
