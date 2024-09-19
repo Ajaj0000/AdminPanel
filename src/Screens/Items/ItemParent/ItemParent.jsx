@@ -5,7 +5,7 @@ function ItemParent(props) {
     
     return (
         <>
-            <ItemMain handle={() => props.navigation.navigate("AddItem")} />
+            <ItemMain handle={() => props.navigation.navigate("Add Item")} />
         </>
     )
 }

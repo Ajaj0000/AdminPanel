@@ -17,15 +17,8 @@ function CustomDrawer(props) {
             id: 9,
             title: "Category",
             menuList: [
-                { id: "01", listTitle: "Category", route: "Category" }
-            ]
-
-        },
-        {
-            id:10,
-            title:"Item",
-            menuList:[
-                {id:"01", listTitle:"Item", route:"Item"}
+                { id: "01", listTitle: "Category", route: "Category" },
+                {id:"02", listTitle:"Item", route:"Item"}
             ]
 
         },
