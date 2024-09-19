@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
-import img2 from "../../../Assets/Icons/ich.jpeg";
-import img from "../../../Assets/Icons/galleryIcon.jpeg";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import IcEdit from '../../../Assets/Icons/edit.png';
 import IcStop from '../../../Assets/Icons/stop.png';
+import img2 from "../../../Assets/Icons/ich.jpeg";
 
-function Category({ handelNav }) {
-
-
-    const data = [
-        { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20 },
-        { id: '2', title: 'Sarthi Publication', products: 24 },
-        { id: '3', title: 'MSC Solved Paper', products: 27 },
-        { id: '4', title: 'VMOU M.A Political', products: 13 },
-        { id: '5', title: 'LLB One Week Series', products: 6 },
-        { id: '6', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20 },
-        { id: '7', title: 'Sarthi Publication', products: 24 },
-        { id: '8', title: 'MSC Solved Paper', products: 27 },
-        { id: '9', title: 'VMOU M.A Political', products: 13 },
-        { id: '10', title: 'LLB One Week Series', products: 6 },
-    ];
-
+function ItemMain({handle}) {
+    const [products, setProducts] = useState([
+        { id: '1', name: 'Parth Rajasthan Adhyayan Class 6-10 (English Medium)', status: 'Active' },
+        { id: '2', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Draft' },
+        { id: '3', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Itihaas (Hastlikhit Notes)', status: 'Active' },
+        { id: '4', name: 'RBD Rajasthan ki Kala Sanskriti (Hastlikhite Notes)', status: 'Active' },
+        { id: '5', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Bhugol (Hastlikhit Notes)', status: 'Draft' },
+        { id: '6', name: 'Rath Rajasthan Manchitrawali & Samanya Gyan By Dr Mukesh Pancholi', status: 'Draft' },
+        { id: '7', name: 'Utkarsh Rajasthan Jila Darshan By Narendra Choudhary Sir', status: 'Active' },
+        { id: '8', name: 'Rai Marudhara Practice Workbook By Gaurav Budania', status: 'Active' },
+        { id: '9', name: 'Mumal india current gk 2023-24', status: 'Draft' },
+        { id: '10', name: 'Parth Rajasthan Adhyayan Class 6-10 (English Medium)', status: 'Active' },
+        { id: '11', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Active' },
+        { id: '12', name: 'Rbd Gk Guru Subhash Charan Rajasthan Ka Itihaas (Hastlikhit Notes)', status: 'Draft' },
+    ]);
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectOption, setSelectOption] = useState('')
@@ -45,31 +43,60 @@ function Category({ handelNav }) {
             title: "On hand"
         }
     ]
+
+
+    const renderProducts = () => {
+        return products.map((item, index) => (
+            <View key={item.id} style={Styles.itemContainer}>
+                <Text style={Styles.index}>{index + 1}.</Text>
+                <View style={Styles.productDetails}>
+                    <Text style={Styles.productName}>{item.name}</Text>
+                </View>
+                <View style={Styles.statusContainer}>
+                    <Text style={item.status === 'Active' ? Styles.activeStatus : Styles.draftStatus}>
+                        {item.status}
+                    </Text>
+                </View>
+                <Text style={Styles.deleteButton}>
+                    <TouchableOpacity >
+                        <Image source={IcEdit} style={Styles.editIcon} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity >
+                        <Image source={IcStop} style={Styles.editIcon} />
+                    </TouchableOpacity>
+                </Text>
+            </View>
+        ));
+    };
+
+
     return (
         <>
-
             <View style={Styles.containerHeader}>
-                <Text style={Styles.order}>Category List</Text>
-                <TouchableOpacity onPress={handelNav}>
+                <Text style={Styles.order}>Item</Text>
+                <TouchableOpacity onPress={handle}>
                     <View style={Styles.actionBox}>
-                        <Text style={Styles.create}>Add Category</Text>
+                        <Text style={Styles.create} >Add Item</Text>
                     </View>
                 </TouchableOpacity>
+
             </View>
             {/* Search Input Section */}
 
             <View style={Styles.searchContainer}>
 
-                {/* Save as Button (Disabled) */}
-                <View style={Styles.saveAsButton}>
+                 {/* Save as Button (Disabled) */}
+                 <View style={Styles.saveAsButton}>
                     <Text style={Styles.saveAsText}>Search:</Text>
                 </View>
-                {/* Search Input */}
+                                {/* Search Input */}
                 <TextInput
                     style={Styles.searchInput}
                     placeholder="Searching all collections"
                 />
             </View>
+
             {/* Filter */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
                 <View style={Styles.statsContainer}>
@@ -109,39 +136,14 @@ function Category({ handelNav }) {
                         }
                     </View>
                 }
+
             </View>
 
-            {/* Collection List */}
-            <FlatList
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <TouchableOpacity>
-                        <View style={Styles.item}>
-                            <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
-                            <View>
-                                <Text style={Styles.title}>{item.title}</Text>
-                                <Text style={Styles.products}>{item.products} Items</Text>
-                                <View style={Styles.IcEditContainer}>
-                                    <TouchableOpacity style={Styles.editBtnContainer}>
-                                        <Image source={IcEdit} style={Styles.editIcon} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.editBtnContainer}>
-                                        <Image source={IcStop} style={Styles.editIcon} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-
-                )}
-                style={Styles.list}
-            />
-
+            {/* Product  */}
+            {renderProducts()}
         </>
     )
 }
-
 const Styles = StyleSheet.create({
     // Header Container
     containerHeader: {
@@ -170,30 +172,6 @@ const Styles = StyleSheet.create({
         paddingVertical: 9,
         borderRadius: 5,
     },
-    // input..
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-    },
-    searchInput: {
-        flex: 1,
-        height: 40,
-        borderColor: '#007AFF', // Blue outline
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        color: "black"
-    },
-    saveAsButton: {
-        paddingRight: 10,
-        paddingVertical: 8,
-    },
-    saveAsText: {
-        color: 'black', // Disabled text color
-        fontSize: 16,
-    },
-    // Statistics Section
     statsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -229,35 +207,6 @@ const Styles = StyleSheet.create({
         height: 28,
         color: "#888",
     },
-    // List of collections
-    list: {
-        padding: 16,
-    },
-    item: {
-        backgroundColor: '#fff',
-        padding: 16,
-        marginVertical: 8,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: 2 },
-        elevation: 1,
-        flexDirection: "row",
-        margin: 3,
-        alignItems: "center"
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: "black"
-    },
-    products: {
-        fontSize: 14,
-        color: '#777',
-    },
-
-    // sort section 
     sortSection: {
         position: "absolute",
         top: 37,
@@ -296,9 +245,86 @@ const Styles = StyleSheet.create({
         borderColor: "#a3e3fa",
         backgroundColor: "white",
     },
-
-    // icons 
-
+    // input..
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    searchInput: {
+        flex: 1,
+        height: 40,
+        borderColor: '#007AFF', // Blue outline
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        color: "black"
+    },
+    saveAsButton: {
+        paddingRight: 10,
+        paddingVertical: 8,
+    },
+    saveAsText: {
+        color: 'black', // Disabled text color
+        fontSize: 16,
+    },
+    // Product List Section
+    itemContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        marginLeft: 17,
+        padding: 7,
+        fontSize: 16,
+    },
+    // List of collections
+    list: {
+        padding: 16,
+    },
+    index: {
+        width: 30,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#000',
+    },
+    productDetails: {
+        flex: 1,
+        paddingHorizontal: 8,
+    },
+    productName: {
+        fontSize: 16,
+        color: '#000',
+    },
+    statusContainer: {
+        width: 60,
+        alignItems: 'center',
+    },
+    activeStatus: {
+        color: '#28a745',
+        fontWeight: 'bold',
+        backgroundColor: '#d4edda',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+    },
+    draftStatus: {
+        color: '#007bff',
+        fontWeight: 'bold',
+        backgroundColor: '#cce5ff',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+    },
+    deleteButton: {
+        padding: 8,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    deleteText: {
+        fontSize: 18,
+    },
     editIcon: {
         width: 20,
         height: 20,
@@ -307,9 +333,5 @@ const Styles = StyleSheet.create({
         justifyContent: "center",
         overflow: "visible"
     },
-    IcEditContainer: {
-        flexDirection: "row",
-    }
-});
-
-export { Category }
+})
+export { ItemMain }

@@ -94,9 +94,6 @@ function Order() {
 
     // sort and input search
 
-    const [searchText, setSearchText] = useState('');
-    const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
-
     const [modalVisible, setModalVisible] = useState(false);
     const [selectOption, setSelectOption] = useState('')
 
@@ -175,6 +172,20 @@ function Order() {
                             </View>
                         </View>
                     </ScrollView>
+                    {/* Search Input Section */}
+
+                    <View style={styles.searchContainer}>
+
+                        {/* Save as Button (Disabled) */}
+                        <View style={styles.saveAsButton}>
+                            <Text style={styles.saveAsText}>Search:</Text>
+                        </View>
+                        {/* Search Input */}
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Searching all collections"
+                        />
+                    </View>
                     {/* Filter */}
                     <View style={{ flexDirection: "row", }}>
                         <ScrollView horizontal={true}>
@@ -207,11 +218,6 @@ function Order() {
 
                         {/* search and sort icon */}
                         <View style={styles.statBoxx}>
-                            <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
-                                <View >
-                                    <Image source={img2} style={styles.statLabell} />
-                                </View>
-                            </TouchableOpacity>
                             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                 <View>
                                     <Image source={imgg} style={styles.statLabell} />
@@ -242,28 +248,6 @@ function Order() {
 
                     </View>
 
-                    {/* Search Input Section */}
-                    {isSearchVisible && (
-                        <View style={styles.searchContainer}>
-                            {/* Search Input */}
-                            <TextInput
-                                style={styles.searchInput}
-                                placeholder="Searching all collections"
-                                value={searchText}
-                                onChangeText={setSearchText}
-                            />
-
-                            {/* Cancel Button */}
-                            <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
-                                <Text style={styles.cancelText}>Cancel</Text>
-                            </TouchableOpacity>
-
-                            {/* Save as Button (Disabled) */}
-                            <View style={styles.saveAsButton}>
-                                <Text style={styles.saveAsText}>Save as</Text>
-                            </View>
-                        </View>
-                    )}
 
                     {/* Orders List */}
                     <FlatList
@@ -329,7 +313,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     create: {
-        backgroundColor: "#a3e3fa",
+        backgroundColor: " #F1F1F2",
         color: "black",
         fontSize: 13,
         paddingHorizontal: 10,
@@ -520,17 +504,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         color: "black"
     },
-    cancelText: {
-        color: '#007AFF',
-        marginLeft: 10,
-        fontSize: 16,
-    },
     saveAsButton: {
-        backgroundColor: '#a3e3fa', // Gray background (disabled)
-        borderRadius: 8,
-        paddingHorizontal: 12,
+        paddingRight:10 ,
         paddingVertical: 8,
-        marginLeft: 10,
+  
     },
     saveAsText: {
         color: 'black', // Disabled text color

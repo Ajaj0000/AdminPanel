@@ -9,7 +9,8 @@ import Profile from "../Profile/Profile";
 import { GiftCardMain } from "../Products/GiftCards/GiftCardParent/GiftCardMain";
 import { CategoryParent } from "../Category/CategoryParent/CategoryParent";
 import { CreateCategoryScreen } from "../Category/CategoryChild/AddCategory";
-
+import { ItemParent } from "../Items/ItemParent/ItemParent";
+import { Additem } from "../Items/ItemChild/Additem";
 
 
 export const ScreensArray = [
@@ -23,7 +24,9 @@ export const ScreensArray = [
     { route: "PurchaseOrders", label: "PurchaseOrders", component: PurchaseOrders },
     { route: "GiftCardMain", label: "GiftCardMain", component: GiftCardMain },
     { route: "Category", label: "Category", component: CategoryParent },
-    { route: "CreateCategoryScreen", label: "CreateCategoryScreen", component: CreateCategoryScreen }
+    { route: "CreateCategoryScreen", label: "CreateCategoryScreen", component: CreateCategoryScreen },
+    { route: "Item", label: "Item", component: ItemParent },
+    // { route: "AddItem", lable: "AddItem", component: Additem }
 ];
 
 // export const drawerMenu = [
