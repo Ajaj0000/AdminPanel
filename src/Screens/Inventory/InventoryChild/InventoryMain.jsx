@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView, Modal, Pressable } from 'react-native';
 import img2 from '../../../Assets/Icons/ich.jpeg';
-import img1 from '../../../Assets/Icons/orderIc.jpeg';
 import product1 from '../../../Assets/Images/man.png';
 
 function InventoryMain() {
 
-    const [searchText, setSearchText] = useState('');
-    const [isSearchVisible, setIsSearchVisible] = useState(false);
 
     const product = [
         {
@@ -106,8 +103,24 @@ function InventoryMain() {
 
 
         <>
+
             <ScrollView>
+                {/* Search Input Section */}
+
+                <View style={styles.searchContainer}>
+
+                    {/* Save as Button (Disabled) */}
+                    <View style={styles.saveAsButton}>
+                        <Text style={styles.saveAsText}>Search:</Text>
+                    </View>
+                    {/* Search Input */}
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Searching all collections"
+                    />
+                </View>
                 <View style={styles.container}>
+
                     <View style={styles.header}>
                         <Text style={styles.headerText}>Inventory</Text>
                         {/* Optional buttons and filters like the 'All' button can be placed here */}
@@ -128,9 +141,7 @@ function InventoryMain() {
                         </View>
 
                         <View style={styles.statBoxx}>
-                            <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
-                                <Image source={img1} style={styles.statLabell} />
-                            </TouchableOpacity>
+
                             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                 <View>
                                     <Image source={img2} style={styles.statLabell} />
@@ -159,28 +170,6 @@ function InventoryMain() {
                         }
                     </View>
 
-                    {/* Search Input Section */}
-                    {isSearchVisible && (
-                        <View style={styles.searchContainer}>
-                            {/* Search Input */}
-                            <TextInput
-                                style={styles.searchInput}
-                                placeholder="Searching all collections"
-                                value={searchText}
-                                onChangeText={setSearchText}
-                            />
-
-                            {/* Cancel Button */}
-                            <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
-                                <Text style={styles.cancelText}>Cancel</Text>
-                            </TouchableOpacity>
-
-                            {/* Save as Button (Disabled) */}
-                            <View style={styles.saveAsButton}>
-                                <Text style={styles.saveAsText}>Save as</Text>
-                            </View>
-                        </View>
-                    )}
 
                     {/* inventory list */}
 
@@ -322,7 +311,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 17,
         fontWeight: 'bold',
-        color:"black"
+        color: "black"
     },
     filterContainer: {
         flexDirection: 'row',
@@ -436,17 +425,12 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
     },
-    cancelText: {
-        color: '#007AFF',
-        marginLeft: 10,
-        fontSize: 16,
-    },
+  
     saveAsButton: {
-        backgroundColor: '#F0F0F0', // Gray background (disabled)
-        borderRadius: 8,
-        paddingHorizontal: 12,
+    
+        paddingRight: 10,
         paddingVertical: 8,
-        marginLeft: 10,
+   
     },
     saveAsText: {
         color: '#A9A9A9', // Disabled text color

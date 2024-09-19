@@ -22,6 +22,14 @@ function CustomDrawer(props) {
 
         },
         {
+            id:10,
+            title:"Item",
+            menuList:[
+                {id:"01", listTitle:"Item", route:"Item"}
+            ]
+
+        },
+        {
             id: 0,
             title: "Dashboard",
             menuList: [

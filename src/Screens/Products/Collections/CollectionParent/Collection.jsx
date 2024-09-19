@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
-import img1 from "../../../../Assets/Icons/orderIc.jpeg";
 import img2 from "../../../../Assets/Icons/ich.jpeg";
 import img from "../../../../Assets/Icons/galleryIcon.jpeg";
 
@@ -20,8 +19,6 @@ const data = [
 ];
 
 function Collection(props) {
-    const [searchText, setSearchText] = useState('');
-    const [isSearchVisible, setIsSearchVisible] = useState(false); // State to control search input visibility
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectOption, setSelectOption] = useState('')
@@ -55,6 +52,20 @@ function Collection(props) {
                     <Text style={Styles.create}>Create Collection</Text>
                 </View>
             </View>
+            {/* Search Input Section */}
+
+            <View style={Styles.searchContainer}>
+
+                {/* Save as Button (Disabled) */}
+                <View style={Styles.saveAsButton}>
+                    <Text style={Styles.saveAsText}>Search:</Text>
+                </View>
+                {/* Search Input */}
+                <TextInput
+                    style={Styles.searchInput}
+                    placeholder="Searching all collections"
+                />
+            </View>
 
             {/* Filter */}
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -68,10 +79,8 @@ function Collection(props) {
                 </View>
 
                 <View style={Styles.statBoxx}>
-                    <TouchableOpacity onPress={() => setIsSearchVisible(true)}>
-                        <Image source={img1} style={Styles.statLabell} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)}>
+
+                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                         <View>
                             <Image source={img2} style={Styles.statLabell} />
                         </View>
@@ -87,7 +96,7 @@ function Collection(props) {
                                     <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
                                         <View style={Styles.radioCheck} key={index}>
                                             <View style={Styles.radioOuter} >
-                                                <View style={[Styles.radioInner,{ backgroundColor: selectOption === item.title ? '#a3e3fa' : "white" } ]}></View>
+                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? '#a3e3fa' : "white" }]}></View>
                                             </View>
                                             <Text>{item.title}</Text>
                                         </View>
@@ -100,28 +109,6 @@ function Collection(props) {
 
             </View>
 
-            {/* Search Input Section */}
-            {isSearchVisible && (
-                <View style={Styles.searchContainer}>
-                    {/* Search Input */}
-                    <TextInput
-                        style={Styles.searchInput}
-                        placeholder="Searching all collections"
-                        value={searchText}
-                        onChangeText={setSearchText}
-                    />
-
-                    {/* Cancel Button */}
-                    <TouchableOpacity onPress={() => setIsSearchVisible(false)}>
-                        <Text style={Styles.cancelText}>Cancel</Text>
-                    </TouchableOpacity>
-
-                    {/* Save as Button (Disabled) */}
-                    <View style={Styles.saveAsButton}>
-                        <Text style={Styles.saveAsText}>Save as</Text>
-                    </View>
-                </View>
-            )}
 
             {/* Collection List */}
             <FlatList
@@ -184,17 +171,9 @@ const Styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
     },
-    cancelText: {
-        color: '#007AFF',
-        marginLeft: 10,
-        fontSize: 16,
-    },
     saveAsButton: {
-        backgroundColor: '#a3e3fa', // Gray background (disabled)
-        borderRadius: 8,
-        paddingHorizontal: 12,
+        paddingRight: 10,
         paddingVertical: 8,
-        marginLeft: 10,
     },
     saveAsText: {
         color: 'black', // Disabled text color
