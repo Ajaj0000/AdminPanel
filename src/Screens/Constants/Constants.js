@@ -23,10 +23,7 @@ export const ScreensArray = [
     { route: "Purchase", label: "Purchase", component: PurchaseOrders },
     { route: "GiftCard", label: "GiftCard", component: GiftCardMain },
     { route: "Category", label: "Category", component: CategoryParent },
-<<<<<<< HEAD
-    { route: "CreateCategoryScreen", label: "Add Category", component: CreateCategoryScreen }
-];
-=======
+    { route: "CreateCategoryScreen", label: "Add Category", component: CreateCategoryScreen },
     { route: "CreateCategoryScreen", label: "CreateCategoryScreen", component: CreateCategoryScreen },
     { route: "Item", label: "Item", component: ItemParent },
     // { route: "AddItem", lable: "AddItem", component: Additem }
@@ -73,5 +70,4 @@ export const ScreensArray = [
 //         title: "Discounts",
 //         route: "Discounts",
 //     }
-// ]
->>>>>>> a37534659b5e58372f2bba0dab0f17b33d087b6c
+// ]r

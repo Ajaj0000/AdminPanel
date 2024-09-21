@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import IcArrow from '../../../Assets/Icons/arrow-down-sign-to-navigate.png';
 import IcCancel from '../../../Assets/Icons/closeIc.png'
 import TempScreen from './TextEditor';
@@ -76,9 +76,9 @@ function CreateCategoryScreen() {
 
             {/* Category Icon */}
             <View style={styles.formGroup}>
-                <Text style={styles.label}>Category Icon</Text>
+                <Text style={styles.label}>Category Image</Text>
                 <TouchableOpacity style={styles.uploadBox} onPress={handleFileUpload}>
-                    <Text style={styles.uploadText}>Drag and drop a file here or click</Text>
+                    <Text style={styles.uploadText}>Drag and drop a Image here or click</Text>
                 </TouchableOpacity>
             </View>
 
@@ -208,13 +208,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     submitButton: {
-        backgroundColor: '#1E90FF',
+        backgroundColor: 'black',
         paddingVertical: 12,
         borderRadius: 6,
         alignItems: 'center',
     },
     submitButtonText: {
-        color: '#FFF',
+        color: 'white',
         fontWeight: 'bold',
     },
 });

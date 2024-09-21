@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
 import img2 from "../../../Assets/Icons/ich.jpeg";
-import img from "../../../Assets/Icons/galleryIcon.jpeg";
+import image1 from "../../../Assets/Icons/bin.png";
+import img from "../../../Assets/Images/download.jpeg";
 import IcEdit from '../../../Assets/Icons/edit.png';
 import IcStop from '../../../Assets/Icons/stop.png';
 
@@ -76,8 +77,22 @@ function Category({ handelNav }) {
                     <View style={Styles.statBox}>
                         <Text style={Styles.statLabel}>All</Text>
                     </View>
-                    <View style={Styles.statBox}>
-                        <Text style={Styles.statLabel}>+</Text>
+                    <TouchableOpacity>
+                    <View style={Styles.statactive}>
+                        <Text style={Styles.statLabelactive}>Active</Text>
+                    </View>
+                    </TouchableOpacity> 
+                    <TouchableOpacity>
+                    <View style={Styles.statactive}>
+                        <Text style={Styles.statLabelactive}>Inactive</Text>
+                    </View>
+                    </TouchableOpacity>
+                    <View style={Styles.statBoxx}>
+                        <TouchableOpacity>
+                            <View>
+                                <Image source={image1} style={Styles.statedit} />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -99,7 +114,7 @@ function Category({ handelNav }) {
                                     <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
                                         <View style={Styles.radioCheck} key={index}>
                                             <View style={Styles.radioOuter} >
-                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? '#75AAF0' : "white" }]}></View>
+                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
                                             </View>
                                             <Text style={{ color: "black" }}>{item.title}</Text>
                                         </View>
@@ -118,7 +133,7 @@ function Category({ handelNav }) {
                 renderItem={({ item }) => (
                     <TouchableOpacity>
                         <View style={Styles.item}>
-                            <Image source={img} style={{ width: 24, height: 25, marginRight: 10 }} />
+                            <Image source={img} style={{ width: 40, height: 60, marginRight: 10 }} />
                             <View>
                                 <Text style={Styles.title}>{item.title}</Text>
                                 <Text style={Styles.products}>{item.products} Items</Text>
@@ -179,7 +194,7 @@ const Styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         height: 40,
-        borderColor: '#007AFF', // Blue outline
+        borderColor: 'black', // Blue outline
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
@@ -207,6 +222,19 @@ const Styles = StyleSheet.create({
         borderRadius: 8,
         marginHorizontal: 5
     },
+    statactive: {
+        alignItems: "center",
+        backgroundColor: '#ffffff',
+        padding: 10,
+        borderRadius: 8,
+        marginHorizontal: 3
+    },
+    statLabelactive: {
+        fontSize: 16,
+        textAlign: "center",
+        width: 60,
+        color: "#888",
+    },
     statLabel: {
         fontSize: 16,
         textAlign: "center",
@@ -221,6 +249,13 @@ const Styles = StyleSheet.create({
         marginHorizontal: 10,
         height: 41,
         flexDirection: "row"
+    },
+    statedit: {
+        paddingHorizontal: 6,
+        fontSize: 17,
+        width: 25,
+        height: 25,
+        color: "#888",
     },
     statLabell: {
         paddingHorizontal: 6,
@@ -282,7 +317,7 @@ const Styles = StyleSheet.create({
         height: 15,
         margin: 5,
         borderWidth: 1,
-        borderColor: "#a3e3fa",
+        borderColor: "black",
         justifyContent: "center",
         alignItems: "center",
         // backgroundColor: "black"
@@ -293,7 +328,7 @@ const Styles = StyleSheet.create({
         height: 10,
         margin: 5,
         borderWidth: 1,
-        borderColor: "#a3e3fa",
+        borderColor: "black",
         backgroundColor: "white",
     },
 

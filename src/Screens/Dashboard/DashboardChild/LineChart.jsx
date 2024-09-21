@@ -9,6 +9,7 @@ function LineChartt() {
 
     return (
         <>
+        
             <View>
                 <Text>Bezier Line Chart</Text>
                 <LineChart

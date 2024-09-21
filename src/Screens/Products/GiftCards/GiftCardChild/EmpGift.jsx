@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "react-native-paper";
 import { EmptySectionImage } from "../../../../CommonScreens/EmptySectionImage";
 import giftImg from '../../../../Assets/Images/giftCard.png';
 

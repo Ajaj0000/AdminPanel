@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { ScrollView, Text, View, StyleSheet, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
 import { Card, Badge } from 'react-native-paper';
 import imgg from '../../Assets/Icons/ich.jpeg';
-import img2 from '../../Assets/Icons/orderIc.jpeg';
-
 
 const orders = [
     {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView, Modal, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import img2 from '../../../Assets/Icons/ich.jpeg';
 import product1 from '../../../Assets/Images/man.png';
 
