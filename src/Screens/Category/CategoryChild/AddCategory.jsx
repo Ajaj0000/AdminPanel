@@ -3,6 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image,
 import IcArrow from '../../../Assets/Icons/arrow-down-sign-to-navigate.png';
 import IcCancel from '../../../Assets/Icons/closeIc.png'
 import TempScreen from './TextEditor';
+import box from '../../../Assets/Icons/square.png';
+import check from '../../../Assets/Icons/check.png';
+
 
 function CreateCategoryScreen() {
 
@@ -18,10 +21,28 @@ function CreateCategoryScreen() {
         { id: "1", title: "Story" },
         { id: "2", title: "Biography" },
         { id: "3", title: "Competition" },
+    ];
+
+    const tex =[
+        {id:1, title:"GST"},
+        {id:2, title:"GST2"},
+        {id:3, title:"GST3"},
     ]
+
 
     const [open, setOpen] = useState(false)
     const [selectValue, setSelectedValue] = useState('')
+
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [openn, setOpenn] = useState(false)
+
+    const toggleSelectItem = (id) => {
+        if (selectedItems.includes(id)) {
+            setSelectedItems(selectedItems.filter(item => item !== id));
+        } else {
+            setSelectedItems([...selectedItems, id]);
+        }
+    };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -30,7 +51,7 @@ function CreateCategoryScreen() {
                 <Text style={styles.label}>Select Parent Category</Text>
                 <TouchableOpacity onPress={() => setOpen(!open)}>
                     <View style={styles.formGroup1}>
-                        <Text style={styles.parentCat}>{selectValue === ''? "Select Parent Category" : selectValue}</Text>
+                        <Text style={styles.parentCat}>{selectValue === '' ? "Select Parent Category" : selectValue}</Text>
                         <Image source={open ? IcCancel : IcArrow} style={styles.arrowIc} />
                     </View>
                 </TouchableOpacity>
@@ -40,14 +61,15 @@ function CreateCategoryScreen() {
                             categoryy.map((itm, index) => {
                                 return (
                                     <>
-                                        <TouchableOpacity key={index} onPress={()=>{setSelectedValue(itm.title); setOpen(false)}}>
+                                        <TouchableOpacity key={index} onPress={() => { setSelectedValue(itm.title); setOpen(false) }}>
                                             <Text style={styles.selectText}>{itm.title}</Text>
                                         </TouchableOpacity>
                                     </>
                                 )
                             })
                         }
-                    </View>}
+                    </View>
+                }
             </View>
 
             {/* Title Input */}
@@ -63,14 +85,31 @@ function CreateCategoryScreen() {
 
 
             {/* Select Tax (Multi Select) */}
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>Select Tax (Multi Select)</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter tax details"
-                    value={taxes}
-                    onChangeText={setTaxes}
-                />
+            <View style={styles.catLable}>
+                <View>
+                    <Text style={styles.label}>Tex (Multi Select)</Text>
+                    <TouchableOpacity onPress={() => setOpenn(!openn)}>
+                        <Text style={styles.input} onFocus={() => setOpenn(!openn)}>{selectedItems.join(', ') || "Tex (Multi Select)"}</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Dropdown List */}
+                {
+                    openn && (
+                        <View style={styles.selectList}>
+                            {tex.map((item) => (
+                                <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpenn(true) }}>
+                                    <View style={styles.ListItems}>
+                                        <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
+                                        <Text style={styles.checkText}>{item.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+
+                    )
+                }
+
             </View>
 
 
@@ -94,7 +133,7 @@ function CreateCategoryScreen() {
                     multiline={true}
                     numberOfLines={4}
                 /> */}
-                <TempScreen/>
+                <TempScreen />
             </View>
 
             {/* Buttons */}
@@ -122,9 +161,7 @@ const styles = StyleSheet.create({
 
     selectList: {
         backgroundColor: "white",
-        borderRadius: 10,
         elevation: 1,
-        padding: 5,
         marginTop: 5,
         position: "absolute",
         width: "100%",
@@ -137,6 +174,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: 5,
         borderBottomColor: "#BBBBBB",
+        color: "grey",
     },
 
     arrowIc: {
@@ -216,6 +254,32 @@ const styles = StyleSheet.create({
     submitButtonText: {
         color: '#FFF',
         fontWeight: 'bold',
+    },
+
+     // selected List
+     selectList: {
+        backgroundColor: "white",
+        elevation: 1,
+        marginTop: 5,
+        position: "absolute",
+        width: "100%",
+        top: 70,
+        zIndex: 10,
+    },
+    ListItems: {
+        flexDirection: "row",
+        margin: 2,
+        marginVertical: 3,
+    },
+    checkImg: {
+        width: 22,
+        height: 22,
+        marginRight: 4,
+    },
+    checkText: {
+        fontSize: 14,
+        color: "black",
+        marginLeft: 4,
     },
 });
 
