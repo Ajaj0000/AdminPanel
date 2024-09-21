@@ -7,15 +7,6 @@ function Dashboard() {
 
     return (
         <>
-            {/* <View style={styles.TopNavbar}>
-                <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}>
-                    <Image source={menuImage} style={{ width: 22, height: 22, color: "red", }} />
-                </TouchableOpacity>
-                <TextInput placeholder='Search here' style={styles.navSearch} />
-                <Text style={styles.ballIcon}>Ball</Text>
-                <Text style={styles.tb2}>TB2</Text>
-            </View> */}
-
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.topCont}>
@@ -54,20 +45,6 @@ function Dashboard() {
                             </View>
                         </View>
                     </ScrollView>
-
-
-                    {/* <LineChart
-                    data={data}
-                    width={screenWidth - 40} // from Dimensions
-                    height={220}
-                    chartConfig={{
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Ensure you return the color
-                          // Added return statement
-                        strokeWidth: 2, // optional
-                    }}
-                    bezier
-                /> */}
                     <View style={styles.chartContainer}>
                         <LineChartt />
                     </View>

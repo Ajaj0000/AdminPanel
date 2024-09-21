@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity,Text } from "react-native";
 import img2 from "../../../../Assets/Icons/ich.jpeg";
 import img from "../../../../Assets/Icons/galleryIcon.jpeg";
 

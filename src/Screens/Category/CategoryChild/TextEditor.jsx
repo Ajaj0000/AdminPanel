@@ -9,21 +9,23 @@ const TempScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1 ,height:200 }}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1, height: 200 ,borderColor:"#BBBBBB",borderWidth:1,borderRadius:10}}>
                     <RichEditor
                         ref={richText}
                         onChange={descriptionText => {
                             console.log("descriptionText:", descriptionText);
                         }}
-                        style={{ minHeight:200,color:"black" ,backgroundColor:"red"}} // Added minHeight for better rendering
+                        style={{ minHeight: 200, color: "black" }} // Added minHeight for better rendering
+                        editorStyle={{backgroundColor:"transparent",}}
                     />
                 </KeyboardAvoidingView>
             </ScrollView>
 
             <RichToolbar
                 editor={richText}
-                actions={[actions.setBold, actions.setItalic, actions.setUnderline, actions.heading1]}
+                actions={[actions.undo,actions.setBold, actions.setItalic, actions.setUnderline,actions.setStrikethrough, actions.insertImage,actions.redo]}
                 iconMap={{ [actions.heading1]: handleHead }}
+                
             />
 
         </SafeAreaView>

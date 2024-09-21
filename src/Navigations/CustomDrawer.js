@@ -43,9 +43,9 @@ function CustomDrawer(props) {
             menuList: [
                 { id: "b1", listTitle: "Collections", route: "Collection" },
                 { id: "b2", listTitle: "Inventory", route: "Inventory" },
-                { id: "b3", listTitle: "Purchase", route: "PurchaseOrders" },
+                { id: "b3", listTitle: "Purchase", route: "Purchase" },
                 { id: "b4", listTitle: "Transfers", route: "Transfers" },
-                { id: "b5", listTitle: "Gift Card", route: "GiftCardMain" },
+                { id: "b5", listTitle: "Gift Card", route: "GiftCard" },
             ]
         },
         {
