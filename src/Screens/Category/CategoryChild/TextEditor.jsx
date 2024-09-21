@@ -9,13 +9,13 @@ const TempScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1 }}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1 ,height:200 }}>
                     <RichEditor
                         ref={richText}
                         onChange={descriptionText => {
                             console.log("descriptionText:", descriptionText);
                         }}
-                        style={{ minHeight:200,color:"black" }} // Added minHeight for better rendering
+                        style={{ minHeight:200,color:"black" ,backgroundColor:"red"}} // Added minHeight for better rendering
                     />
                 </KeyboardAvoidingView>
             </ScrollView>
