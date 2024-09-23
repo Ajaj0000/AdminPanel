@@ -1,6 +1,6 @@
 import React from "react";
 import { styles } from "./DashStyle";
-import { View, Text, ScrollView} from "react-native";
+import { View, Text, ScrollView, Touchable, TouchableOpacity} from "react-native";
 import { LineChartt } from "../DashboardChild/LineChart";
 
 function Dashboard() {

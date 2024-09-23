@@ -230,13 +230,13 @@ const Styles = StyleSheet.create({
         marginHorizontal: 3
     },
     statLabelactive: {
-        fontSize: 16,
+        fontSize: 14,
         textAlign: "center",
         width: 60,
         color: "#888",
     },
     statLabel: {
-        fontSize: 16,
+        fontSize: 14,
         textAlign: "center",
         width: 30,
         color: "#888",
@@ -246,7 +246,7 @@ const Styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         padding: 10,
         borderRadius: 8,
-        marginHorizontal: 10,
+        marginHorizontal: 7,
         height: 41,
         flexDirection: "row"
     },

@@ -5,6 +5,9 @@ import IcCancel from '../../../Assets/Icons/closeIc.png'
 import TempScreen from './TextEditor';
 import box from '../../../Assets/Icons/square.png';
 import check from '../../../Assets/Icons/check.png';
+import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera } from 'react-native-image-picker';
+let launchImageLibrary = _launchImageLibrary;
+let launchCamera = _launchCamera;
 
 
 function CreateCategoryScreen() {
@@ -23,10 +26,10 @@ function CreateCategoryScreen() {
         { id: "3", title: "Competition" },
     ];
 
-    const tex =[
-        {id:1, title:"GST"},
-        {id:2, title:"GST2"},
-        {id:3, title:"GST3"},
+    const tex = [
+        { id: 1, title: "GST" },
+        { id: 2, title: "GST2" },
+        { id: 3, title: "GST3" },
     ]
 
 
@@ -41,6 +44,43 @@ function CreateCategoryScreen() {
             setSelectedItems(selectedItems.filter(item => item !== id));
         } else {
             setSelectedItems([...selectedItems, id]);
+        }
+    };
+
+
+    // image upload
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const openImagePicker = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchImageLibrary(options, handleResponse);
+    };
+
+    const handleCameraLaunch = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchCamera(options, handleResponse);
+    };
+
+    const handleResponse = (response) => {
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('Image picker error: ', response.error);
+        } else {
+            let imageUri = response.uri || response.assets?.[0]?.uri;
+            setSelectedImage(imageUri);
         }
     };
 
@@ -116,8 +156,8 @@ function CreateCategoryScreen() {
             {/* Category Icon */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Category Image</Text>
-                <TouchableOpacity style={styles.uploadBox} onPress={handleFileUpload}>
-                    <Text style={styles.uploadText}>Drag and drop a Image here or click</Text>
+                <TouchableOpacity style={styles.uploadBox} onPress={openImagePicker}>
+                    <Text style={styles.uploadText}>{selectedImage ? <Image source={{ uri: selectedImage }}/> : "Click here to Select Image"}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -125,14 +165,6 @@ function CreateCategoryScreen() {
             {/* Description */}
             <View style={styles.formGroup}>
                 <Text style={styles.label}>Description</Text>
-                {/* <TextInput
-                    style={styles.textArea}
-                    placeholder="Enter description"
-                    value={description}
-                    onChangeText={setDescription}
-                    multiline={true}
-                    numberOfLines={4}
-                /> */}
                 <TempScreen />
             </View>
 
@@ -189,6 +221,9 @@ const styles = StyleSheet.create({
         margin: 5
     },
     formGroup: {
+        marginBottom: 20,
+    },
+    catLable: {
         marginBottom: 20,
     },
     label: {
@@ -256,8 +291,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-     // selected List
-     selectList: {
+    // selected List
+    selectList: {
         backgroundColor: "white",
         elevation: 1,
         marginTop: 5,

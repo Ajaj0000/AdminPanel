@@ -1,6 +1,6 @@
 import React from 'react';
 import { EmptySectionImage } from '../../../CommonScreens/EmptySectionImage';
-import img from '../../../Assets/Images/download.png';
+import img from '../../../Assets/Images/download1.png';
 
 function PurchaseOrders() {
     return (
