@@ -8,9 +8,10 @@ function ItemSection() {
 
     const [isCheck, setIsCheck] = useState(false)
 
+
     const [selectedItems, setSelectedItems] = useState([]);
     const [open, setOpen] = useState(false);
-    const [photo, setPhoto] = useState(null)
+    const [photo, setPhoto] = useState(null);
 
     const toggleSelectItem = (id) => {
         if (selectedItems.includes(id)) {
@@ -26,25 +27,25 @@ function ItemSection() {
         { id: 3, title: "agriculture" },
     ];
 
-    const handleOutsidePress = () => {
-        if (open) {
-            setOpen(false);
-        }
-    };
+    // const handleOutsidePress = () => {
+    //     if (open) {
+    //         setOpen(false);
+    //     }
+    // };
 
-    const handleChoosePhoto = () => {
-        launchImageLibrary({ noData: true }, (response) => {
-            console.log(response);
-            if (response) {
-                setPhoto(response);
-            }
-        });
-    };
+    // const handleChoosePhoto = () => {
+    //     launchImageLibrary({ noData: true }, (response) => {
+    //         console.log(response);
+    //         if (response) {
+    //             setPhoto(response);
+    //         }
+    //     });
+    // };
 
 
 
     return (
-        <>
+        <> 
             {/* Use TouchableWithoutFeedback to handle outside clicks */}
             <TouchableWithoutFeedback>
                 <ScrollView contentContainerStyle={styles.container}>
@@ -122,7 +123,7 @@ function ItemSection() {
                     {/* Category Icon */}
                     <View style={styles.formGroup}>
                         <Text style={styles.label}>Category Icon</Text>
-                        <TouchableOpacity style={styles.uploadBox} onPress={handleChoosePhoto}>
+                        <TouchableOpacity style={styles.uploadBox} >
                             <Text style={styles.uploadText}><Image source={{ uri: photo }} /></Text>
                         </TouchableOpacity>
                     </View>
@@ -188,13 +189,13 @@ const styles = StyleSheet.create({
         color: '#AAA',
     },
     submitButton: {
-        backgroundColor: '#1E90FF',
+        backgroundColor: 'black',
         paddingVertical: 12,
         borderRadius: 6,
         alignItems: 'center',
     },
     submitButtonText: {
-        color: '#FFF',
+        color: 'black',
         fontWeight: 'bold',
     },
 

@@ -257,15 +257,6 @@ const styles = StyleSheet.create({
     },
 
      // selected List
-     selectList: {
-        backgroundColor: "white",
-        elevation: 1,
-        marginTop: 5,
-        position: "absolute",
-        width: "100%",
-        top: 70,
-        zIndex: 10,
-    },
     ListItems: {
         flexDirection: "row",
         margin: 2,
