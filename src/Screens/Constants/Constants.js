@@ -29,5 +29,3 @@ export const ScreensArray = [
     { route: "Item", label: "Item", component: ItemParent },
     
 ];
-
-

@@ -1,15 +1,17 @@
 import 'react-native-gesture-handler';
 import React, { useState } from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { CustomDrawer } from './CustomDrawer';
 import { ActivityIndicator, View } from 'react-native';
-import { ScreensArray } from '../Screens/Constants/Constants';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Dashboard } from '../Screens/Dashboard/DashboardParent/Dashboard';
+import { CategoryMain } from '../Screens/Category/CategoryParent/CategoryMain';
+import { CollectionStack } from '../Screens/Products/Collections/CollectionParent/CollectionStack';
+import { OrderStack } from '../Screens/Orders/OrdersChild/OrderStack';
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator()
 
 function Route() {
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     setTimeout(() => {
         setLoading(false)
     }, 1500);
@@ -25,24 +27,18 @@ function Route() {
                     :
                     <>
 
-                        <Drawer.Navigator
-                            drawerContent={(props) => <CustomDrawer {...props} />}
+                        <Tab.Navigator
                             screenOptions={{
                                 drawerType: 'slide',
                             }}
                             backBehavior='history'
-                            
                         >
-                            {
-                                ScreensArray.map((item, index) => {
-                                    return (
-                                        <>
-                                            <Drawer.Screen key={index} name={item.label} component={item.component} />
-                                        </>
-                                    )
-                                })
-                            }
-                        </Drawer.Navigator>
+                           
+                            <Tab.Screen options={{headerShown:true}} name="Dashboard" component={Dashboard} />
+                            <Tab.Screen name='Collections' options={{headerShown:false}} component={CollectionStack} />
+                            <Tab.Screen name='Category' options={{headerShown:false}} component={CategoryMain} />
+                            <Tab.Screen name='Order' options={{headerShown:false}} component={OrderStack}/>
+                        </Tab.Navigator>
                     </>
             }
 

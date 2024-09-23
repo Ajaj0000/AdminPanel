@@ -3,6 +3,9 @@ import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Image,
 import TempScreen from "../../Category/CategoryChild/TextEditor";
 import check from '../../../Assets/Icons/check.png';
 import box from '../../../Assets/Icons/square.png';
+import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera } from 'react-native-image-picker';
+let launchImageLibrary = _launchImageLibrary;
+let launchCamera = _launchCamera;
 
 function ItemSection() {
 
@@ -33,14 +36,41 @@ function ItemSection() {
     //     }
     // };
 
-    // const handleChoosePhoto = () => {
-    //     launchImageLibrary({ noData: true }, (response) => {
-    //         console.log(response);
-    //         if (response) {
-    //             setPhoto(response);
-    //         }
-    //     });
-    // };
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const openImagePicker = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchImageLibrary(options, handleResponse);
+    };
+
+    const handleCameraLaunch = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchCamera(options, handleResponse);
+    };
+
+    const handleResponse = (response) => {
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('Image picker error: ', response.error);
+        } else {
+            let imageUri = response.uri || response.assets?.[0]?.uri;
+            setSelectedImage(imageUri);
+        }
+    };
+
 
 
 
@@ -55,7 +85,7 @@ function ItemSection() {
                         <TextInput placeholder="Enter Title" style={styles.input} />
                     </View>
 
-                    <TouchableOpacity onPress={()=>setIsCheck(!isCheck)}>
+                    <TouchableOpacity onPress={() => setIsCheck(!isCheck)}>
                         <View style={styles.checkContainer}>
                             <Image source={isCheck ? check : box} style={styles.checkBox} />
                             <Text style={styles.label}>Coupon Code/Rewards Application</Text>

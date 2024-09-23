@@ -288,13 +288,14 @@ const styles = StyleSheet.create({
     containerHeader: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        // padding: 10,
-        margin: 10,
+        padding: 12,
         alignItems: "center",
+        backgroundColor:"white",
     },
     order: {
-        fontSize: 17,
+        fontSize: 18,
         color: "black",
+        fontWeight:"600"
     },
     actionBox: {
         justifyContent: 'space-evenly',

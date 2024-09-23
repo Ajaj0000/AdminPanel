@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity,Text } from "react-native";
+import { StyleSheet, View, Image, FlatList, TextInput, TouchableOpacity, Text } from "react-native";
 import img2 from "../../../../Assets/Icons/ich.jpeg";
 import img from "../../../../Assets/Icons/galleryIcon.jpeg";
 
@@ -47,9 +47,11 @@ function Collection(props) {
         <>
             <View style={Styles.containerHeader}>
                 <Text style={Styles.order}>Collections</Text>
-                <View style={Styles.actionBox}>
-                    <Text style={Styles.create}>Create Collection</Text>
-                </View>
+                <TouchableOpacity onPress={()=>props.navigation.navigate("Create Collection")}>
+                    <View style={Styles.actionBox}>
+                        <Text style={Styles.create}>Create Collection</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
             {/* Search Input Section */}
 
@@ -136,12 +138,14 @@ const Styles = StyleSheet.create({
     containerHeader: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        padding: 10,
+        padding: 12,
         alignItems: "center",
+        backgroundColor:"white",
     },
     order: {
-        fontSize: 17,
+        fontSize: 18,
         color: "black",
+        fontWeight:"600"
     },
     actionBox: {
         justifyContent: 'space-evenly',
