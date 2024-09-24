@@ -194,10 +194,9 @@ const styles = StyleSheet.create({
     selectText: {
         fontSize: 14,
         fontWeight: "500",
-        borderBottomWidth: 1,
         padding: 5,
-        borderBottomColor: "#BBBBBB",
-        color: "grey",
+        margin:3,
+        color: "black",
     },
 
     arrowIc: {
@@ -285,16 +284,18 @@ const styles = StyleSheet.create({
     // selected List
     selectList: {
         backgroundColor: "white",
-        elevation: 1,
+        elevation: 2,
         marginTop: 5,
         position: "absolute",
         width: "100%",
         top: 70,
         zIndex: 10,
+        padding:10
     },
     ListItems: {
         flexDirection: "row",
-        margin: 2,
+        margin: 3,
+        padding:5,
         marginVertical: 3,
     },
     checkImg: {

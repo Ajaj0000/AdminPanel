@@ -233,7 +233,7 @@ function Order() {
                                             <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
                                                 <View style={styles.radioCheck} key={index}>
                                                     <View style={styles.radioOuter} >
-                                                        <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? '#75AAF0' : "white" }]}></View>
+                                                        <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
                                                     </View>
                                                     <Text style={{ color: "black" }}>{item.title}</Text>
                                                 </View>
@@ -473,7 +473,7 @@ const styles = StyleSheet.create({
         height: 15,
         margin: 5,
         borderWidth: 1,
-        borderColor: "#a3e3fa",
+        borderColor: "black",
         justifyContent: "center",
         alignItems: "center",
         // backgroundColor: "black"
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
         height: 10,
         margin: 5,
         borderWidth: 1,
-        borderColor: "#a3e3fa",
+        borderColor: "black",
         backgroundColor: "white",
     },
 
@@ -497,7 +497,7 @@ const styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         height: 40,
-        borderColor: '#007AFF', // Blue outline
+        borderColor: 'black', // Blue outline
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,

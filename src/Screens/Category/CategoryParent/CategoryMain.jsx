@@ -1,8 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-import { CategoryParent } from './CategoryParent';
-import { ItemParent } from '../../Items/ItemParent/ItemParent';
-import { Text } from 'react-native';
 import { ItemStack } from '../../Items/ItemParent/ItemStack';
 import { StackCategory } from './StackCategory';
 

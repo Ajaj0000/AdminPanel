@@ -75,7 +75,7 @@ function ItemSection() {
 
 
     return (
-        <> 
+        <>
             {/* Use TouchableWithoutFeedback to handle outside clicks */}
             <TouchableWithoutFeedback>
                 <ScrollView contentContainerStyle={styles.container}>
@@ -104,7 +104,7 @@ function ItemSection() {
                             <View>
                                 <Text style={styles.label}>Sub Category</Text>
                                 <TouchableOpacity onPress={() => setOpen(!open)}>
-                                    <Text style={styles.input} onFocus={() => setOpen(!open)}>{selectedItems.join(', ') || "Select sub category"}</Text>
+                                    <Text style={[styles.input, { padding: 13 }]} onFocus={() => setOpen(!open)}>{selectedItems.join(', ') || "Select here"}</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -225,25 +225,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     submitButtonText: {
-        color: 'black',
+        color: 'white',
         fontWeight: 'bold',
     },
 
     // selected List
     selectList: {
         backgroundColor: "white",
-        borderRadius: 10,
-        elevation: 1,
+        elevation: 2,
         padding: 5,
         marginTop: 5,
         position: "absolute",
         width: "100%",
         top: 80,
         zIndex: 10,
+        padding:10,
     },
     ListItems: {
         flexDirection: "row",
-        margin: 2,
+        margin: 3,
+        padding: 5,
         marginVertical: 3,
     },
     checkImg: {

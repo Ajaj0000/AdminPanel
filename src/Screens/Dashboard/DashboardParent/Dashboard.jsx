@@ -1,12 +1,16 @@
 import React from "react";
 import { styles } from "./DashStyle";
-import { View, Text, ScrollView, Touchable, TouchableOpacity} from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { LineChartt } from "../DashboardChild/LineChart";
+import { PieChartt } from "../DashboardChild/PieChart";
+// import AntDesign from "react-native-vector-icons/AntDesign";
+
 
 function Dashboard() {
 
     return (
         <>
+            {/* <AntDesign name="stepforward" size={30} color="red" /> */}
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.topCont}>
@@ -45,6 +49,9 @@ function Dashboard() {
                             </View>
                         </View>
                     </ScrollView>
+                    <View style={styles.chartContainer}>
+                        <PieChartt />
+                    </View>
                     <View style={styles.chartContainer}>
                         <LineChartt />
                     </View>

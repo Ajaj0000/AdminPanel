@@ -23,7 +23,7 @@ const TempScreen = () => {
 
             <RichToolbar
                 editor={richText}
-                actions={[actions.undo,actions.setBold, actions.setItalic, actions.setUnderline,actions.setStrikethrough, actions.insertImage,actions.redo]}
+                actions={[actions.undo,actions.setBold, actions.setItalic, actions.setUnderline,actions.setStrikethrough,actions.redo]}
                 iconMap={{ [actions.heading1]: handleHead }}
                 
             />

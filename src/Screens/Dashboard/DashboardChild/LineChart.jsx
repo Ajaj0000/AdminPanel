@@ -41,7 +41,7 @@ function LineChartt() {
                         propsForDots: {
                             r: "6",
                             strokeWidth: "2",
-                            stroke: "blue"
+                            stroke: "#808080"
                         }
                     }}
                     bezier

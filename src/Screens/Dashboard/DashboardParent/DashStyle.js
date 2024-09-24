@@ -6,9 +6,7 @@ const styles = StyleSheet.create({
         marginBottom:10,
         justifyContent:"flex-start",
         alignItems:"flex-start",
-        padding: 10,
         borderRadius: 8,
-        marginHorizontal: 5,
     },
     topBox:{
         alignItems:"center",
@@ -33,16 +31,13 @@ const styles = StyleSheet.create({
         overflow:"scroll"
     },
     statBox: {
-        // flex: 5,
-        // flexDirection:'row',
-        // justifyContent: 'center',
         alignItems:"center",
         backgroundColor: '#ffffff',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 5,
         width:200,
-        height:70,
+        height:80,
     },
     statLabel: {
         fontSize: 14,
