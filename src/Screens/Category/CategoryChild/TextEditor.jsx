@@ -9,7 +9,7 @@ const TempScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1, height: 200 ,borderColor:"#BBBBBB",borderWidth:1,borderRadius:10}}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "position"} style={{ flex: 1, height: 200 ,backgroundColor:"#F0F0F0",elevation:2,borderRadius:5}}>
                     <RichEditor
                         ref={richText}
                         onChange={descriptionText => {
