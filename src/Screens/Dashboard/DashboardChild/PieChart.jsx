@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Text } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 
 function PieChartt() {
@@ -9,28 +9,28 @@ function PieChartt() {
         {
             name: 'Category A',
             sell: 30,
-            color: '#000000', // Black
+            color: '#70c4a5', // Black #000000
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category B',
             sell: 70,
-            color: '#808080', // Gray
+            color: '#85d1b4', // Gray #808080
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category C',
             sell: 80,
-            color: '#C0C0C0', // Light Gray
+            color: '#a0e0c6', // Light Gray #C0C0C0
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category D',
             sell: 55,
-            color: '#FFFFFF', // White
+            color: '#38856c', // White #FFFFFF
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
@@ -39,9 +39,10 @@ function PieChartt() {
     return (
         <>
             <View>
+                {/* <Text style={{color:"g", fontSize:20,fontWeight:"500"}}>Sell In Categories</Text> */}
                 <PieChart
                     data={data}
-                    width={screenWidth}
+                    width={screenWidth - 40}
                     height={220}
                     chartConfig={{
                         backgroundColor: '#fff',

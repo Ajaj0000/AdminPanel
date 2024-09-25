@@ -7,14 +7,25 @@ function LineChartt() {
 
     const screenWidth = Dimensions.get("window").width;
 
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const currentMonth = new Date().getMonth();
+
+    // console.warn(currentMonth);
+    let result = []
+    for (i = currentMonth - 6; i <= currentMonth; i++) {
+        result.push(months[i])
+    }
+
+
     return (
         <>
-        
+
             <View>
                 <Text>Bezier Line Chart</Text>
                 <LineChart
                     data={{
-                        labels: ["January", "February", "March", "April", "May", "June"],
+                        labels: result,
                         datasets: [
                             {
                                 data: [
@@ -28,26 +39,27 @@ function LineChartt() {
                             }
                         ]
                     }}
-                    width={screenWidth - 60} // from react-native
+                    width={screenWidth - 50} // from react-native
                     height={220}
                     yAxisLabel="$"
                     yAxisSuffix="k"
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
-                        backgroundColor: '#ffffff',
-                        backgroundGradientFrom: '#ffffff',
+                        backgroundColor: '#70c4a5',
+                        backgroundGradientFrom: '#85d1b4',
                         backgroundGradientTo: '#ffffff',
                         color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         propsForDots: {
                             r: "6",
                             strokeWidth: "2",
-                            stroke: "#808080"
+                            stroke: "#85d1b4"
                         }
                     }}
                     bezier
                     style={{
                         marginVertical: 8,
-                        borderRadius: 16
+                        borderRadius: 16,
+                        elevation:5,
                     }}
                 />
             </View>

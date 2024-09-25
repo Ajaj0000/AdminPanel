@@ -1,47 +1,111 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    topCont:{
-        flexDirection:"row",
-        marginBottom:10,
-        justifyContent:"flex-start",
-        alignItems:"flex-start",
+
+    // dashboard header
+
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        // marginBottom:10,
+        padding: 13,
+        backgroundColor: "white"
+    },
+    headerText: {
+        color: "black",
+        fontWeight: "500",
+        fontSize: 23,
+    },
+    profile: {
+        width: 30,
+        height: 30,
+    },
+    topCont: {
+        flexDirection: "row",
+        marginTop: 5,
+        marginBottom: 10,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
         borderRadius: 8,
     },
-    topBox:{
-        alignItems:"center",
+    topBox: {
+        alignItems: "center",
         backgroundColor: '#ffffff',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 5,
+        elevation: 5
     },
-    filterItem:{
+    filterItem: {
         fontSize: 14,
         color: "#888",
     },
     container: {
         // flex: 1,
-        padding: 20,
-        backgroundColor: '#f5f5f5',
+        padding: 6,
+        backgroundColor: 'white',
+
     },
-    statsContainer: {
+
+    // state container
+
+    statsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20,
-        overflow:"scroll"
+        marginVertical: 10,
+    },
+    card: {
+        flex: 1,
+        marginHorizontal: 5,
+        padding: 20,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    cardTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    cardValue: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    statsContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        // marginBottom: 20,
+        margin: "auto",
+    },
+    stateContainerBox: {
+        flexDirection: "row",
     },
     statBox: {
-        alignItems:"center",
-        backgroundColor: '#ffffff',
-        padding: 10,
-        borderRadius: 8,
-        marginHorizontal: 5,
-        width:200,
-        height:80,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 3,
+        margin: 5,
+        width: 150,
+        height: 80,
+        elevation: 1,
+        // borderRadius:5,
+        shadowColor: '#000', // iOS
+        shadowOffset: { width: 0, height: 2 }, // iOS
+        shadowOpacity: 0.25, // iOS
+        shadowRadius: 3.84, // iOS
+        borderBottomEndRadius: 8,
+        borderTopStartRadius: 8,
+        borderTopEndRadius: 8,
+        borderBottomStartRadius:7,
+        // borderLeftColor:"red",
+        borderLeftWidth:5
     },
     statLabel: {
         fontSize: 14,
-        color: "#888",
+        color: "black",
     },
     statValue: {
         fontSize: 16,
@@ -57,9 +121,9 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderRadius: 8,
     },
-    chartContainer:{
-        paddingHorizontal:10,
-        
+    chartContainer: {
+        paddingHorizontal: 10,
+
     }
 });
 

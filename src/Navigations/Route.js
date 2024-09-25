@@ -40,9 +40,9 @@ function Route() {
                                tabBarActiveTintColor:"black",
                             })}
                             backBehavior='history'
-                        >
 
-                            <Tab.Screen options={{ headerShown: true, tabBarIcon: (({focused}) => <Image source={focused ? IcDashboard : IcDashboard1} style={{ width: 31, height: 31 }}/>) }} name="Dashboard" component={Dashboard} />
+                        >
+                            <Tab.Screen options={{ headerShown: false, tabBarIcon: (({focused}) => <Image source={focused ? IcDashboard : IcDashboard1} style={{ width: 31, height: 31 }}/>) }} name="Dashboard" component={Dashboard} />
                             <Tab.Screen name='Categories' options={{ headerShown: false, tabBarIcon: (({focused}) => <Image source={focused ? IcCategory1 : IcCategory} style={{ width: 31, height: 31 }} />) }} component={CategoryMain} />
                             <Tab.Screen name='Order' options={{ headerShown: false, tabBarBadge: 3, tabBarIcon: (({focused}) => <Image source={focused ? Icorder : Icorder1} style={{ width: 31, height: 31 }} />) }} component={OrderStack} />
                         </Tab.Navigator>

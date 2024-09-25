@@ -172,6 +172,7 @@ function ItemSection() {
 const styles = StyleSheet.create({
     container: {
         padding: 16,
+        backgroundColor:"white",
     },
     formGroup: {
         marginBottom: 20,
@@ -200,11 +201,13 @@ const styles = StyleSheet.create({
         color: "black"
     },
     input: {
-        borderWidth: 1,
-        borderColor: '#DDD',
+        // borderWidth: 1,
+        // elevation:1,
+        // borderColor: '#DDD',
         borderRadius: 6,
         padding: 10,
-        color: 'black'
+        color: 'black',
+        // backgroundColor:"lightblue"
     },
     uploadBox: {
         borderWidth: 1,

@@ -118,58 +118,16 @@ function Order() {
 
     return (
         <>
-            <View style={styles.containerHeader}>
-                <Text style={styles.order}>Orders</Text>
-                <View style={styles.actionBox}>
-                    <Text style={styles.drop}>More Action</Text>
-                    <Text style={styles.create}>Create order</Text>
-                </View>
-            </View>
 
-            <View style={styles.container}>
-                <ScrollView>
-                    {/* Time Filters */}
-                    <View style={styles.topCont}>
-                        <View style={styles.topBox}>
-                            <Text style={styles.filterItem}>Today</Text>
-                        </View>
-                        <View style={styles.topBox}>
-                            <Text style={styles.filterItem}>7 days</Text>
-                        </View>
-                        <View style={styles.topBox}>
-                            <Text style={styles.filterItem}>30 days</Text>
-                        </View>
+            <View style={styles.maincontanier}>
+                <View style={styles.containerHeader}>
+                    <Text style={styles.order}>Orders</Text>
+                    <View style={styles.actionBox}>
+                        <Text style={styles.drop}>More Action</Text>
+                        <Text style={styles.create}>Create order</Text>
                     </View>
-
-                    {/* Statistics */}
-                    <ScrollView horizontal={true}>
-                        <View style={styles.statsContainer}>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Total Orders</Text>
-                                <Text style={styles.statValue}>0 --</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Ordered items over time</Text>
-                                <Text style={styles.statValue}>0 --</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Returns</Text>
-                                <Text style={styles.statValue}>0 --</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Fulfilled orders over time</Text>
-                                <Text style={styles.statValue}>0 --</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Delivered orders over time</Text>
-                                <Text style={styles.statValue}>0 --</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                                <Text style={styles.statLabel}>Time to fulfill</Text>
-                                <Text style={styles.statValue}>0 min</Text>
-                            </View>
-                        </View>
-                    </ScrollView>
+                </View>
+                <ScrollView>
                     {/* Search Input Section */}
 
                     <View style={styles.searchContainer}>
@@ -182,120 +140,172 @@ function Order() {
                         <TextInput
                             style={styles.searchInput}
                             placeholder="Searching all collections"
+                            placeholderTextColor="grey"
                         />
                     </View>
-                    {/* Filter */}
-                    <View style={{ flexDirection: "row", }}>
+                    <View style={styles.container}>
+
+                        {/* Time Filters */}
+                        <View style={styles.topCont}>
+                            <View style={styles.topBox}>
+                                <Text style={styles.filterItem}>Today</Text>
+                            </View>
+                            <View style={styles.topBox}>
+                                <Text style={styles.filterItem}>7 days</Text>
+                            </View>
+                            <View style={styles.topBox}>
+                                <Text style={styles.filterItem}>30 days</Text>
+                            </View>
+                        </View>
+
+                        {/* Statistics */}
                         <ScrollView horizontal={true}>
                             <View style={styles.statsContainer}>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>All</Text>
+                                    <Text style={styles.statLabel}>Total Orders</Text>
+                                    <Text style={styles.statValue}>0 --</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>Unfulfilled</Text>
-
+                                    <Text style={styles.statLabel}>Ordered items over time</Text>
+                                    <Text style={styles.statValue}>0 --</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>Unpaid</Text>
-
+                                    <Text style={styles.statLabel}>Returns</Text>
+                                    <Text style={styles.statValue}>0 --</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>Open</Text>
-
+                                    <Text style={styles.statLabel}>Fulfilled orders over time</Text>
+                                    <Text style={styles.statValue}>0 --</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>Archived</Text>
-
+                                    <Text style={styles.statLabel}>Delivered orders over time</Text>
+                                    <Text style={styles.statValue}>0 --</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statLabel}>+</Text>
-
+                                    <Text style={styles.statLabel}>Time to fulfill</Text>
+                                    <Text style={styles.statValue}>0 min</Text>
                                 </View>
                             </View>
                         </ScrollView>
 
-                        {/* search and sort icon */}
-                        <View style={styles.statBoxx}>
-                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                <View>
-                                    <Image source={imgg} style={styles.statLabell} />
+                        {/* Filter */}
+                        <View style={{ flexDirection: "row", }}>
+                            <ScrollView horizontal={true}>
+                                <View style={styles.statsContainer}>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>All</Text>
+                                    </View>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>Unfulfilled</Text>
+
+                                    </View>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>Unpaid</Text>
+
+                                    </View>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>Open</Text>
+
+                                    </View>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>Archived</Text>
+
+                                    </View>
+                                    <View style={styles.statBox}>
+                                        <Text style={styles.statLabel}>+</Text>
+
+                                    </View>
                                 </View>
-                            </TouchableOpacity>
+                            </ScrollView>
+
+                            {/* search and sort icon */}
+                            <View style={styles.statBoxx}>
+                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                    <View>
+                                        <Image source={imgg} style={styles.statLabell} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* sort section */}
+                            {
+                                modalVisible && <View style={styles.sortSection}>
+                                    <Text>Sort By</Text>
+                                    {
+                                        sortBy.map((item, index) => {
+                                            return (
+                                                <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
+                                                    <View style={styles.radioCheck} key={index}>
+                                                        <View style={styles.radioOuter} >
+                                                            <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
+                                                        </View>
+                                                        <Text style={{ color: "black" }}>{item.title}</Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            )
+                                        })
+                                    }
+                                </View>
+                            }
+
                         </View>
 
-                        {/* sort section */}
-                        {
-                            modalVisible && <View style={styles.sortSection}>
-                                <Text>Sort By</Text>
-                                {
-                                    sortBy.map((item, index) => {
-                                        return (
-                                            <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
-                                                <View style={styles.radioCheck} key={index}>
-                                                    <View style={styles.radioOuter} >
-                                                        <View style={[styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
-                                                    </View>
-                                                    <Text style={{ color: "black" }}>{item.title}</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
-                                    })
-                                }
-                            </View>
-                        }
+
+                        {/* Orders List */}
+                        <FlatList
+                            data={orders}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <Card style={styles.card}>
+                                    <View style={styles.cardContent}>
+                                        <View style={styles.header}>
+                                            <Text style={styles.orderId}>{item.id}</Text>
+                                            <Text style={styles.amount}>{item.amount}</Text>
+                                        </View>
+                                        <Text style={styles.date}>{item.date}</Text>
+                                        <Text style={styles.customer}>{item.customer} • {item.items}</Text>
+                                        <View style={styles.statusContainer}>
+                                            <Badge style={styles.paidBadge}>Paid</Badge>
+                                            <Badge
+                                                style={item.fulfilled ? styles.fulfilledBadge : styles.unfulfilledBadge}
+                                            >
+                                                {item.fulfilled ? 'Fulfilled' : 'Unfulfilled'}
+                                            </Badge>
+                                        </View>
+                                        {item.fulfilled && (
+                                            <Text style={styles.tracking}>Tracking added</Text>
+                                        )}
+                                        <Text style={styles.shipping}>{item.shipping}</Text>
+                                    </View>
+                                </Card>
+                            )}
+                            style={styles.orderList}
+                        />
 
                     </View>
-
-
-                    {/* Orders List */}
-                    <FlatList
-                        data={orders}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <Card style={styles.card}>
-                                <View style={styles.cardContent}>
-                                    <View style={styles.header}>
-                                        <Text style={styles.orderId}>{item.id}</Text>
-                                        <Text style={styles.amount}>{item.amount}</Text>
-                                    </View>
-                                    <Text style={styles.date}>{item.date}</Text>
-                                    <Text style={styles.customer}>{item.customer} • {item.items}</Text>
-                                    <View style={styles.statusContainer}>
-                                        <Badge style={styles.paidBadge}>Paid</Badge>
-                                        <Badge
-                                            style={item.fulfilled ? styles.fulfilledBadge : styles.unfulfilledBadge}
-                                        >
-                                            {item.fulfilled ? 'Fulfilled' : 'Unfulfilled'}
-                                        </Badge>
-                                    </View>
-                                    {item.fulfilled && (
-                                        <Text style={styles.tracking}>Tracking added</Text>
-                                    )}
-                                    <Text style={styles.shipping}>{item.shipping}</Text>
-                                </View>
-                            </Card>
-                        )}
-                        style={styles.orderList}
-                    />
                 </ScrollView>
             </View>
+
         </>
     );
 }
 
 const styles = StyleSheet.create({
+    maincontanier: {
+        backgroundColor: "white"
+    },
     // Header Container
     containerHeader: {
         justifyContent: 'space-between',
         flexDirection: 'row',
         padding: 12,
         alignItems: "center",
-        backgroundColor:"white",
+        backgroundColor: "white",
     },
     order: {
         fontSize: 18,
         color: "black",
-        fontWeight:"600"
+        fontWeight: "600"
     },
     actionBox: {
         justifyContent: 'space-evenly',
@@ -303,7 +313,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     drop: {
-        backgroundColor: "grey",
+        backgroundColor: "black",
         color: "white",
         paddingHorizontal: 8,
         paddingVertical: 7,
@@ -312,7 +322,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     create: {
-        backgroundColor: " #F1F1F2",
+        backgroundColor: "#F0F0F0",
         color: "black",
         fontSize: 13,
         paddingHorizontal: 10,
@@ -322,9 +332,8 @@ const styles = StyleSheet.create({
 
     // Main Content Container
     container: {
-        // padding: 20,
         margin: 10,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: 'white',
     },
 
     // Top Filters
@@ -332,13 +341,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: 10,
         alignItems: "flex-start",
-        // padding: 10,
         borderRadius: 8,
-        // marginHorizontal: 5,
+        marginTop: 10,
     },
     topBox: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F0F0F0',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 5,
@@ -351,7 +359,7 @@ const styles = StyleSheet.create({
     // {filter}
     statBoxx: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: "#F0F0F0",
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 10,
@@ -374,7 +382,7 @@ const styles = StyleSheet.create({
     },
     statBox: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F0F0F0',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 5
@@ -396,11 +404,14 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 10,
         padding: 10,
+        margin: 4,
         backgroundColor: '#fff',
         borderRadius: 8,
+        elevation: 3,
     },
     cardContent: {
         flexDirection: 'column',
+        elevation: 3,
     },
     header: {
         flexDirection: 'row',
@@ -408,6 +419,7 @@ const styles = StyleSheet.create({
     },
     orderId: {
         fontWeight: 'bold',
+        color: "black"
     },
     amount: {
         fontWeight: 'bold',
@@ -417,6 +429,7 @@ const styles = StyleSheet.create({
         color: 'gray',
     },
     customer: {
+        color: "black",
         marginVertical: 5,
     },
     statusContainer: {
@@ -496,17 +509,19 @@ const styles = StyleSheet.create({
     },
     searchInput: {
         flex: 1,
-        height: 40,
-        borderColor: 'black', // Blue outline
-        borderWidth: 1,
-        borderRadius: 8,
+        height:40,
+        borderColor:"black",
+        backgroundColor: '#F0F0F0', // Blue outline
+        elevation: 3,
+        color:"grey",
+        padding: 10,
+        borderRadius: 6,
         paddingHorizontal: 10,
-        color: "black"
     },
     saveAsButton: {
-        paddingRight:10 ,
+        paddingRight: 5,
         paddingVertical: 8,
-  
+
     },
     saveAsText: {
         color: 'black', // Disabled text color
