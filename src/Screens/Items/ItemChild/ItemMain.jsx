@@ -3,8 +3,9 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "reac
 import IcEdit from '../../../Assets/Icons/edit.png';
 import IcStop from '../../../Assets/Icons/stop.png';
 import img2 from "../../../Assets/Icons/ich.jpeg";
+import { ScrollView } from "react-native-gesture-handler";
 
-function ItemMain({handle}) {
+function ItemMain({ handle }) {
     const [products, setProducts] = useState([
         { id: '1', name: 'Parth Rajasthan Adhyayan Class 6-10 (English Medium)', status: 'Active' },
         { id: '2', name: 'Moomal Rajasthan 7001 Objective Questions (English Medium)', status: 'Draft' },
@@ -73,74 +74,76 @@ function ItemMain({handle}) {
 
     return (
         <>
-            <View style={Styles.containerHeader}>
-                <Text style={Styles.order}>Item</Text>
-                <TouchableOpacity onPress={handle}>
-                    <View style={Styles.actionBox}>
-                        <Text style={Styles.create} >Add Item</Text>
-                    </View>
-                </TouchableOpacity>
-
-            </View>
-            {/* Search Input Section */}
-
-            <View style={Styles.searchContainer}>
-
-                 {/* Save as Button (Disabled) */}
-                 <View style={Styles.saveAsButton}>
-                    <Text style={Styles.saveAsText}>Search:</Text>
-                </View>
-                                {/* Search Input */}
-                <TextInput
-                    style={Styles.searchInput}
-                    placeholder="Searching all collections"
-                />
-            </View>
-
-            {/* Filter */}
-            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
-                <View style={Styles.statsContainer}>
-                    <View style={Styles.statBox}>
-                        <Text style={Styles.statLabel}>All</Text>
-                    </View>
-                    <View style={Styles.statBox}>
-                        <Text style={Styles.statLabel}>+</Text>
-                    </View>
-                </View>
-
-                <View style={Styles.statBoxx}>
-                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                        <View>
-                            <Image source={img2} style={Styles.statLabell} />
+            <ScrollView>
+                <View style={Styles.containerHeader}>
+                    <Text style={Styles.order}>Item</Text>
+                    <TouchableOpacity onPress={handle}>
+                        <View style={Styles.actionBox}>
+                            <Text style={Styles.create} >Add Item</Text>
                         </View>
                     </TouchableOpacity>
+
+                </View>
+                {/* Search Input Section */}
+
+                <View style={Styles.searchContainer}>
+
+                    {/* Save as Button (Disabled) */}
+                    <View style={Styles.saveAsButton}>
+                        <Text style={Styles.saveAsText}>Search:</Text>
+                    </View>
+                    {/* Search Input */}
+                    <TextInput
+                        style={Styles.searchInput}
+                        placeholder="Searching all collections"
+                    />
                 </View>
 
-                {/* sort section */}
-                {
-                    modalVisible && <View style={Styles.sortSection}>
-                        <Text>Sort By</Text>
-                        {
-                            sortBy.map((item, index) => {
-                                return (
-                                    <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
-                                        <View style={Styles.radioCheck} key={index}>
-                                            <View style={Styles.radioOuter} >
-                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
-                                            </View>
-                                            <Text style={{ color: "black" }}>{item.title}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )
-                            })
-                        }
+                {/* Filter */}
+                <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
+                    <View style={Styles.statsContainer}>
+                        <View style={Styles.statBox}>
+                            <Text style={Styles.statLabel}>All</Text>
+                        </View>
+                        <View style={Styles.statBox}>
+                            <Text style={Styles.statLabel}>+</Text>
+                        </View>
                     </View>
-                }
 
-            </View>
+                    <View style={Styles.statBoxx}>
+                        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                            <View>
+                                <Image source={img2} style={Styles.statLabell} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
 
-            {/* Product  */}
-            {renderProducts()}
+                    {/* sort section */}
+                    {
+                        modalVisible && <View style={Styles.sortSection}>
+                            <Text>Sort By</Text>
+                            {
+                                sortBy.map((item, index) => {
+                                    return (
+                                        <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
+                                            <View style={Styles.radioCheck} key={index}>
+                                                <View style={Styles.radioOuter} >
+                                                    <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
+                                                </View>
+                                                <Text style={{ color: "black" }}>{item.title}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                })
+                            }
+                        </View>
+                    }
+
+                </View>
+
+                {/* Product  */}
+                {renderProducts()}
+            </ScrollView>
         </>
     )
 }

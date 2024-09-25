@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import IcArrow from '../../../Assets/Icons/arrow-down-sign-to-navigate.png';
 import IcCancel from '../../../Assets/Icons/closeIc.png'
 import TempScreen from './TextEditor';
@@ -12,6 +12,8 @@ let launchCamera = _launchCamera;
 
 function CreateCategoryScreen() {
 
+    const DropdownRef = useRef(null)
+
     const [taxes, setTaxes] = useState('');
     const [description, setDescription] = useState('');
 
@@ -23,8 +25,28 @@ function CreateCategoryScreen() {
     const categoryy = [
         { id: "1", title: "Story" },
         { id: "2", title: "Biography" },
-        { id: "3", title: "Competition" },
+        { id: "4", title: "Competition" },
+        { id: "5", title: "RBSE 12" },
+        { id: "6", title: "CBSE 12" },
     ];
+
+    const [searchCategory, setSearchCategory] = useState([...categoryy]);
+    const [cate, setCate] = useState([]);
+
+    const handleSearch = (e) => {
+        setSearchCategory(e);
+        const res = categoryy.filter((item) => item.title.toLowerCase().includes(e.toLowerCase()));
+        setCate(res);
+    };
+    const handleClick=()=>{
+        
+    }
+
+
+
+
+
+
 
     const tex = [
         { id: 1, title: "GST" },
@@ -85,117 +107,140 @@ function CreateCategoryScreen() {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            {/* Select Parent Category */}
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>Select Parent Category</Text>
-                <TouchableOpacity onPress={() => setOpen(!open)}>
-                    <View style={styles.formGroup1}>
-                        <Text style={styles.parentCat}>{selectValue === '' ? "Select Parent Category" : selectValue}</Text>
-                        <Image source={open ? IcCancel : IcArrow} style={styles.arrowIc} />
-                    </View>
-                </TouchableOpacity>
-                {
-                    open && <View style={styles.selectList}>
+        <TouchableWithoutFeedback onPress={() => {setOpen(false); setOpenn(false)}}>
+            <KeyboardAvoidingView >
+
+
+                <ScrollView contentContainerStyle={styles.container}>
+                    {/* Select Parent Category */}
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Select Parent Category</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Search..."
+                            placeholderTextColor="grey"
+                            value={searchCategory}
+                            onChangeText={handleSearch}
+                            onFocus={()=>setOpen(true)}
+                        />
+                        {/* <TouchableOpacity onPress={() => setOpen(!open)}>
+                            <View style={styles.formGroup1}>
+                                <Text style={styles.parentCat}>{selectValue === '' ? "Select Parent Category" : selectValue}</Text>
+                                <Image source={open ? IcCancel : IcArrow} style={styles.arrowIc} />
+                            </View>
+                        </TouchableOpacity> */}
                         {
-                            categoryy.map((itm, index) => {
-                                return (
-                                    <>
-                                        <TouchableOpacity key={index} onPress={() => { setSelectedValue(itm.title); setOpen(false) }}>
-                                            <Text style={styles.selectText}>{itm.title}</Text>
-                                        </TouchableOpacity>
-                                    </>
-                                )
-                            })
+                            searchCategory.length > 0 && cate.length > 0 && open && <TouchableWithoutFeedback onPress={() => { }}>
+                                <View style={styles.selectList} ref={DropdownRef}>
+                                    {
+                                         cate.map((itm, index) => {
+                                            return (
+                                                <>
+                                                    <TouchableOpacity key={index} onPress={() => { setSearchCategory(itm.title); setOpen(false) }}>
+                                                        <Text style={styles.selectText}>{itm.title}</Text>
+                                                    </TouchableOpacity>
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </View>
+                            </TouchableWithoutFeedback>
                         }
                     </View>
-                }
-            </View>
 
-            {/* Title Input */}
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>Title</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter title"
-                    value={description}
-                    onChangeText={setDescription}
-                />
-            </View>
+                    {/* Title Input */}
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Title</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter title"
+                            placeholderTextColor="grey"
+                            value={description}
+                            onChangeText={setDescription}
+                        />
+                    </View>
 
 
-            {/* Select Tax (Multi Select) */}
-            <View style={styles.catLable}>
-                <View>
-                    <Text style={styles.label}>Tex (Multi Select)</Text>
-                    <TouchableOpacity onPress={() => setOpenn(!openn)}>
-                        <Text style={styles.input} onFocus={() => setOpenn(!openn)}>{selectedItems.join(', ') || "Tex (Multi Select)"}</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {/* Dropdown List */}
-                {
-                    openn && (
-                        <View style={styles.selectList}>
-                            {tex.map((item) => (
-                                <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpenn(true) }}>
-                                    <View style={styles.ListItems}>
-                                        <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
-                                        <Text style={styles.checkText}>{item.title}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ))}
+                    {/* Select Tax (Multi Select) */}
+                    <View style={styles.catLable}>
+                        <View>
+                            <Text style={styles.label}>Tax (Multi Select)</Text>
+                            <TouchableOpacity onPress={() => setOpenn(!openn)}>
+                                <Text style={styles.input} onFocus={() => setOpenn(!openn)}>{selectedItems.join(', ') || "Tax (Multi Select)"}</Text>
+                            </TouchableOpacity>
                         </View>
 
-                    )
-                }
+                        {/* Dropdown List */}
+                        {
+                            openn && (
+                                <TouchableWithoutFeedback onPress={()=>{ }}>
+                                    <View style={styles.selectList}>
+                                        {tex.map((item) => (
+                                            <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpenn(true) }}>
+                                                <View style={styles.ListItems}>
+                                                    <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
+                                                    <Text style={styles.checkText}>{item.title}</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-            </View>
+                            )
+                        }
+
+                    </View>
 
 
-            {/* Category Icon */}
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>Category Image</Text>
-                <TouchableOpacity style={styles.uploadBox} onPress={openImagePicker}>
-                    <Text style={styles.uploadText}>{selectedImage ? <Image source={{ uri: selectedImage }}/> : "Click here to Select Image"}</Text>
-                </TouchableOpacity>
-            </View>
+                    {/* Category Icon */}
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Category Image</Text>
+                        <TouchableOpacity style={styles.uploadBox} onPress={openImagePicker}>
+                            <Text style={styles.uploadText}>{selectedImage ? <Image source={{ uri: selectedImage }} /> : "Click here to Select Image"}</Text>
+                        </TouchableOpacity>
+                    </View>
 
 
-            {/* Description */}
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>Description</Text>
-                <TempScreen />
-            </View>
+                    {/* Description */}
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Description</Text>
+                        <TempScreen />
+                    </View>
 
-            {/* Buttons */}
-            <TouchableOpacity style={styles.submitButton}>
-                <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                    {/* Buttons */}
+                    <TouchableOpacity style={styles.submitButton}>
+                        <Text style={styles.submitButtonText}>Submit</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         padding: 16,
+        backgroundColor: "white"
     },
     formGroup1: {
-        borderWidth: 1,
-        borderColor: "#BBBBBB",
+        elevation: 3,
+        borderColor: 'black',
+        color: 'grey',
+        backgroundColor: "#F0F0F0",
         borderRadius: 10,
+        padding: 5,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
     },
 
     // select list
-    
+
     selectText: {
         fontSize: 14,
         fontWeight: "500",
         padding: 5,
-        margin:3,
+        margin: 3,
         color: "black",
     },
 
@@ -206,7 +251,7 @@ const styles = StyleSheet.create({
     },
     parentCat: {
         fontSize: 14,
-        color: "black",
+        color: "grey",
         padding: 5,
         margin: 5
     },
@@ -219,7 +264,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 8,
+        marginBottom: 4,
         color: "black"
     },
     picker: {
@@ -242,14 +287,15 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     input: {
-        borderWidth: 1,
-        borderColor: '#DDD',
+        elevation: 3,
+        borderColor: 'black',
         borderRadius: 6,
         padding: 10,
-        color: 'black'
+        color: 'grey',
+        backgroundColor: "#F0F0F0",
     },
     textArea: {
-        borderWidth: 1,
+        elevation: 3,
         borderColor: '#DDD',
         borderRadius: 6,
         padding: 10,
@@ -290,18 +336,19 @@ const styles = StyleSheet.create({
         width: "100%",
         top: 70,
         zIndex: 10,
-        padding:10
+        padding: 10
     },
     ListItems: {
         flexDirection: "row",
         margin: 3,
-        padding:5,
+        padding: 5,
+        alignItems: "center",
         marginVertical: 3,
     },
     checkImg: {
-        width: 22,
-        height: 22,
-        marginRight: 4,
+        width: 15,
+        height: 15,
+        marginRight: 2,
     },
     checkText: {
         fontSize: 14,

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, FlatList, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import img2 from "../../../Assets/Icons/ich.jpeg";
 import image1 from "../../../Assets/Icons/bin.png";
 import img from "../../../Assets/Images/download.jpeg";
 import IcEdit from '../../../Assets/Icons/edit.png';
 import IcStop from '../../../Assets/Icons/stop.png';
+import { ScrollView } from "react-native-gesture-handler";
+import { styles } from "../../Admins/LoginStyle";
 
 function Category({ handelNav }) {
-
 
     const data = [
         { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20 },
@@ -22,142 +23,128 @@ function Category({ handelNav }) {
         { id: '10', title: 'LLB One Week Series', products: 6 },
     ];
 
-
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectOption, setSelectOption] = useState('')
+    const [selectOption, setSelectOption] = useState('');
 
     const sortBy = [
-        {
-            title: "Product Title",
-        },
-        {
-            title: "SKU"
-        },
-        {
-            title: "Unavailabe"
-        },
-        {
-            title: "Commited"
-        },
-        {
-            title: "Available"
-        },
-        {
-            title: "On hand"
-        }
-    ]
+        { title: "Product Title" },
+        { title: "SKU" },
+        { title: "Unavailable" },
+        { title: "Committed" },
+        { title: "Available" },
+        { title: "On hand" },
+    ];
+
     return (
         <>
-
-            <View style={Styles.containerHeader}>
-                <Text style={Styles.order}>Category List</Text>
-                <TouchableOpacity onPress={handelNav}>
-                    <View style={Styles.actionBox}>
-                        <Text style={Styles.create}>Add Category</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            {/* Search Input Section */}
-
-            <View style={Styles.searchContainer}>
-
-                {/* Save as Button (Disabled) */}
-                <View style={Styles.saveAsButton}>
-                    <Text style={Styles.saveAsText}>Search:</Text>
-                </View>
-                {/* Search Input */}
-                <TextInput
-                    style={Styles.searchInput}
-                    placeholder="Searching all collections"
-                />
-            </View>
-            {/* Filter */}
-            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
-                <View style={Styles.statsContainer}>
-                    <View style={Styles.statBox}>
-                        <Text style={Styles.statLabel}>All</Text>
-                    </View>
-                    <TouchableOpacity>
-                    <View style={Styles.statactive}>
-                        <Text style={Styles.statLabelactive}>Active</Text>
-                    </View>
-                    </TouchableOpacity> 
-                    <TouchableOpacity>
-                    <View style={Styles.statactive}>
-                        <Text style={Styles.statLabelactive}>Inactive</Text>
-                    </View>
-                    </TouchableOpacity>
-                    <View style={Styles.statBoxx}>
-                        <TouchableOpacity>
-                            <View>
-                                <Image source={image1} style={Styles.statedit} />
+            <ScrollView >
+                <View style={Styles.maincontainer}>
+                    <View style={Styles.containerHeader}>
+                        <Text style={Styles.order}>Category List</Text>
+                        <TouchableOpacity onPress={handelNav}>
+                            <View style={Styles.actionBox}>
+                                <Text style={Styles.create}>Add Category</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                </View>
-
-                <View style={Styles.statBoxx}>
-                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                        <View>
-                            <Image source={img2} style={Styles.statLabell} />
+                    {/* Search Input Section */}
+                    <View style={Styles.searchContainer}>
+                        <View style={Styles.saveAsButton}>
+                            <Text style={Styles.saveAsText}>Search:</Text>
                         </View>
-                    </TouchableOpacity>
-                </View>
+                        <TextInput
+                            style={Styles.searchInput}
+                            placeholder="Searching all collections"
+                            placeholderTextColor="grey"
+                        />
+                    </View>
 
-                {/* sort section */}
-                {
-                    modalVisible && <View style={Styles.sortSection}>
-                        <Text>Sort By</Text>
-                        {
-                            sortBy.map((item, index) => {
-                                return (
-                                    <TouchableOpacity onPress={() => { setSelectOption(item.title); setModalVisible(false) }}>
-                                        <View style={Styles.radioCheck} key={index}>
-                                            <View style={Styles.radioOuter} >
-                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : "white" }]}></View>
+                    {/* Filter */}
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
+                        <View style={Styles.statsContainer}>
+                            <View style={Styles.statBox}>
+                                <Text style={Styles.statLabel}>All</Text>
+                            </View>
+                            <TouchableOpacity>
+                                <View style={Styles.statactive}>
+                                    <Text style={Styles.statLabelactive}>Active</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={Styles.statactive}>
+                                    <Text style={Styles.statLabelactive}>Inactive</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={Styles.statBoxx}>
+                                <TouchableOpacity>
+                                    <View style={{ backgroundColor: "#F0F0F0" }}>
+                                        <Image source={image1} style={Styles.statedit} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        <View style={Styles.statBoxx}>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <View>
+                                    <Image source={img2} style={Styles.statLabell} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* sort section */}
+                        {modalVisible && (
+                            <View style={Styles.sortSection}>
+                                <Text>Sort By</Text>
+                                {sortBy.map((item, index) => (
+                                    <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
+                                        <View style={Styles.radioCheck}>
+                                            <View style={Styles.radioOuter}>
+                                                <View style={[Styles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
                                             </View>
                                             <Text style={{ color: "black" }}>{item.title}</Text>
                                         </View>
                                     </TouchableOpacity>
-                                )
-                            })
-                        }
+                                ))}
+                            </View>
+                        )}
                     </View>
-                }
-            </View>
 
-            {/* Collection List */}
-            <FlatList
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <TouchableOpacity>
-                        <View style={Styles.item}>
-                            <Image source={img} style={{ width: 40, height: 60, marginRight: 10 }} />
-                            <View>
-                                <Text style={Styles.title}>{item.title}</Text>
-                                <Text style={Styles.products}>{item.products} Items</Text>
-                                <View style={Styles.IcEditContainer}>
-                                    <TouchableOpacity style={Styles.editBtnContainer}>
-                                        <Image source={IcEdit} style={Styles.editIcon} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={Styles.editBtnContainer}>
-                                        <Image source={IcStop} style={Styles.editIcon} />
-                                    </TouchableOpacity>
+                    {/* Collection List */}
+                    {data.map(item => (
+                        <TouchableOpacity key={item.id}>
+                            <View style={Styles.item}>
+                                <Image source={img} style={{ width: 50, height: 70, marginRight: 10 }} />
+                                <View>
+                                    <Text style={Styles.title}>{item.title}</Text>
+
+                                    <View style={Styles.IcEditContainer}>
+                                        <Text style={Styles.products}>{item.products} Items</Text>
+                                        <View style={Styles.editBtnContainer}>
+                                            <TouchableOpacity >
+                                                <Image source={IcEdit} style={Styles.editIcon} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity >
+                                                <Image source={IcStop} style={Styles.editIcon} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableOpacity>
-
-                )}
-                style={Styles.list}
-            />
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            </ScrollView>
 
         </>
-    )
+    );
 }
 
 const Styles = StyleSheet.create({
+    maincontainer: {
+        backgroundColor: "white"
+
+    },
     // Header Container
     containerHeader: {
         justifyContent: 'space-between',
@@ -192,16 +179,18 @@ const Styles = StyleSheet.create({
         padding: 10,
     },
     searchInput: {
+        elevation: 3,
+        borderColor: 'black',
+        borderRadius: 6,
+        padding: 10,
+        color: 'grey',
+        backgroundColor: "#F0F0F0",
         flex: 1,
         height: 40,
-        borderColor: 'black', // Blue outline
-        borderWidth: 1,
-        borderRadius: 8,
         paddingHorizontal: 10,
-        color: "black"
     },
     saveAsButton: {
-        paddingRight: 10,
+        paddingRight: 5,
         paddingVertical: 8,
     },
     saveAsText: {
@@ -217,14 +206,14 @@ const Styles = StyleSheet.create({
     },
     statBox: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F0F0F0',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 5
     },
     statactive: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F0F0F0',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 3
@@ -243,7 +232,7 @@ const Styles = StyleSheet.create({
     },
     statBoxx: {
         alignItems: "center",
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F0F0F0',
         padding: 10,
         borderRadius: 8,
         marginHorizontal: 7,
@@ -252,10 +241,9 @@ const Styles = StyleSheet.create({
     },
     statedit: {
         paddingHorizontal: 6,
-        fontSize: 17,
+        backgroundColor: "#F0F0F0",
         width: 25,
         height: 25,
-        color: "#888",
     },
     statLabell: {
         paddingHorizontal: 6,
@@ -264,12 +252,9 @@ const Styles = StyleSheet.create({
         height: 28,
         color: "#888",
     },
-    // List of collections
-    list: {
-        padding: 16,
-    },
+    // Collection List Item
     item: {
-        backgroundColor: '#fff',
+        backgroundColor: "white",
         padding: 16,
         marginVertical: 8,
         borderRadius: 8,
@@ -277,21 +262,21 @@ const Styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         shadowOffset: { width: 0, height: 2 },
-        elevation: 1,
+        elevation: 3,
         flexDirection: "row",
-        margin: 3,
+        margin: 12,
         alignItems: "center"
     },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
+        width:250,
         color: "black"
     },
     products: {
         fontSize: 14,
         color: '#777',
     },
-
     // sort section 
     sortSection: {
         position: "absolute",
@@ -320,7 +305,6 @@ const Styles = StyleSheet.create({
         borderColor: "black",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "black"
     },
     radioInner: {
         borderRadius: 40,
@@ -331,9 +315,6 @@ const Styles = StyleSheet.create({
         borderColor: "black",
         backgroundColor: "white",
     },
-
-    // icons 
-
     editIcon: {
         width: 20,
         height: 20,
@@ -344,6 +325,13 @@ const Styles = StyleSheet.create({
     },
     IcEditContainer: {
         flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center"
+    },
+    editBtnContainer: {
+        flexDirection:"row",
+        marginHorizontal: 5,
+        marginTop: 5,
     }
 });
 
