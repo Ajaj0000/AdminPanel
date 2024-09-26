@@ -13,22 +13,26 @@ function Dashboard() {
         <>
             {/* <AntDesign name="stepforward" size={30} color="red" /> */}
             <View style={styles.header}>
-                <Text style={styles.headerText}>Dashboard</Text>
+                <View style={styles.navbar}>
+                    <Text style={styles.logo}>TB2</Text>
+                    <Text style={styles.headerText}>The Books24</Text>
+                </View>
                 <Image source={IcPerson} style={styles.profile} />
             </View>
+
             <ScrollView>
                 <View style={styles.container}>
 
                     <View style={styles.statsContainer}>
 
                         <View style={styles.stateContainerBox}>
-                            <View style={[styles.statBox, { borderLeftColor: "#70c4a5" }]}>
+                            <View style={[styles.statBox, { borderLeftColor: "#86c5d8" }]}>
                                 <Text style={styles.statLabel}>Online store </Text>
                                 <Text style={styles.statValue}>5,602</Text>
                                 <Text style={styles.statChange}>↓ 20%</Text>
                             </View>
 
-                            <View style={[styles.statBox, { borderLeftColor: "#85d1b4" }]}>
+                            <View style={[styles.statBox, { borderLeftColor: "#86c5d8" }]}>
                                 <Text style={styles.statLabel}>Total sales</Text>
                                 <Text style={styles.statValue}>₹8,222.00</Text>
                                 <Text style={styles.statChange}>↑ 13%</Text>
@@ -36,13 +40,13 @@ function Dashboard() {
                         </View>
 
                         <View style={styles.stateContainerBox}>
-                            <View style={[styles.statBox, { borderLeftColor: "#38856c" }]}>
+                            <View style={[styles.statBox, { borderLeftColor: "#86c5d8" }]}>
                                 <Text style={styles.statLabel}>Total orders</Text>
                                 <Text style={styles.statValue}>18</Text>
                                 <Text style={styles.statChange}>↓ 18%</Text>
                             </View>
 
-                            <View style={[styles.statBox, { borderLeftColor: "#a0e0c6" }]}>
+                            <View style={[styles.statBox, { borderLeftColor: "#86c5d8" }]}>
                                 <Text style={styles.statLabel}>Conversion rate</Text>
                                 <Text style={styles.statValue}>0.32%</Text>
                                 <Text style={styles.statChange}>↑ 7%</Text>

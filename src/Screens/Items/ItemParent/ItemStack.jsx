@@ -10,7 +10,7 @@ function ItemStack() {
     return (
         <>
             <Stack.Navigator>
-                <Stack.Screen name="Item" options={{headerShown:false}} component={ItemParent} />
+                <Stack.Screen name="Items" options={{headerShown:false}} component={ItemParent} />
                 <Stack.Screen options={{headerShown:true}} name="Add Item" component={ItemSection}/>
             </Stack.Navigator>
         </>

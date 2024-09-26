@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
+import { styles } from "../../Category/CategoryChild/AddItemAddCateStyle";
 import TempScreen from "../../Category/CategoryChild/TextEditor";
 import check from '../../../Assets/Icons/check.png';
 import box from '../../../Assets/Icons/square.png';
 import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera } from 'react-native-image-picker';
+import MultiImagePicker from "../../../CommonScreens/ImagePicker";
 let launchImageLibrary = _launchImageLibrary;
 let launchCamera = _launchCamera;
 
@@ -140,7 +142,7 @@ function ItemSection() {
 
 
                         <View style={styles.formGroup}>
-                            <View style={styles.label}>
+
                                 <View>
                                     <Text style={styles.label}>Sub Category</Text>
                                     <TouchableOpacity onPress={() => setOpen(!open)}>
@@ -165,8 +167,10 @@ function ItemSection() {
                                     )
                                 }
 
-                            </View>
+
                         </View>
+
+
 
                         <View style={styles.formGroup11}>
                             <View style={styles.catLable}>
@@ -193,19 +197,15 @@ function ItemSection() {
                             </View>
                         </TouchableOpacity>
 
+                        {/* Category Icon */}
+                        <MultiImagePicker />
                         {/* description */}
                         <View style={styles.formGroup}>
                             <Text style={styles.label}>Description</Text>
                             <TempScreen />
                         </View>
 
-                        {/* Category Icon */}
-                        <View style={styles.formGroup}>
-                            <Text style={styles.label}>Category Icon</Text>
-                            <TouchableOpacity style={styles.uploadBox} >
-                                <Text style={styles.uploadText}><Image source={{ uri: photo }} /></Text>
-                            </TouchableOpacity>
-                        </View>
+
 
                         {/* Buttons */}
                         <TouchableOpacity style={styles.submitButton}>
@@ -219,111 +219,112 @@ function ItemSection() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-        backgroundColor: "white"
-    },
-    formGroup: {
-        marginBottom: 20,
-    },
-    checkContainer: {
-        marginBottom: 20,
-        alignItems: "center",
-        flexDirection: "row",
-    },
-    checkBox: {
-        width: 18,
-        height: 17,
-        marginLeft: 5,
-    },
-    checklabel: {
-        fontSize: 13,
-        fontWeight: 'bold',
-        marginBottom: 4,
+// const styles = StyleSheet.create({
+//     container: {
+//         padding: 16,
+//         backgroundColor: "white"
+//     },
+//     formGroup: {
+//         marginBottom: 10,
+//     },
+//     checkContainer: {
+//         marginBottom: 20,
+//         alignItems: "center",
+//         flexDirection: "row",
+//     },
+//     checkBox: {
+//         width: 18,
+//         height: 17,
+//         marginLeft: 5,
+//     },
+//     checklabel: {
+//         fontSize: 13,
+//         fontWeight: 'bold',
+//         marginBottom: 4,
 
-    },
-    formGroup11: {
-        flexDirection: "row",
-        marginVertical: 20,
-        justifyContent: "space-between"
-    },
-    catLable: {
-        width: "45%"
-    },
-    label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 4,
-        color: "black"
-    },
-    input: {
-        // borderWidth: 1,
-        elevation: 3,
-        borderColor: 'black',
-        borderRadius: 6,
-        padding: 10,
-        color: 'grey',
-        backgroundColor: "#F0F0F0",
-    },
-    uploadBox: {
-        borderWidth: 1,
-        borderColor: '#AAA',
-        borderStyle: 'dashed',
-        borderRadius: 6,
-        height: 150,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    uploadText: {
-        color: '#AAA',
-    },
-    submitButton: {
-        backgroundColor: 'black',
-        paddingVertical: 12,
-        borderRadius: 6,
-        alignItems: 'center',
-    },
-    submitButtonText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
+//     },
+//     formGroup11: {
+//         flexDirection: "row",
+//         marginVertical: 20,
+//         justifyContent: "space-between"
+//     },
+//     catLable: {
+//         width: "45%"
+//     },
+//     label: {
+//         fontSize: 16,
+//         fontWeight: 'bold',
+//         marginBottom: 4,
+//         color: "black"
+//     },
+//     input: {
+//         // borderWidth: 1,
+//         elevation: 3,
+//         borderColor: 'black',
+//         borderRadius: 6,
+//         padding: 10,
+//         color: 'grey',
+//         backgroundColor: "#F0F0F0",
+//     },
+//     uploadBox: {
+//         borderWidth: 1,
+//         borderColor: '#AAA',
+//         borderStyle: 'dashed',
+//         borderRadius: 6,
+//         height: 150,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+//     uploadText: {
+//         color: '#AAA',
+//     },
+//     submitButton: {
+//         backgroundColor: 'black',
+//         paddingVertical: 12,
+//         borderRadius: 6,
+//         alignItems: 'center',
+//     },
+//     submitButtonText: {
+//         color: 'white',
+//         fontWeight: 'bold',
+//     },
 
-    // selected List
-    selectList: {
-        backgroundColor: "white",
-        elevation: 2,
-        padding: 5,
-        marginTop: 5,
-        position: "absolute",
-        width: "100%",
-        top: 80,
-        zIndex: 10,
-    },
-    selectText: {
-        fontSize: 14,
-        fontWeight: "500",
-        padding: 5,
-        margin: 3,
-        color: "black",
-    },
-    ListItems: {
-        flexDirection: "row",
-        margin: 3,
-        padding: 5,
-        marginVertical: 3,
-        alignItems: "center"
-    },
-    checkImg: {
-        width: 16,
-        height: 16,
-        marginRight: 3,
-    },
-    checkText: {
-        fontSize: 14,
-        color: "grey",
-        marginLeft: 4,
-    },
-});
+//     // selected List
+//     selectList: {
+//         backgroundColor: "white",
+//         elevation: 2,
+//         padding: 5,
+//         marginTop: 5,
+//         position: "absolute",
+//         width: "100%",
+//         top: 80,
+//         zIndex: 10,
+//     },
+//     selectText: {
+//         fontSize: 14,
+//         fontWeight: "500",
+//         padding: 5,
+//         margin: 3,
+//         color: "black",
+//     },
+//     ListItems: {
+//         flexDirection: "row",
+//         margin: 3,
+//         padding: 5,
+//         marginVertical: 3,
+//         alignItems: "center"
+//     },
+//     checkImg: {
+//         width: 16,
+//         height: 16,
+//         marginRight: 3,
+//     },
+//     checkText: {
+//         fontSize: 14,
+//         color: "grey",
+//         marginLeft: 4,
+//     },
+// });
+
 
 export { ItemSection };

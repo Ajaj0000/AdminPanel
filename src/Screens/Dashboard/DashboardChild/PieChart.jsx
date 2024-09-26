@@ -9,28 +9,28 @@ function PieChartt() {
         {
             name: 'Category A',
             sell: 30,
-            color: '#70c4a5', // Black #000000
+            color: '#AFDCEB', // Black #70c4a5
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category B',
             sell: 70,
-            color: '#85d1b4', // Gray #808080
+            color: '#CAE9F5', // Gray #85d1b4
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category C',
             sell: 80,
-            color: '#a0e0c6', // Light Gray #C0C0C0
+            color: '#ADD8E6', // Light Gray#a0e0c6
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },
         {
             name: 'Category D',
             sell: 55,
-            color: '#38856c', // White #FFFFFF
+            color: '#86c5d8', // White #38856c
             legendFontColor: '#7F7F7F',
             legendFontSize: 15,
         },

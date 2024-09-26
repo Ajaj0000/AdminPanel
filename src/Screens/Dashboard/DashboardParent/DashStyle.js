@@ -8,14 +8,34 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        // marginBottom:10,
         padding: 13,
-        backgroundColor: "white"
+        paddingHorizontal:15,
+        elevation: 5,
+        backgroundColor: "#FFF",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity:  0.4,
+        shadowRadius: 3,
+        // borderBottomWidth:1,
+    },
+    navbar:{
+        flexDirection:"row",
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    logo:{
+        backgroundColor:"#86c5d8",
+        color:"black",
+        marginRight:5,
+        width:35,
+        padding:4,
+        borderRadius:5
     },
     headerText: {
         color: "black",
         fontWeight: "500",
         fontSize: 23,
+        marginLeft:4,
     },
     profile: {
         width: 30,
@@ -110,7 +130,7 @@ const styles = StyleSheet.create({
     statValue: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#888',
+        color: 'black',
         // marginVertical: 5,
     },
     statChange: {
@@ -122,8 +142,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     chartContainer: {
-        paddingHorizontal: 10,
-
+        // paddingHorizontal: 10,
+        marginHorizontal:10,
+        justifyContent:"center"
     }
 });
 

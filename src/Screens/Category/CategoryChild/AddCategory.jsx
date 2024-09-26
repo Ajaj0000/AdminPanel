@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
-import IcArrow from '../../../Assets/Icons/arrow-down-sign-to-navigate.png';
-import IcCancel from '../../../Assets/Icons/closeIc.png'
+import { styles } from './AddItemAddCateStyle';
 import TempScreen from './TextEditor';
 import box from '../../../Assets/Icons/square.png';
 import check from '../../../Assets/Icons/check.png';
 import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera } from 'react-native-image-picker';
+import MultiImagePicker from '../../../CommonScreens/ImagePicker';
 let launchImageLibrary = _launchImageLibrary;
 let launchCamera = _launchCamera;
 
@@ -13,12 +13,9 @@ let launchCamera = _launchCamera;
 function CreateCategoryScreen() {
 
     const DropdownRef = useRef(null)
-
-    const [taxes, setTaxes] = useState('');
     const [description, setDescription] = useState('');
 
     const handleFileUpload = () => {
-        // Implement file upload logic here
         console.log('File upload triggered');
     };
 
@@ -38,14 +35,6 @@ function CreateCategoryScreen() {
         const res = categoryy.filter((item) => item.title.toLowerCase().includes(e.toLowerCase()));
         setCate(res);
     };
-    const handleClick=()=>{
-        
-    }
-
-
-
-
-
 
 
     const tex = [
@@ -56,7 +45,6 @@ function CreateCategoryScreen() {
 
 
     const [open, setOpen] = useState(false)
-    const [selectValue, setSelectedValue] = useState('')
 
     const [selectedItems, setSelectedItems] = useState([]);
     const [openn, setOpenn] = useState(false)
@@ -70,47 +58,10 @@ function CreateCategoryScreen() {
     };
 
 
-    // image upload
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const openImagePicker = () => {
-        const options = {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 2000,
-            maxWidth: 2000,
-        };
-
-        launchImageLibrary(options, handleResponse);
-    };
-
-    const handleCameraLaunch = () => {
-        const options = {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 2000,
-            maxWidth: 2000,
-        };
-
-        launchCamera(options, handleResponse);
-    };
-
-    const handleResponse = (response) => {
-        if (response.didCancel) {
-            console.log('User cancelled image picker');
-        } else if (response.error) {
-            console.log('Image picker error: ', response.error);
-        } else {
-            let imageUri = response.uri || response.assets?.[0]?.uri;
-            setSelectedImage(imageUri);
-        }
-    };
 
     return (
         <TouchableWithoutFeedback onPress={() => {setOpen(false); setOpenn(false)}}>
             <KeyboardAvoidingView >
-
-
                 <ScrollView contentContainerStyle={styles.container}>
                     {/* Select Parent Category */}
                     <View style={styles.formGroup}>
@@ -123,12 +74,6 @@ function CreateCategoryScreen() {
                             onChangeText={handleSearch}
                             onFocus={()=>setOpen(true)}
                         />
-                        {/* <TouchableOpacity onPress={() => setOpen(!open)}>
-                            <View style={styles.formGroup1}>
-                                <Text style={styles.parentCat}>{selectValue === '' ? "Select Parent Category" : selectValue}</Text>
-                                <Image source={open ? IcCancel : IcArrow} style={styles.arrowIc} />
-                            </View>
-                        </TouchableOpacity> */}
                         {
                             searchCategory.length > 0 && cate.length > 0 && open && <TouchableWithoutFeedback onPress={() => { }}>
                                 <View style={styles.selectList} ref={DropdownRef}>
@@ -162,7 +107,7 @@ function CreateCategoryScreen() {
 
 
                     {/* Select Tax (Multi Select) */}
-                    <View style={styles.catLable}>
+                    <View style={styles.catLablee}>
                         <View>
                             <Text style={styles.label}>Tax (Multi Select)</Text>
                             <TouchableOpacity onPress={() => setOpenn(!openn)}>
@@ -192,15 +137,10 @@ function CreateCategoryScreen() {
                     </View>
 
 
-                    {/* Category Icon */}
-                    <View style={styles.formGroup}>
-                        <Text style={styles.label}>Category Image</Text>
-                        <TouchableOpacity style={styles.uploadBox} onPress={openImagePicker}>
-                            <Text style={styles.uploadText}>{selectedImage ? <Image source={{ uri: selectedImage }} /> : "Click here to Select Image"}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-
+                    {/* Category Icon */}  
+                    
+                      <MultiImagePicker/>
+                   
                     {/* Description */}
                     <View style={styles.formGroup}>
                         <Text style={styles.label}>Description</Text>
@@ -217,144 +157,6 @@ function CreateCategoryScreen() {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-        backgroundColor: "white"
-    },
-    formGroup1: {
-        elevation: 3,
-        borderColor: 'black',
-        color: 'grey',
-        backgroundColor: "#F0F0F0",
-        borderRadius: 10,
-        padding: 5,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
 
-    // select list
-
-    selectText: {
-        fontSize: 14,
-        fontWeight: "500",
-        padding: 5,
-        margin: 3,
-        color: "black",
-    },
-
-    arrowIc: {
-        width: 14,
-        height: 14,
-        marginRight: 14,
-    },
-    parentCat: {
-        fontSize: 14,
-        color: "grey",
-        padding: 5,
-        margin: 5
-    },
-    formGroup: {
-        marginBottom: 20,
-    },
-    catLable: {
-        marginBottom: 20,
-    },
-    label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 4,
-        color: "black"
-    },
-    picker: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: '#DDD',
-        borderRadius: 6,
-    },
-    radioGroup: {
-        flexDirection: 'row',
-        marginTop: 10,
-    },
-    radio: {
-        marginRight: 10,
-        color: '#888',
-    },
-    radioSelected: {
-        marginRight: 10,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-    input: {
-        elevation: 3,
-        borderColor: 'black',
-        borderRadius: 6,
-        padding: 10,
-        color: 'grey',
-        backgroundColor: "#F0F0F0",
-    },
-    textArea: {
-        elevation: 3,
-        borderColor: '#DDD',
-        borderRadius: 6,
-        padding: 10,
-        textAlignVertical: 'top',
-    },
-    uploadBox: {
-        borderWidth: 1,
-        borderColor: '#AAA',
-        borderStyle: 'dashed',
-        borderRadius: 6,
-        height: 150,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    uploadText: {
-        color: '#AAA',
-    },
-    checkboxLabel: {
-        marginLeft: 10,
-    },
-    submitButton: {
-        backgroundColor: 'black',
-        paddingVertical: 12,
-        borderRadius: 6,
-        alignItems: 'center',
-    },
-    submitButtonText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-
-    // selected List
-    selectList: {
-        backgroundColor: "white",
-        elevation: 2,
-        marginTop: 5,
-        position: "absolute",
-        width: "100%",
-        top: 70,
-        zIndex: 10,
-        padding: 10
-    },
-    ListItems: {
-        flexDirection: "row",
-        margin: 3,
-        padding: 5,
-        alignItems: "center",
-        marginVertical: 3,
-    },
-    checkImg: {
-        width: 15,
-        height: 15,
-        marginRight: 2,
-    },
-    checkText: {
-        fontSize: 14,
-        color: "black",
-        marginLeft: 4,
-    },
-});
 
 export { CreateCategoryScreen }

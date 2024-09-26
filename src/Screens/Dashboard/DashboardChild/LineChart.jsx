@@ -21,8 +21,8 @@ function LineChartt() {
     return (
         <>
 
-            <View>
-                <Text>Bezier Line Chart</Text>
+            <View style={{ justifyContent: "center" }}>
+                {/* <Text>Bezier Line Chart</Text> */}
                 <LineChart
                     data={{
                         labels: result,
@@ -45,21 +45,20 @@ function LineChartt() {
                     yAxisSuffix="k"
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
-                        backgroundColor: '#70c4a5',
-                        backgroundGradientFrom: '#85d1b4',
+                        backgroundColor: '#86c5d8',
+                        backgroundGradientFrom: '#ADD8E6',
                         backgroundGradientTo: '#ffffff',
-                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
                         propsForDots: {
                             r: "6",
                             strokeWidth: "2",
-                            stroke: "#85d1b4"
+                            stroke: "#86c5d8"
                         }
                     }}
                     bezier
                     style={{
                         marginVertical: 8,
-                        borderRadius: 16,
-                        elevation:5,
+                        borderRadius: 10,
                     }}
                 />
             </View>
