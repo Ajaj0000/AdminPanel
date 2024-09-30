@@ -3,6 +3,7 @@ import '../gesture-handler';
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { Route } from './Navigations/Route';
+import LoginScreen from './Screens/Admins/LoginScreen';
 
 function App() {
 
@@ -11,10 +12,8 @@ function App() {
     <>
 
       <NavigationContainer>
-      {/* <StackNav/> */}
-        <Route/>
+        <LoginScreen />
       </NavigationContainer>
-      {/* <DropdownExample/> */}
     </>
   )
 }

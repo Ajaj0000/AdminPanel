@@ -1,6 +1,6 @@
 import React from "react";
 import { styles } from "./DashStyle";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, FlatList } from "react-native";
 import { LineChartt } from "../DashboardChild/LineChart";
 import { PieChartt } from "../DashboardChild/PieChart";
 import IcPerson from '../../../Assets/Images/man.png'
@@ -12,6 +12,7 @@ function Dashboard() {
     return (
         <>
             {/* <AntDesign name="stepforward" size={30} color="red" /> */}
+
             <View style={styles.header}>
                 <View style={styles.navbar}>
                     <Text style={styles.logo}>TB2</Text>

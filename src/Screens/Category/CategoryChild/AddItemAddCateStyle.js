@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
     formGroup11: {
         flexDirection: "row",
         // marginVertical: ,
-        zIndex:-1,
-        marginBottom:10,
+        // zIndex: -1,
+        marginBottom: 10,
         justifyContent: "space-between"
     },
     checkContainer: {
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
+        marginTop:10,
         flexDirection: "row",
     },
     checklabel: {
@@ -37,10 +38,31 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     checkBox: {
-        width: 18,
-        height: 17,
+        width: 15,
+        height: 15,
         marginLeft: 5,
     },
+
+    // search suggestion
+    flexSearch:{
+        flexDirection:"row",
+        alignItems:"center",
+          borderBottomWidth:1,
+        borderColor:"grey"
+    },
+    SearchIc:{
+        width:20,
+        height:20,
+        marginRight:5,
+        borderBottomWidth:1,
+        borderColor:"grey"
+    },
+    searchCate:{
+        fontSize:14,
+        color:"black"
+    },
+
+
 
     // select list
 
@@ -65,12 +87,13 @@ const styles = StyleSheet.create({
     },
     formGroup: {
         marginBottom: 10,
+        // zIndex:-1,
     },
-       catLable: {
+    catLable: {
         width: "45%"
     },
     catLablee: {
-        marginBottom:10,
+        marginBottom: 10,
     },
     label: {
         fontSize: 16,
@@ -99,7 +122,7 @@ const styles = StyleSheet.create({
     },
     input: {
         elevation: 3,
-        borderRadius: 6,
+        // borderRadius: 6,
         padding: 10,
         marginVertical: 1,
         color: 'black',
@@ -140,14 +163,15 @@ const styles = StyleSheet.create({
 
     // selected List
     selectList: {
-        backgroundColor: "white",
-        elevation: 2,
-        marginTop: 5,
         position: "absolute",
+        zIndex:100,
+        elevation:50,
         width: "100%",
-        top: 70,
-        zIndex: 10,
-        padding: 10
+        backgroundColor: "white",
+        marginTop: 5,
+        top: 75,
+        elevation:3,
+        padding: 10,
     },
     ListItems: {
         flexDirection: "row",
@@ -166,6 +190,7 @@ const styles = StyleSheet.create({
         color: "black",
         marginLeft: 4,
     },
+
 });
 
-export{styles}
+export { styles }

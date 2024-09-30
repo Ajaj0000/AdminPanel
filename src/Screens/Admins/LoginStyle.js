@@ -3,45 +3,51 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00A688', // Green background
+        backgroundColor: 'white', // Green background
         justifyContent: 'center',
-        paddingHorizontal: 30,
+        paddingHorizontal: 25,
         
+    },
+    innerContainer:{
+        // backgroundColor:"red",
+        padding:20,
+        elevation:1,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'white',
+        color: 'black',
         textAlign: 'center',
         marginBottom: 10,
     },
     subtitle: {
         fontSize: 16,
-        color: 'white',
+        color: 'black',
         textAlign: 'center',
         marginBottom: 40,
     },
     input: {
         backgroundColor: 'white',
-        borderRadius: 25,
+        // borderRadius: 25,
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginBottom: 20,
         fontSize: 16,
-        borderColor: '#ddd',
+        borderColor: 'black',
         borderWidth: 1,
         color:'black'
     },
     loginButton: {
         backgroundColor: 'white',
-        borderRadius: 25,
+        // borderRadius: 25,
+        borderWidth:1,
         paddingVertical: 12,
         alignItems: 'center',
         marginBottom: 20,
     },
     loginButtonText: {
         fontSize: 18,
-        color: '#00A688',
+        color: 'black',
         fontWeight: 'bold',
     },
     signInPasskeyText: {

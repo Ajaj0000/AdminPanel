@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, TouchableWithoutFeedback, KeyboardAvoidingView } from "react-native";
+import { ScrollView, Text, TextInput, View, TouchableOpacity, Image, TouchableWithoutFeedback, KeyboardAvoidingView, Platform } from "react-native";
 import { styles } from "../../Category/CategoryChild/AddItemAddCateStyle";
 import TempScreen from "../../Category/CategoryChild/TextEditor";
 import check from '../../../Assets/Icons/check.png';
 import box from '../../../Assets/Icons/square.png';
-import { launchImageLibrary as _launchImageLibrary, launchCamera as _launchCamera } from 'react-native-image-picker';
 import MultiImagePicker from "../../../CommonScreens/ImagePicker";
-let launchImageLibrary = _launchImageLibrary;
-let launchCamera = _launchCamera;
+import IcSearch from '../../../Assets/Icons/search.png';
+
 
 function ItemSection() {
 
@@ -15,10 +14,8 @@ function ItemSection() {
 
     const [isCheck, setIsCheck] = useState(false)
 
-
     const [selectedItems, setSelectedItems] = useState([]);
     const [open, setOpen] = useState(false);
-    const [photo, setPhoto] = useState(null);
 
     const toggleSelectItem = (id) => {
         if (selectedItems.includes(id)) {
@@ -42,179 +39,355 @@ function ItemSection() {
         { id: "4", title: "Competition" },
         { id: "5", title: "RBSE 12" },
         { id: "6", title: "CBSE 12" },
+        { id: "7", title: "Science fiction" },
+        { id: "8", title: "Fantsy" },
+        { id: "9", title: "Historical Fiction" },
+        { id: "10", title: "Horror" },
+        { id: "11", title: "Romance" },
+        { id: "12", title: "Short Story" },
+        { id: "13", title: "Classic" },
+        { id: "14", title: "Memori" },
+        { id: "15", title: "Thriller" }
     ];
+    const [cate, setCate] = useState([...categoryy]);
 
+
+    const [searchCategory, setSearchCategory] = useState();
+    const [value, setValue] = useState([])
     const [show, setShow] = useState(false)
-    const [searchCategory, setSearchCategory] = useState([...categoryy]);
-    const [cate, setCate] = useState([]);
 
     const handleSearch = (e) => {
-        setSearchCategory(e);
+        // e.preventDefault();
+        setSearchCategory(e)
         const res = categoryy.filter((item) => item.title.toLowerCase().includes(e.toLowerCase()));
         setCate(res);
     };
-
-    // const handleOutsidePress = () => {
-    //     if (open) {
-    //         setOpen(false);
-    //     }
-    // };
-
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const openImagePicker = () => {
-        const options = {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 2000,
-            maxWidth: 2000,
-        };
-
-        launchImageLibrary(options, handleResponse);
-    };
-
-    const handleCameraLaunch = () => {
-        const options = {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 2000,
-            maxWidth: 2000,
-        };
-
-        launchCamera(options, handleResponse);
-    };
-
-    const handleResponse = (response) => {
-        if (response.didCancel) {
-            console.log('User cancelled image picker');
-        } else if (response.error) {
-            console.log('Image picker error: ', response.error);
-        } else {
-            let imageUri = response.uri || response.assets?.[0]?.uri;
-            setSelectedImage(imageUri);
+    const handleClick = (id) => {
+        if (!value.includes(id)) {
+            setValue([...value, id])
+        } else if (value.includes(id)) {
+            setValue(value.filter(item => item !== id))
         }
-    };
-
-
+        setSearchCategory('')
+        setCate(categoryy)
+    }
+    const handleRemoveCat = (e) => {
+        setValue(value.filter(item => item !== e))
+    }
 
 
     return (
         <>
-            {/* Use TouchableWithoutFeedback to handle outside clicks */}
-            <TouchableWithoutFeedback onPress={() => { setShow(false) }}>
-                <KeyboardAvoidingView>
-                    <ScrollView contentContainerStyle={styles.container}>
-                        <View style={styles.formGroup}>
-                            <Text style={styles.label}>Title</Text>
-                            <TextInput placeholder="Enter Title" placeholderTextColor="grey" style={styles.input} />
-                        </View>
 
-                        <View style={styles.formGroup}>
-                            <Text style={styles.label}>Category</Text>
-                            <TextInput
+            {
+                show || open ?
+                    <TouchableWithoutFeedback onPress={() => { setShow(false);setOpen(false) }}>
+                        < KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                            <ScrollView contentContainerStyle={styles.container}>
+                                <View style={styles.formGroup}>
+                                    <Text style={styles.label}>Title</Text>
+                                    <TextInput placeholder="Enter Title" placeholderTextColor="grey" style={styles.input} />
+                                </View>
+
+                                <Text style={styles.label}>Category</Text>
+                                {
+                                    value.length > 0 &&
+                                    <ScrollView contentContainerStyle={{ flexDirection: "row", alignItems: "center" }} nestedScrollEnabled={true} horizontal={true}>
+                                        {
+                                            value.map((item, index) =>
+                                                <View onPress={() => setShow(!show)} style={[styles.input, { padding: 10, backgroundColor: "#FFF", borderRadius: 15, elevation: 5, margin: 2, flexDirection: "row" }]}>
+                                                    <Text onPress={() => setShow(true)} style={{ color: "black" }}>{item}</Text>
+                                                    <TouchableOpacity onPress={() => handleRemoveCat(item)}>
+                                                        <Text style={{ marginLeft: 5, color: "black" }}>X</Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            )}
+                                    </ScrollView>
+                                }
+
+                                <View style={styles.formGroup}>
+
+
+
+                                    {/* <View style={styles.flexSearch}> */}
+                                    {/* <Image source={IcSearch} style={styles.SearchIc} /> */}
+                                    <TextInput
+                                        placeholder="Search..."
+                                        style={[styles.input, { marginTop: 5 }]}
+                                        onChangeText={(text) => handleSearch(text)}
+                                        value={searchCategory}
+                                        placeholderTextColor="black"
+                                        onFocus={() => setShow(true)}
+                                    />
+                                    {/* </View> */}
+                                    {/* <TextInput
                                 style={styles.input}
                                 placeholder="Search..."
                                 placeholderTextColor="grey"
                                 value={searchCategory}
                                 onChangeText={handleSearch}
                                 onFocus={() => setShow(true)}
-                            />
+                            /> */}
+                                    {/*  searchCategory.length > 0 && cate.length > 0 && */}
+                                    {
+                                        show &&
+                                        <TouchableWithoutFeedback onPressOut={() => { }}>
+                                            <View style={[styles.selectList,{top:55}]} ref={DropdownRef}>
+                                                <View>
+                                                    <ScrollView contentContainerStyle={{ maxHeight: 200 }} nestedScrollEnabled={true} showsVerticalScrollIndicator={true}>
+                                                        {
+                                                           cate.length > 0 ?
+                                                           cate.map((itm, index) => {
+                                                            return (
+                                                                <>
+                                                                    <TouchableOpacity key={index} onPress={() => { handleClick(itm.title) }}>
+                                                                        <View style={[styles.ListItems]}>
+                                                                            <Image source={value.includes(itm.title) ? check : box} style={styles.checkImg} />
+                                                                            <Text style={styles.selectText}>{itm.title}</Text>
+                                                                        </View>
+                                                                    </TouchableOpacity>
+                                                                </>
+                                                            )
+                                                        }) : 
+                                                        <Text style={styles.selectText}>No such category Available</Text>
+                                                        }
+                                                    </ScrollView>
+                                                </View>
+                                            </View>
+                                        </TouchableWithoutFeedback>
+                                    }
 
-                            {
-                                searchCategory.length > 0 && cate.length > 0 && show && <TouchableWithoutFeedback onPress={() => { }}>
-                                    <View style={styles.selectList} ref={DropdownRef}>
-                                        {
-                                            cate.map((itm, index) => {
-                                                return (
-                                                    <>
-                                                        <TouchableOpacity key={index} onPress={() => { setSearchCategory(itm.title); setShow(false) }}>
-                                                            <Text style={styles.selectText}>{itm.title}</Text>
-                                                        </TouchableOpacity>
-                                                    </>
-                                                )
-                                            })
-                                        }
+                                </View>
+
+
+                                <View style={styles.formGroup}>
+
+                                    <View>
+                                        <Text style={styles.label}>Sub Category</Text>
+                                        {/* <TouchableOpacity onPress={() => setOpen(!open)}> */}
+                                        <Text style={[styles.input, { padding: 15 }]} onPress={() => setOpen(!open)}>{selectedItems.join(', ') || "Select here"}</Text>
+                                        {/* </TouchableOpacity> */}
                                     </View>
-                                </TouchableWithoutFeedback>
+
+                                    {/* Dropdown List */}
+                                    {
+                                        open && (
+                                            <View style={styles.selectList}>
+                                                {
+                                                    category.map((item) => (
+                                                        <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpen(true) }}>
+                                                            <View style={styles.ListItems}>
+                                                                <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
+                                                                <Text style={styles.checkText}>{item.title}</Text>
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    ))}
+                                            </View>
+
+                                        )
+                                    }
+
+
+                                </View>
+
+
+
+                                <View style={styles.formGroup11}>
+                                    <View style={styles.catLable}>
+                                        <Text style={styles.label}>MRP</Text>
+                                        <TextInput placeholder="MRP" placeholderTextColor="grey" style={styles.input} />
+                                    </View>
+                                    <View style={styles.catLable}>
+                                        <Text style={styles.label}>Selling Price</Text>
+                                        <TextInput placeholder="Selling price" placeholderTextColor="grey" style={styles.input} />
+                                    </View>
+                                </View>
+
+                                {/* weight */}
+                                <View style={styles.formGroup}>
+                                    <Text style={styles.label}>Weight</Text>
+                                    <TextInput placeholder="Weight" placeholderTextColor="grey" style={styles.input} />
+                                </View>
+                                <TouchableOpacity onPress={() => setIsCheck(!isCheck)}>
+                                    <View style={styles.checkContainer}>
+                                        <Text style={[styles.checklabel, { color: isCheck ? 'black' : 'gray' }]}>
+                                            Coupon Code/Rewards Application
+                                        </Text>
+                                        <Image source={isCheck ? check : box} style={styles.checkBox} />
+                                    </View>
+                                </TouchableOpacity>
+
+                                {/* Category Icon */}
+                                <MultiImagePicker />
+
+                                {/* description */}
+                                <View style={styles.formGroup}>
+                                    <Text style={styles.label}>Description</Text>
+                                    <TempScreen />
+                                </View>
+
+                                {/* Buttons */}
+                                <TouchableOpacity style={styles.submitButton}>
+                                    <Text style={styles.submitButtonText}>Submit</Text>
+                                </TouchableOpacity>
+
+                            </ScrollView >
+
+                        </KeyboardAvoidingView >
+                    </TouchableWithoutFeedback>
+                    :
+                    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                        <ScrollView contentContainerStyle={styles.container}>
+                            <View style={styles.formGroup}>
+                                <Text style={styles.label}>Title</Text>
+                                <TextInput placeholder="Enter Title" placeholderTextColor="grey" style={styles.input} />
+                            </View>
+
+                            <Text style={styles.label}>Category</Text>
+                            {
+                                value.length > 0 &&
+                                <ScrollView contentContainerStyle={{ flexDirection: "row", alignItems: "center" }} nestedScrollEnabled={true} horizontal={true}>
+                                    {
+                                        value.map((item, index) =>
+                                            <View onPress={() => setShow(!show)} style={[styles.input, { padding: 10, backgroundColor: "#FFF", borderRadius: 15, elevation: 5, margin: 2, flexDirection: "row" }]}>
+                                                <Text onPress={() => setShow(!show)} style={{ color: "black" }}>{item}</Text>
+                                                <TouchableOpacity onPress={() => handleRemoveCat(item)}>
+                                                    <Text style={{ marginLeft: 5, color: "black" }}>X</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )}
+                                </ScrollView>
                             }
 
-                        </View>
+                            <View style={styles.formGroup}>
 
 
-                        <View style={styles.formGroup}>
+
+                                {/* <View style={styles.flexSearch}> */}
+                                {/* <Image source={IcSearch} style={styles.SearchIc} /> */}
+                                <TextInput
+                                    placeholder="Search..."
+                                    style={[styles.input, { marginTop: 5 }]}
+                                    onChangeText={(text) => handleSearch(text)}
+                                    value={searchCategory}
+                                    placeholderTextColor="black"
+                                    onFocus={() => setShow(true)}
+                                />
+                                {/* </View> */}
+                                {/* <TextInput
+                                    style={styles.input}
+                                    placeholder="Search..."
+                                    placeholderTextColor="grey"
+                                    value={searchCategory}
+                                    onChangeText={handleSearch}
+                                    onFocus={() => setShow(true)}
+                                /> */}
+                                {/*  searchCategory.length > 0 && cate.length > 0 && */}
+                                {
+                                    show &&
+                                    <TouchableWithoutFeedback onPressOut={() => { }}>
+                                        <View style={styles.selectList} ref={DropdownRef}>
+                                            <View>
+                                                <ScrollView contentContainerStyle={{ maxHeight: 200 }} nestedScrollEnabled={true} showsVerticalScrollIndicator={true}>
+                                                    {
+                                                        cate.map((itm, index) => {
+                                                            return (
+                                                                <>
+                                                                    <TouchableOpacity key={index} onPress={() => { handleClick(itm.title) }}>
+                                                                        <View style={styles.ListItems}>
+                                                                            <Image source={value.includes(itm.title) ? check : box} style={styles.checkImg} />
+                                                                            <Text style={styles.selectText}>{itm.title}</Text>
+                                                                        </View>
+
+                                                                    </TouchableOpacity>
+                                                                </>
+                                                            )
+                                                        })
+                                                    }
+                                                </ScrollView>
+                                            </View>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+                                }
+
+                            </View>
+
+
+                            <View style={styles.formGroup}>
 
                                 <View>
                                     <Text style={styles.label}>Sub Category</Text>
-                                    <TouchableOpacity onPress={() => setOpen(!open)}>
-                                        <Text style={[styles.input, { padding: 13 }]} onFocus={() => setOpen(!open)}>{selectedItems.join(', ') || "Select here"}</Text>
-                                    </TouchableOpacity>
+                                    {/* <TouchableOpacity onPress={() => setOpen(!open)}> */}
+                                    <Text style={[styles.input, { padding: 15 }]} onPress={() => setOpen(!open)}>{selectedItems.join(', ') || "Select here"}</Text>
+                                    {/* </TouchableOpacity> */}
                                 </View>
 
                                 {/* Dropdown List */}
                                 {
                                     open && (
                                         <View style={styles.selectList}>
-                                            {category.map((item) => (
-                                                <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpen(true) }}>
-                                                    <View style={styles.ListItems}>
-                                                        <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
-                                                        <Text style={styles.checkText}>{item.title}</Text>
-                                                    </View>
-                                                </TouchableOpacity>
-                                            ))}
+                                            {
+                                                category.map((item) => (
+                                                    <TouchableOpacity key={item.id} onPress={() => { toggleSelectItem(item.title); setOpen(true) }}>
+                                                        <View style={styles.ListItems}>
+                                                            <Image source={selectedItems.includes(item.title) ? check : box} style={styles.checkImg} />
+                                                            <Text style={styles.checkText}>{item.title}</Text>
+                                                        </View>
+                                                    </TouchableOpacity>
+                                                ))}
                                         </View>
 
                                     )
                                 }
 
 
-                        </View>
-
-
-
-                        <View style={styles.formGroup11}>
-                            <View style={styles.catLable}>
-                                <Text style={styles.label}>MRP</Text>
-                                <TextInput placeholder="MRP" placeholderTextColor="grey" style={styles.input} />
                             </View>
-                            <View style={styles.catLable}>
-                                <Text style={styles.label}>Selling Price</Text>
-                                <TextInput placeholder="Selling price" placeholderTextColor="grey" style={styles.input} />
+
+
+
+                            <View style={styles.formGroup11}>
+                                <View style={styles.catLable}>
+                                    <Text style={styles.label}>MRP</Text>
+                                    <TextInput placeholder="MRP" placeholderTextColor="grey" style={styles.input} />
+                                </View>
+                                <View style={styles.catLable}>
+                                    <Text style={styles.label}>Selling Price</Text>
+                                    <TextInput placeholder="Selling price" placeholderTextColor="grey" style={styles.input} />
+                                </View>
                             </View>
-                        </View>
 
-                        {/* weight */}
-                        <View style={styles.formGroup}>
-                            <Text style={styles.label}>Weight</Text>
-                            <TextInput placeholder="Weight" placeholderTextColor="grey" style={styles.input} />
-                        </View>
-                        <TouchableOpacity onPress={() => setIsCheck(!isCheck)}>
-                            <View style={styles.checkContainer}>
-                                <Text style={[styles.checklabel, { color: isCheck ? 'black' : 'gray' }]}>
-                                    Coupon Code/Rewards Application
-                                </Text>
-                                <Image source={isCheck ? check : box} style={styles.checkBox} />
+                            {/* weight */}
+                            <View style={styles.formGroup}>
+                                <Text style={styles.label}>Weight</Text>
+                                <TextInput placeholder="Weight" placeholderTextColor="grey" style={styles.input} />
                             </View>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setIsCheck(!isCheck)}>
+                                <View style={styles.checkContainer}>
+                                    <Text style={[styles.checklabel, { color: isCheck ? 'black' : 'gray' }]}>
+                                        Coupon Code/Rewards Application
+                                    </Text>
+                                    <Image source={isCheck ? check : box} style={styles.checkBox} />
+                                </View>
+                            </TouchableOpacity>
 
-                        {/* Category Icon */}
-                        <MultiImagePicker />
-                        {/* description */}
-                        <View style={styles.formGroup}>
-                            <Text style={styles.label}>Description</Text>
-                            <TempScreen />
-                        </View>
+                            {/* Category Icon */}
+                            <MultiImagePicker />
 
+                            {/* description */}
+                            <View style={styles.formGroup}>
+                                <Text style={styles.label}>Description</Text>
+                                <TempScreen />
+                            </View>
 
+                            {/* Buttons */}
+                            <TouchableOpacity style={styles.submitButton}>
+                                <Text style={styles.submitButtonText}>Submit</Text>
+                            </TouchableOpacity>
 
-                        {/* Buttons */}
-                        <TouchableOpacity style={styles.submitButton}>
-                            <Text style={styles.submitButtonText}>Submit</Text>
-                        </TouchableOpacity>
+                        </ScrollView >
 
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+                    </KeyboardAvoidingView>
+            }
         </>
     );
 }

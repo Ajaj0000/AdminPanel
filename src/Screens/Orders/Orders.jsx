@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, Text, View, StyleSheet, FlatList, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import { Card, Badge } from 'react-native-paper';
-import imgg from '../../Assets/Icons/ich.jpeg';
 import IcSearch from '../../Assets/Icons/search.png';
 import icSort from '../../Assets/Icons/funnel.png';
 import { ItemCateStyles } from "../Category/CategoryChild/ItemCateStyle";
@@ -9,7 +8,7 @@ import { ItemCateStyles } from "../Category/CategoryChild/ItemCateStyle";
 
 const orders = [
     {
-        id: '#14432024-25',
+        id: '#a14432024-25',
         date: 'Yesterday at 8:33 pm',
         customer: 'Kiran Bishnoi',
         items: '1 item',
@@ -19,7 +18,7 @@ const orders = [
         fulfilled: false,
     },
     {
-        id: '#14422024-25',
+        id: '#b14422024-25',
         date: 'Thursday at 08:53 pm',
         customer: 'Naveen Bohra',
         items: '1 item',
@@ -29,7 +28,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14412024-25',
+        id: '#c14412024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -39,7 +38,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14450024-25',
+        id: '#d14450024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -49,7 +48,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14451024-25',
+        id: '#e14451024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -59,7 +58,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14452024-25',
+        id: '#f14452024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -69,7 +68,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14453024-25',
+        id: '#g14453024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -79,7 +78,7 @@ const orders = [
         fulfilled: true,
     },
     {
-        id: '#14454024-25',
+        id: '#h14454024-25',
         date: 'Sunday at 12:40 pm',
         customer: 'Bhawna Choudhary',
         items: '4 items',
@@ -97,6 +96,7 @@ function Order() {
     // sort and input search
 
     const [modalVisible, setModalVisible] = useState(false);
+
     const [selectOption, setSelectOption] = useState('')
 
     const sortBy = [
@@ -122,167 +122,360 @@ function Order() {
 
     return (
         <>
-            <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-                <KeyboardAvoidingView>
-                    <View style={ItemCateStyles.maincontainer}>
-                        <View style={ItemCateStyles.containerHeader}>
-                            <Text style={ItemCateStyles.order}>Orders</Text>
-                            <View style={styles.actionBox}>
-                                <Text style={styles.drop}>More Action</Text>
-                                <Text style={styles.create}>Create order</Text>
-                            </View>
-                        </View>
-                        <ScrollView>
-                            {/* Search Input Section */}
-
-                            <View style={ItemCateStyles.searchContainer}>
-                                <Image source={IcSearch} style={ItemCateStyles.searchIcImg} />
-                                <TextInput
-                                    style={ItemCateStyles.searchInput}
-                                    placeholder="Search..."
-                                    placeholderTextColor="grey"
-                                />
-                                <View style={ItemCateStyles.sortBox}>
-                                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                        <View>
-                                            <Image source={icSort} style={ItemCateStyles.statLabell} />
-                                        </View>
-                                    </TouchableOpacity>
+            {
+                modalVisible ? <TouchableWithoutFeedback onPress={()=>setModalVisible(false)} style={{ flex: 1 }} >
+                    <KeyboardAvoidingView>
+                        <View style={ItemCateStyles.maincontainer}>
+                            <View style={ItemCateStyles.containerHeader}>
+                                <Text style={ItemCateStyles.order}>Orders</Text>
+                                <View style={styles.actionBox}>
+                                    <Text style={styles.drop}>More Action</Text>
+                                    <Text style={styles.create}>Create order</Text>
                                 </View>
-                                {/* sort section */}
-                                {
-                                    modalVisible && (
-                                        <TouchableWithoutFeedback onPress={() => { }}>
-                                            <View style={ItemCateStyles.sortSection} ref={refSort}>
-                                                <Text>Sort By</Text>
-                                                {sortBy.map((item, index) => (
-                                                    <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
-                                                        <View style={ItemCateStyles.radioCheck}>
-                                                            <View style={ItemCateStyles.radioOuter}>
-                                                                <View style={[ItemCateStyles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
-                                                            </View>
-                                                            <Text style={{ color: "black" }}>{item.title}</Text>
+                            </View>
+
+                            <ScrollView onResponderMove={() => console.warn('outer move')}>
+                                {/* Search Input Section */}
+                                <View style={ItemCateStyles.searchContainer}>
+                                    <Image source={IcSearch} style={ItemCateStyles.searchIcImg} />
+                                    <TextInput
+                                        style={ItemCateStyles.searchInput}
+                                        placeholder="Search..."
+                                        placeholderTextColor="grey"
+                                    />
+                                    <View style={ItemCateStyles.sortBox}>
+                                        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                            <View>
+                                                <Image source={icSort} style={ItemCateStyles.statLabell} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    {/* sort section */}
+                                    {
+                                        modalVisible && (
+                                            <TouchableWithoutFeedback onPress={() => { }}>
+                                                <View style={[ItemCateStyles.sortSection, { zIndex: 100 }]} ref={refSort}>
+                                                    <Text>Sort By</Text>
+                                                    {
+                                                        sortBy.map((item, index) => (
+                                                            <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
+                                                                <View style={ItemCateStyles.radioCheck}>
+                                                                    <View style={ItemCateStyles.radioOuter}>
+                                                                        <View style={[ItemCateStyles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
+                                                                    </View>
+                                                                    <Text style={{ color: "black" }}>{item.title}</Text>
+                                                                </View>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                </View>
+                                            </TouchableWithoutFeedback>
+                                        )}
+                                </View>
+
+                                <View style={styles.container}>
+                                    {/* Time Filters */}
+                                    <View style={styles.topCont}>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>Today</Text>
+                                        </View>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>7 days</Text>
+                                        </View>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>30 days</Text>
+                                        </View>
+                                    </View>
+
+                                    {/* Statistics */}
+                                    <View>
+                                        <ScrollView horizontal={true} nestedScrollEnabled={true} onResponderMove={() => console.warn('inner move')}>
+                                            <View style={ItemCateStyles.statsContainer}>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Total Orders</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Ordered items over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Returns</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Fulfilled orders over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Delivered orders over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Time to fulfill</Text>
+                                                    <Text style={styles.statValue}>0 min</Text>
+                                                </View>
+
+                                            </View>
+                                        </ScrollView>
+                                    </View>
+
+
+                                    {/* Filter */}
+                                    <View>
+                                        <ScrollView horizontal={true} nestedScrollEnabled={true}>
+                                            <View style={{ flexDirection: "row", }}>
+
+                                                <View style={ItemCateStyles.statsContainer}>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>All</Text>
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Unfulfilled</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Unpaid</Text>
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Open</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Archived</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>+</Text>
+
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </ScrollView>
+                                    </View>
+
+
+                                    {/* Orders List */}
+                                    <View>
+                                        <FlatList
+                                            data={orders}
+                                            nestedScrollEnabled={true}
+                                            keyExtractor={(item) => item.id}
+                                            renderItem={({ item }) => (
+                                                <Card style={styles.card}>
+                                                    <View style={styles.cardContent}>
+                                                        <View style={styles.header}>
+                                                            <Text style={styles.orderId}>{item.id}</Text>
+                                                            <Text style={styles.amount}>{item.amount}</Text>
                                                         </View>
-                                                    </TouchableOpacity>
-                                                ))}
-                                            </View>
-                                        </TouchableWithoutFeedback>
-                                    )}
-                            </View>
-
-                            <View style={styles.container}>
-                                {/* Time Filters */}
-                                <View style={styles.topCont}>
-                                    <View style={ItemCateStyles.statBox}>
-                                        <Text style={styles.filterItem}>Today</Text>
+                                                        <Text style={styles.date}>{item.date}</Text>
+                                                        <Text style={styles.customer}>{item.customer} • {item.items}</Text>
+                                                        <View style={styles.statusContainer}>
+                                                            <Badge style={styles.paidBadge}>Paid</Badge>
+                                                            <Badge
+                                                                style={item.fulfilled ? styles.fulfilledBadge : styles.unfulfilledBadge}
+                                                            >
+                                                                {item.fulfilled ? 'Fulfilled' : 'Unfulfilled'}
+                                                            </Badge>
+                                                        </View>
+                                                        {item.fulfilled && (
+                                                            <Text style={styles.tracking}>Tracking added</Text>
+                                                        )}
+                                                        <Text style={styles.shipping}>{item.shipping}</Text>
+                                                    </View>
+                                                </Card>
+                                            )}
+                                            style={styles.orderList}
+                                        />
                                     </View>
-                                    <View style={ItemCateStyles.statBox}>
-                                        <Text style={styles.filterItem}>7 days</Text>
-                                    </View>
-                                    <View style={ItemCateStyles.statBox}>
-                                        <Text style={styles.filterItem}>30 days</Text>
-                                    </View>
-                                </View>
-
-                                {/* Statistics */}
-                                <ScrollView horizontal={true}>
-                                    <View style={ItemCateStyles.statsContainer}>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Total Orders</Text>
-                                            <Text style={styles.statValue}>0 --</Text>
-                                        </View>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Ordered items over time</Text>
-                                            <Text style={styles.statValue}>0 --</Text>
-                                        </View>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Returns</Text>
-                                            <Text style={styles.statValue}>0 --</Text>
-                                        </View>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Fulfilled orders over time</Text>
-                                            <Text style={styles.statValue}>0 --</Text>
-                                        </View>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Delivered orders over time</Text>
-                                            <Text style={styles.statValue}>0 --</Text>
-                                        </View>
-                                        <View style={ItemCateStyles.statBox}>
-                                            <Text style={ItemCateStyles.statLabel}>Time to fulfill</Text>
-                                            <Text style={styles.statValue}>0 min</Text>
-                                        </View>
-                                    </View>
-                                </ScrollView>
-
-                                {/* Filter */}
-                                <View style={{ flexDirection: "row", }}>
-                                    <ScrollView horizontal={true}>
-                                        <View style={ItemCateStyles.statsContainer}>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>All</Text>
-                                            </View>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>Unfulfilled</Text>
-
-                                            </View>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>Unpaid</Text>
-
-                                            </View>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>Open</Text>
-
-                                            </View>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>Archived</Text>
-
-                                            </View>
-                                            <View style={ItemCateStyles.statBox}>
-                                                <Text style={ItemCateStyles.statLabel}>+</Text>
-
-                                            </View>
-                                        </View>
-                                    </ScrollView>
 
                                 </View>
-
-
-                                {/* Orders List */}
-                                <FlatList
-                                    data={orders}
-                                    keyExtractor={(item) => item.id}
-                                    renderItem={({ item }) => (
-                                        <Card style={styles.card}>
-                                            <View style={styles.cardContent}>
-                                                <View style={styles.header}>
-                                                    <Text style={styles.orderId}>{item.id}</Text>
-                                                    <Text style={styles.amount}>{item.amount}</Text>
-                                                </View>
-                                                <Text style={styles.date}>{item.date}</Text>
-                                                <Text style={styles.customer}>{item.customer} • {item.items}</Text>
-                                                <View style={styles.statusContainer}>
-                                                    <Badge style={styles.paidBadge}>Paid</Badge>
-                                                    <Badge
-                                                        style={item.fulfilled ? styles.fulfilledBadge : styles.unfulfilledBadge}
-                                                    >
-                                                        {item.fulfilled ? 'Fulfilled' : 'Unfulfilled'}
-                                                    </Badge>
-                                                </View>
-                                                {item.fulfilled && (
-                                                    <Text style={styles.tracking}>Tracking added</Text>
-                                                )}
-                                                <Text style={styles.shipping}>{item.shipping}</Text>
-                                            </View>
-                                        </Card>
-                                    )}
-                                    style={styles.orderList}
-                                />
-
+                            </ScrollView>
+                        </View>
+                    </KeyboardAvoidingView>
+                </TouchableWithoutFeedback>
+                    :
+                    <KeyboardAvoidingView>
+                        <View style={ItemCateStyles.maincontainer}>
+                            <View style={ItemCateStyles.containerHeader}>
+                                <Text style={ItemCateStyles.order}>Orders</Text>
+                                <View style={styles.actionBox}>
+                                    <Text style={styles.drop}>More Action</Text>
+                                    <Text style={styles.create}>Create order</Text>
+                                </View>
                             </View>
-                        </ScrollView>
-                    </View>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+
+                            <ScrollView onResponderMove={() => console.warn('outer move')}>
+                                {/* Search Input Section */}
+                                <View style={ItemCateStyles.searchContainer}>
+                                    <Image source={IcSearch} style={ItemCateStyles.searchIcImg} />
+                                    <TextInput
+                                        style={ItemCateStyles.searchInput}
+                                        placeholder="Search..."
+                                        placeholderTextColor="grey"
+                                    />
+                                    <View style={ItemCateStyles.sortBox}>
+                                        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                            <View>
+                                                <Image source={icSort} style={ItemCateStyles.statLabell} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    {/* sort section */}
+                                    {
+                                        modalVisible && (
+                                            <TouchableWithoutFeedback onPress={() => { }}>
+                                                <View style={[ItemCateStyles.sortSection, { zIndex: 100 }]} ref={refSort}>
+                                                    <Text>Sort By</Text>
+                                                    {
+                                                        sortBy.map((item, index) => (
+                                                            <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
+                                                                <View style={ItemCateStyles.radioCheck}>
+                                                                    <View style={ItemCateStyles.radioOuter}>
+                                                                        <View style={[ItemCateStyles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
+                                                                    </View>
+                                                                    <Text style={{ color: "black" }}>{item.title}</Text>
+                                                                </View>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                </View>
+                                            </TouchableWithoutFeedback>
+                                        )}
+                                </View>
+
+                                <View style={styles.container}>
+                                    {/* Time Filters */}
+                                    <View style={styles.topCont}>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>Today</Text>
+                                        </View>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>7 days</Text>
+                                        </View>
+                                        <View style={ItemCateStyles.statBox}>
+                                            <Text style={styles.filterItem}>30 days</Text>
+                                        </View>
+                                    </View>
+
+                                    {/* Statistics */}
+                                    <View>
+                                        <ScrollView horizontal={true} nestedScrollEnabled={true} onResponderMove={() => console.warn('inner move')}>
+                                            <View style={ItemCateStyles.statsContainer}>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Total Orders</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Ordered items over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Returns</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Fulfilled orders over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Delivered orders over time</Text>
+                                                    <Text style={styles.statValue}>0 --</Text>
+                                                </View>
+
+                                                <View style={ItemCateStyles.statBox}>
+                                                    <Text style={ItemCateStyles.statLabel}>Time to fulfill</Text>
+                                                    <Text style={styles.statValue}>0 min</Text>
+                                                </View>
+
+                                            </View>
+                                        </ScrollView>
+                                    </View>
+
+
+                                    {/* Filter */}
+                                    <View>
+                                        <ScrollView horizontal={true} nestedScrollEnabled={true}>
+                                            <View style={{ flexDirection: "row", }}>
+
+                                                <View style={ItemCateStyles.statsContainer}>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>All</Text>
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Unfulfilled</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Unpaid</Text>
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Open</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>Archived</Text>
+
+                                                    </View>
+                                                    <View style={ItemCateStyles.statBox}>
+                                                        <Text style={ItemCateStyles.statLabel}>+</Text>
+
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </ScrollView>
+                                    </View>
+
+
+                                    {/* Orders List */}
+                                    <View>
+                                        <FlatList
+                                            data={orders}
+                                            nestedScrollEnabled={true}
+                                            keyExtractor={(item) => item.id}
+                                            renderItem={({ item }) => (
+                                                <Card style={styles.card}>
+                                                    <View style={styles.cardContent}>
+                                                        <View style={styles.header}>
+                                                            <Text style={styles.orderId}>{item.id}</Text>
+                                                            <Text style={styles.amount}>{item.amount}</Text>
+                                                        </View>
+                                                        <Text style={styles.date}>{item.date}</Text>
+                                                        <Text style={styles.customer}>{item.customer} • {item.items}</Text>
+                                                        <View style={styles.statusContainer}>
+                                                            <Badge style={styles.paidBadge}>Paid</Badge>
+                                                            <Badge
+                                                                style={item.fulfilled ? styles.fulfilledBadge : styles.unfulfilledBadge}
+                                                            >
+                                                                {item.fulfilled ? 'Fulfilled' : 'Unfulfilled'}
+                                                            </Badge>
+                                                        </View>
+                                                        {item.fulfilled && (
+                                                            <Text style={styles.tracking}>Tracking added</Text>
+                                                        )}
+                                                        <Text style={styles.shipping}>{item.shipping}</Text>
+                                                    </View>
+                                                </Card>
+                                            )}
+                                            style={styles.orderList}
+                                        />
+                                    </View>
+
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </KeyboardAvoidingView>
+            }
+
 
 
         </>
@@ -477,7 +670,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 10,
         margin: 10,
-        zIndex: 29,
+        // zIndex: 100,
         elevation: 2,
     },
     radioCheck: {

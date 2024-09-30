@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const ItemCateStyles = StyleSheet.create({
     maincontainer: {
-        backgroundColor: "white"
+        backgroundColor: "white",
     },
     // Header Container
     containerHeader: {
@@ -41,7 +41,7 @@ const ItemCateStyles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: "#FFF",
         elevation: 2,
-        marginTop:1,
+        marginTop: 1,
     },
     searchIcImg: {
         width: 20,
@@ -118,7 +118,7 @@ const ItemCateStyles = StyleSheet.create({
         fontSize: 17,
         width: 20,
         height: 20,
-        marginRight:5,
+        marginRight: 5,
     },
     // Collection List Item
     item: {
@@ -154,7 +154,6 @@ const ItemCateStyles = StyleSheet.create({
         backgroundColor: "white",
         padding: 10,
         margin: 10,
-        zIndex: 30,
         elevation: 2,
     },
     radioCheck: {
@@ -209,8 +208,40 @@ const ItemCateStyles = StyleSheet.create({
         borderRadius: 10,
         width: 60,
         textAlign: "center",
-        marginTop: 5,
+        marginTop: 10,
+    },
+
+
+    // pop up modal style 
+    modalSt:{
+        flex:1,
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"rgba(0,0,0,0,0.5)",
+    },
+    modalInner:{
+        backgroundColor:"#FFF",
+        // justifyContent:"center",
+        // alignItems:"center",
+        elevation:5,
+        width:300,
+        height:250,
+    },
+    modalBtn:{
+        padding:10,
+        paddingHorizontal:14,
+        fontSize:16,
+        elevation:10,
+        color:"black",
+    },
+    modalMessage:{
+        fontSize:13,
+        color:'black',
+        marginTop:15,
+
     }
+
+
 });
 
 export { ItemCateStyles }

@@ -1,16 +1,55 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView,ScrollView } from "react-native";
-import { ItemCateStyles   } from "./ItemCateStyle";
+import React, { useEffect, useRef, useState, } from "react";
+import {
+    StyleSheet,
+    View,
+    Text,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    ScrollView,
+    Animated,
+    ActivityIndicator,
+    Modal
+} from "react-native";
+import { ItemCateStyles } from "./ItemCateStyle";
 import icSort from '../../../Assets/Icons/funnel.png';
 import image1 from "../../../Assets/Icons/bin.png";
 import img from "../../../Assets/Images/download.jpeg";
 import IcEdit from '../../../Assets/Icons/edit.png';
-import IcStop from '../../../Assets/Icons/stop.png';
+import IcStop from '../../../Assets/Icons/binRed.png';
 import IcSearch from '../../../Assets/Icons/search.png';
 
 function Category({ handelNav }) {
 
     const refSort = useRef(null)
+
+    const [display, setDisplay] = useState(5);
+    const [loading, setLoading] = useState(false)
+    const scrollViewRef = useRef(null)
+
+    const loadMoreData = () => {
+        if (!loading) {
+            setLoading(true);
+            // Mocking a load function, in a real scenario you fetch more data here
+            setTimeout(() => {
+                setDisplay((prevCount) => prevCount + 5); // increase the displayed items
+                setLoading(false);
+            }, 1500);
+        }
+    };
+
+    const handleScroll = ({ nativeEvent }) => {
+        const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+        const isBottomReached =
+            layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
+
+        if (isBottomReached && !loading) {
+            loadMoreData();
+        }
+    };
+
 
     const data = [
         { id: '1', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20, status: true, },
@@ -23,7 +62,31 @@ function Category({ handelNav }) {
         { id: '8', title: 'MSC Solved Paper', products: 27, status: true, },
         { id: '9', title: 'VMOU M.A Political', products: 13, status: true, },
         { id: '10', title: 'LLB One Week Series', products: 6, status: false, },
+        { id: '11', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20, status: true, },
+        { id: '12', title: 'Sarthi Publication', products: 24, status: true, },
+        { id: '13', title: 'MSC Solved Paper', products: 27, status: false, },
+        { id: '14', title: 'VMOU M.A Political', products: 13, status: true, },
+        { id: '15', title: 'LLB One Week Series', products: 6, status: false, },
+        { id: '16', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20, status: true, },
+        { id: '17', title: 'Sarthi Publication', products: 24, status: false, },
+        { id: '18', title: 'MSC Solved Paper', products: 27, status: true, },
+        { id: '19', title: 'VMOU M.A Political', products: 13, status: true, },
+        { id: '20', title: 'LLB One Week Series', products: 6, status: false, },
+        { id: '21', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20, status: true, },
+        { id: '22', title: 'Sarthi Publication', products: 24, status: true, },
+        { id: '23', title: 'MSC Solved Paper', products: 27, status: false, },
+        { id: '24', title: 'VMOU M.A Political', products: 13, status: true, },
+        { id: '25', title: 'LLB One Week Series', products: 6, status: false, },
+        { id: '26', title: 'RBSE & NCERT Books Use In Competition Exam', products: 20, status: true, },
+        { id: '27', title: 'Sarthi Publication', products: 24, status: false, },
+        { id: '28', title: 'MSC Solved Paper', products: 27, status: true, },
+        { id: '29', title: 'VMOU M.A Political', products: 13, status: true, },
+        { id: '30', title: 'LLB One Week Series', products: 6, status: false, },
     ];
+    const [books, setBooks] = useState([...data])
+    
+
+    // sort function
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectOption, setSelectOption] = useState('');
@@ -37,11 +100,28 @@ function Category({ handelNav }) {
         { title: "On hand" },
     ];
 
+    // funtion of pop up modal
+    const [popup, setPopup] = useState(false);
+
+    const [delId, setDelId] = useState()
+    const getId = (idd) => {
+        setDelId(idd)
+    }
+    const handlePopup = () => {
+        const del = books.filter((item) => item.id !== delId)
+        setBooks(del)
+    }
+
+
     return (
         <>
             <TouchableWithoutFeedback onPress={() => { setModalVisible(false) }}>
                 <KeyboardAvoidingView>
-                    <ScrollView >
+                    <ScrollView
+                        ref={scrollViewRef}
+                        onScroll={handleScroll}
+                        scrollEventThrottle={16}
+                    >
                         <View style={ItemCateStyles.maincontainer}>
                             <View style={ItemCateStyles.containerHeader}>
                                 <Text style={ItemCateStyles.order}>Category List</Text>
@@ -70,27 +150,28 @@ function Category({ handelNav }) {
                                     </TouchableOpacity>
                                 </View>
                                 {/* sort section */}
-                                {modalVisible && (
-                                    <TouchableWithoutFeedback onPress={() => { }}>
-                                        <View style={ItemCateStyles.sortSection} ref={refSort}>
-                                            <Text>Sort By</Text>
-                                            {sortBy.map((item, index) => (
-                                                <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
-                                                    <View style={ItemCateStyles.radioCheck}>
-                                                        <View style={ItemCateStyles.radioOuter}>
-                                                            <View style={[ItemCateStyles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
+                                {
+                                    modalVisible && (
+                                        <TouchableWithoutFeedback onPress={() => { }}>
+                                            <View style={ItemCateStyles.sortSection} ref={refSort}>
+                                                <Text>Sort By</Text>
+                                                {sortBy.map((item, index) => (
+                                                    <TouchableOpacity key={index} onPress={() => { setSelectOption(item.title); setModalVisible(false); }}>
+                                                        <View style={ItemCateStyles.radioCheck}>
+                                                            <View style={ItemCateStyles.radioOuter}>
+                                                                <View style={[ItemCateStyles.radioInner, { backgroundColor: selectOption === item.title ? 'black' : 'white' }]}></View>
+                                                            </View>
+                                                            <Text style={{ color: "black" }}>{item.title}</Text>
                                                         </View>
-                                                        <Text style={{ color: "black" }}>{item.title}</Text>
-                                                    </View>
-                                                </TouchableOpacity>
-                                            ))}
-                                        </View>
-                                    </TouchableWithoutFeedback>
-                                )}
+                                                    </TouchableOpacity>
+                                                ))}
+                                            </View>
+                                        </TouchableWithoutFeedback>
+                                    )}
                             </View>
 
                             {/* Filter */}
-                            <View style={{ flexDirection: "row", margin: 10,marginBottom:0, zIndex: -1 }}>
+                            <View style={{ flexDirection: "row", margin: 10, marginBottom: 0, zIndex: -1 }}>
                                 <View style={ItemCateStyles.statsContainer}>
                                     <View style={ItemCateStyles.statBox}>
                                         <Text style={ItemCateStyles.statLabel}>All</Text>
@@ -114,35 +195,72 @@ function Category({ handelNav }) {
                             </View>
 
                             {/* Collection List */}
-                            {data.map(item => (
-                                <TouchableOpacity key={item.id} style={{ zIndex: -1 }}>
-                                    <View style={ItemCateStyles.item}>
-                                        <Image source={img} style={{ width: 50, height: 70, marginRight: 10 }} />
-                                        <View style={{ width: "85%" }}>
-                                            <Text style={ItemCateStyles.title}>{item.title}</Text>
+                            {
+                                books.slice(0, display).map(item => (
 
-                                            <View style={ItemCateStyles.IcEditContainer}>
-                                                <Text style={ItemCateStyles.products}>{item.products} Items</Text>
-                                                <View style={ItemCateStyles.editBtnContainer}>
-                                                    <TouchableOpacity >
-                                                        <Image source={IcEdit} style={ItemCateStyles.editIcon} />
-                                                    </TouchableOpacity>
-                                                    <TouchableOpacity >
-                                                        <Image source={IcStop} style={ItemCateStyles.editIcon} />
-                                                    </TouchableOpacity>
-                                                    <TouchableOpacity>
-                                                        {item.status ? <Text style={[ItemCateStyles.actionBtn, { backgroundColor: "#d4edda", color: "#155724" }]} >Active</Text> : <Text style={[ItemCateStyles .actionBtn, { backgroundColor: "#721c24", color: "#f8d7da" }]}>Inactive</Text>}
-                                                    </TouchableOpacity>
+                                    <TouchableOpacity key={item.id} style={{ zIndex: -1 }}>
+                                        <View style={ItemCateStyles.item}>
+                                            <Image source={img} style={{ width: 50, height: 70, marginRight: 10 }} />
+                                            <View style={{ width: "85%" }}>
+                                                <Text style={ItemCateStyles.title}>{item.title}</Text>
+
+                                                <View style={ItemCateStyles.IcEditContainer}>
+                                                    <Text style={ItemCateStyles.products}>{item.products} Items</Text>
+                                                    <View style={ItemCateStyles.editBtnContainer}>
+                                                        <TouchableOpacity >
+                                                            <Image source={IcEdit} style={ItemCateStyles.editIcon} />
+                                                        </TouchableOpacity>
+
+                                                        <TouchableOpacity>
+                                                            {item.status ? <Text style={[ItemCateStyles.actionBtn, { color: "#d4edda", backgroundColor: "#155724" }]} >Active</Text> : <Text style={[ItemCateStyles.actionBtn, { backgroundColor: "#721c24", color: "#f8d7da" }]}>Inactive</Text>}
+                                                        </TouchableOpacity>
+
+                                                        <TouchableOpacity onPress={() => { setPopup(true); getId(item.id) }}>
+                                                            <Image source={IcStop} style={ItemCateStyles.editIcon} />
+                                                        </TouchableOpacity>
+
+                                                    </View>
                                                 </View>
                                             </View>
                                         </View>
-                                    </View>
-                                </TouchableOpacity>
-                            ))}
+
+
+                                    </TouchableOpacity>
+
+                                ))}
                         </View>
+
+                        <Modal
+                            visible={popup}
+                            animationType="slide"
+                            onRequestClose={() => setPopup(false)}
+                            transparent={true}
+                        >
+                            <View style={ItemCateStyles.modalSt}>
+                                <View style={ItemCateStyles.modalInner}>
+
+                                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                        <Text style={ItemCateStyles.modalMessage}>Are You sure want to Delete the Product !</Text>
+                                    </View>
+
+                                    <View style={{ flexDirection: "row", justifyContent: "flex-end", alignItems: "center", margin: 10, marginTop: 0 }}>
+                                        <TouchableOpacity style={{ marginRight: 5 }} onPress={() => setPopup(false)}>
+                                            <Text style={[ItemCateStyles.modalBtn, { color: "grey" }]}>cancel</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { setPopup(false); handlePopup() }}>
+                                            <Text style={ItemCateStyles.modalBtn}>Okay</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    
+                                </View>
+                            </View>
+                        </Modal>
+                        {loading && <ActivityIndicator size="small" />}
                     </ScrollView>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
+
+
         </>
     );
 }

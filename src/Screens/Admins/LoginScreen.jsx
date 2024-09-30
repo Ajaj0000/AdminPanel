@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View, Image} from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { styles } from './LoginStyle';
 import icGoogle from '../../Assets/Icons/google.png';
 import icFacebook from '../../Assets/Icons/facebook.png';
@@ -9,13 +9,13 @@ import { Route } from '../../Navigations/Route';
 
 const LoginScreen = (props) => {
 
-    const [email, setEmail] = useState('g')
-    const [pass, setPass] = useState('h')
-    const [home, setHome] = useState(true)
+    const [email, setEmail] = useState('')
+    const [pass, setPass] = useState('')
+    const [home, setHome] = useState(false)
 
     const LogInuser = () => {
-        if (email) {
-            if (pass) {
+        if (email === 'admin') {
+            if (pass === '12') {
                 setHome(true)
             } else {
                 alert('invalid Pass')
@@ -30,36 +30,39 @@ const LoginScreen = (props) => {
             {
                 home ?
                     <>
-                        
+
                         <Route />
                     </>
 
                     :
 
                     <View style={styles.container}>
-                        <Text style={styles.title}>Welcome</Text>
-                        <Text style={styles.subtitle}>Login to your account</Text>
+                        <View style={styles.innerContainer}>
+                            <Text style={styles.title}>Welcome The Books24</Text>
+                            <Text style={styles.subtitle}>Login to your account</Text>
 
-                        <TextInput
-                            placeholder="Email/Mobile Number"
-                            style={styles.input}
-                            keyboardType="email-address"
-                            onChangeText={(e) => setEmail(e)}
-                            value={email}
-                        />
-                        <TextInput
-                            placeholder="Password"
-                            style={styles.input}
-                            secureTextEntry
-                            onChangeText={(e) => setPass(e)}
-                            value={pass}
-                        />
+                            <TextInput
+                                placeholder="Email/Mobile Number"
+                                style={styles.input}
+                                keyboardType="email-address"
+                                onChangeText={(e) => setEmail(e)}
+                                value={email}
+                                placeholderTextColor="black"
+                            />
+                            <TextInput
+                                placeholder="Password"
+                                style={styles.input}
+                                secureTextEntry
+                                onChangeText={(e) => setPass(e)}
+                                value={pass}
+                                placeholderTextColor="black"
+                            />
 
-                        <TouchableOpacity style={styles.loginButton} onPress={LogInuser}>
-                            <Text style={styles.loginButtonText}>Login</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity style={styles.loginButton} onPress={LogInuser}>
+                                <Text style={styles.loginButtonText}>Login</Text>
+                            </TouchableOpacity>
 
-                        <Text style={styles.signInPasskeyText}>
+                            {/* <Text style={styles.signInPasskeyText}>
                             <Image source={icUser} style={styles.singInPerson} />
                             Sign in with passkey
                         </Text>
@@ -96,6 +99,7 @@ const LoginScreen = (props) => {
                             <TouchableOpacity>
                                 <Text style={styles.signUpLink}> Get started</Text>
                             </TouchableOpacity>
+                        </View> */}
                         </View>
                     </View>
             }

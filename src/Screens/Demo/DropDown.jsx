@@ -1,111 +1,78 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 
-const DropdownExample = () => {
-  const [isVisible, setIsVisible] = useState(false); // To toggle dropdown
-  const [selectedItem, setSelectedItem] = useState(null); // To hold the selected item
+const ToggleButton = () => {
+  const [isOn, setIsOn] = useState(false);
+  const animatedPosition = useRef(new Animated.Value(0)).current; // Animates between 0 (off) and 1 (on)
 
-  const data = [
-    { id: '1', label: 'JavaScript' },
-    { id: '2', label: 'Python' },
-    { id: '3', label: 'Java' },
-  ];
+  useEffect(() => {
+    Animated.timing(animatedPosition, {
+      toValue: isOn ? 1 : 0,
+      duration: 300, // duration of the animation in milliseconds
+      useNativeDriver: false,
+    }).start();
+  }, [isOn]);
 
-  const handleSelect = (item) => {
-    setSelectedItem(item);
-    setIsVisible(false); // Hide dropdown when an item is selected
+  const handleToggle = () => {
+    setIsOn(!isOn);
   };
 
+  // Interpolate position for smooth transition
+  const circlePosition = animatedPosition.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['5%', '55%'], // Move the circle from 5% (left) to 55% (right)
+  });
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Select a Programming Language:</Text>
-
-      {/* Trigger to open dropdown */}
-      <TouchableOpacity style={styles.dropdownButton} onPress={() => setIsVisible(true)}>
-        <Text style={styles.dropdownButtonText}>
-          {selectedItem ? selectedItem.label : 'Choose an option'}
-        </Text>
-      </TouchableOpacity>
-
-      {/* Dropdown modal */}
-      <Modal visible={isVisible} transparent animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.dropdown}>
-            <FlatList
-              data={data}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.item}
-                  onPress={() => handleSelect(item)}
-                >
-                  <Text style={styles.itemText}>{item.label}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </View>
-      </Modal>
-
-      {/* Render the selected item */}
-      {selectedItem && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>You selected: {selectedItem.label}</Text>
-        </View>
-      )}
-    </View>
+    <TouchableOpacity onPress={handleToggle} style={styles.toggleContainer}>
+      <View style={[styles.toggleButton, isOn ? styles.on : styles.off]}>
+        <Text style={styles.toggleText}>{isOn ? 'ON' : 'OFF'}</Text>
+        <Animated.View
+          style={[
+            styles.circle,
+            { left: circlePosition }, // animate the 'left' property
+          ]}
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  toggleContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
   },
-  title: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  dropdownButton: {
-    width: '80%',
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  dropdownButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  toggleButton: {
+    width: 50,
+    height: 25,
+    borderRadius: 15,
+    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // To dim the background
+    justifyContent: 'space-between',
+    padding: 5,
+    position: 'relative',
   },
-  dropdown: {
-    width: '80%',
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 10,
+  on: {
+    backgroundColor: 'green',
   },
-  item: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+  off: {
+    backgroundColor: 'gray',
   },
-  itemText: {
-    fontSize: 16,
-  },
-  resultContainer: {
-    marginTop: 20,
-  },
-  resultText: {
-    fontSize: 18,
+  toggleText: {
+    color: 'white',
     fontWeight: 'bold',
+    fontSize: 14,
+    position: 'absolute',
+    left: 10,
+  },
+  circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    position: 'absolute',
   },
 });
 
-export default DropdownExample;
+export default ToggleButton;
