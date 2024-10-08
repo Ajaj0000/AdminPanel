@@ -117,7 +117,7 @@ function ItemSection() {
                                         onChangeText={(text) => handleSearch(text)}
                                         value={searchCategory}
                                         placeholderTextColor="black"
-                                        onFocus={() => setShow(true)}
+                                        onFocus={() => {setShow(true); setOpen(false)}}
                                     />
                                     {/* </View> */}
                                     {/* <TextInput
@@ -165,7 +165,7 @@ function ItemSection() {
                                     <View>
                                         <Text style={styles.label}>Sub Category</Text>
                                         {/* <TouchableOpacity onPress={() => setOpen(!open)}> */}
-                                        <Text style={[styles.input, { padding: 15 }]} onPress={() => setOpen(!open)}>{selectedItems.join(', ') || "Select here"}</Text>
+                                        <Text style={[styles.input, { padding: 15 }]} onPress={() => {setOpen(!open) ; setShow(false)}}>{selectedItems.join(', ') || "Select here"}</Text>
                                         {/* </TouchableOpacity> */}
                                     </View>
 

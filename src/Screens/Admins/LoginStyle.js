@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         color:'black'
     },
     loginButton: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         // borderRadius: 25,
         borderWidth:1,
         paddingVertical: 12,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         fontSize: 18,
-        color: 'black',
+        color: 'white',
         fontWeight: 'bold',
     },
     signInPasskeyText: {

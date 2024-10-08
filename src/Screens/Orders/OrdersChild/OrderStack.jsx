@@ -10,7 +10,7 @@ function OrderStack() {
     return (
         <>
             <Stack.Navigator >
-                <Stack.Screen name="Order" options={{headerShown:false}} component={Order} />
+                <Stack.Screen name="Orders" options={{headerShown:false}} component={Order} />
             </Stack.Navigator>
         </>
     )

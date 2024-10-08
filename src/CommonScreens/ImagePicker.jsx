@@ -5,8 +5,10 @@ import IcAdd from '../Assets/Icons/add-button.png';
 import ImagePicker from 'react-native-image-crop-picker';
 
 
-const MultiImagePicker = () => {
+const MultiImagePicker = ({imagess}) => {
     const [images, setImages] = useState([]);
+
+    // imagess(images.uri)
 
     const selectImages = () => {
         ImagePicker.openPicker({
@@ -38,9 +40,6 @@ const MultiImagePicker = () => {
 
     return (
         <>
-          
-
-
                 <View style={styles.formGroup}>
                     <Text style={styles.label}>Category Image</Text>
                     <View style={styles.uploadBox}>
@@ -56,6 +55,7 @@ const MultiImagePicker = () => {
                                         <View key={index} style={{ margin: 5, position: 'relative' }}>
                                             <Image
                                                 source={{ uri: image.uri }}
+                                                // source={imagess}
                                                 style={{ width: 100, height: 90, borderRadius: 10 }}
                                             />
                                             <TouchableOpacity

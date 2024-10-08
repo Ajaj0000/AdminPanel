@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, Linking, ScrollView } from 'react-native';
 
 function EmptySectionImage(props) {
+
     return (
         <>
             <ScrollView contentContainerStyle={styles.container}>
